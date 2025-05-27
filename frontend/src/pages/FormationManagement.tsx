@@ -1,248 +1,287 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Select, Button, Table, Tag, message, Space, Empty } from 'antd';
-import { Team, Player, Formation } from '../types';
-import { teamApi, playerApi, formationApi } from '../api';
+import { Card, Select, Button, Table, Tag, message, Space, Empty, Row, Col, Typography, Alert } from 'antd';
+import { TeamOutlined, SettingOutlined, UserOutlined, SaveOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
+const { Title, Text } = Typography;
 const { Option } = Select;
 
+interface PlayerInfo {
+  code: string;
+  name: string;
+  teamCode: string;
+  playerNumber: number;
+}
+
+interface FormationConfig {
+  teamCode: string;
+  formations: { [key: string]: string[] }; // key是阵容组合(如"1+2"), value是选中的队员代号
+}
+
 const FormationManagement: React.FC = () => {
-  const [teams, setTeams] = useState<Team[]>([]);
+  const [tournamentConfig, setTournamentConfig] = useState<any>(null);
+  const [players, setPlayers] = useState<PlayerInfo[]>([]);
   const [selectedTeam, setSelectedTeam] = useState<string>('');
-  const [players, setPlayers] = useState<Player[]>([]);
-  const [formations, setFormations] = useState<Formation[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [formationConfigs, setFormationConfigs] = useState<FormationConfig[]>([]);
+  const [currentFormations, setCurrentFormations] = useState<{ [key: string]: string[] }>({});
+  const navigate = useNavigate();
 
-  // 阵容配置状态
-  const [md1Players, setMd1Players] = useState<string[]>([]);
-  const [md2Players, setMd2Players] = useState<string[]>([]);
-  const [xd1Players, setXd1Players] = useState<string[]>([]);
-
+  // 加载配置
   useEffect(() => {
-    loadTeams();
+    const savedConfig = localStorage.getItem('tournamentConfig');
+    const savedPlayers = localStorage.getItem('tournamentPlayers');
+    const savedFormations = localStorage.getItem('tournamentFormations');
+    
+    if (savedConfig && savedPlayers) {
+      const config = JSON.parse(savedConfig);
+      const playersData = JSON.parse(savedPlayers);
+      
+      setTournamentConfig(config);
+      setPlayers(playersData);
+      
+      if (savedFormations) {
+        setFormationConfigs(JSON.parse(savedFormations));
+      }
+    } else {
+      message.warning('请先完成比赛统筹和队伍管理配置');
+    }
   }, []);
 
+  // 加载选中队伍的阵容
   useEffect(() => {
-    if (selectedTeam) {
-      loadTeamData(selectedTeam);
+    if (selectedTeam && tournamentConfig) {
+      const teamFormation = formationConfigs.find(f => f.teamCode === selectedTeam);
+      if (teamFormation) {
+        setCurrentFormations(teamFormation.formations);
+      } else {
+        // 初始化空阵容，并自动填充默认组合
+        const emptyFormations: { [key: string]: string[] } = {};
+        tournamentConfig?.formations?.forEach((f: string) => {
+          // 解析如1+2
+          const nums = f.split('+').map(n => parseInt(n));
+          // 找到该队的对应号码队员
+          const code1 = `${selectedTeam}${nums[0]}`;
+          const code2 = `${selectedTeam}${nums[1]}`;
+          emptyFormations[f] = [code1, code2];
+        });
+        setCurrentFormations(emptyFormations);
+      }
     }
-  }, [selectedTeam]);
+  }, [selectedTeam, formationConfigs, tournamentConfig]);
 
-  const loadTeams = async () => {
-    try {
-      const response = await teamApi.getAll();
-      setTeams(response.data);
-    } catch (error) {
-      message.error('加载队伍失败');
-    }
-  };
-
-  const loadTeamData = async (teamId: string) => {
-    setLoading(true);
-    try {
-      // 加载队员
-      const playersRes = await playerApi.getByTeam(teamId);
-      setPlayers(playersRes.data);
-
-      // 加载现有阵容
-      const formationsRes = await formationApi.getByTeam(teamId);
-      setFormations(formationsRes.data);
-
-      // 设置现有阵容到选择器
-      formationsRes.data.forEach((formation: Formation) => {
-        if (formation.type === 'MD1') setMd1Players(formation.playerIds);
-        else if (formation.type === 'MD2') setMd2Players(formation.playerIds);
-        else if (formation.type === 'XD1') setXd1Players(formation.playerIds);
-      });
-    } catch (error) {
-      message.error('加载数据失败');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const malePlayers = players.filter(p => p.gender === 'M');
-  const femalePlayers = players.filter(p => p.gender === 'F');
-
-  const saveFormation = async (type: 'MD1' | 'MD2' | 'XD1', playerIds: string[]) => {
-    if (playerIds.length !== 2) {
-      message.error('请选择2名队员');
+  // 保存阵容配置
+  const saveFormations = () => {
+    if (!selectedTeam) {
+      message.error('请先选择队伍');
       return;
     }
 
-    try {
-      await formationApi.create(selectedTeam, type, playerIds);
-      message.success(`${getFormationName(type)}保存成功`);
-      loadTeamData(selectedTeam);
-    } catch (error: any) {
-      message.error(error.response?.data?.error || '保存失败');
+    // 验证每个阵容都选择了正确数量的队员
+    for (const [formation, playerCodes] of Object.entries(currentFormations)) {
+      if (playerCodes.length !== 2) {
+        message.error(`${formation} 必须选择2名队员`);
+        return;
+      }
     }
-  };
 
-  const getFormationName = (type: string) => {
-    switch (type) {
-      case 'MD1': return '第一男双';
-      case 'MD2': return '第二男双';
-      case 'XD1': return '混双';
-      default: return type;
+    // 更新或添加阵容配置
+    const updatedConfigs = [...formationConfigs];
+    const existingIndex = updatedConfigs.findIndex(f => f.teamCode === selectedTeam);
+    
+    if (existingIndex >= 0) {
+      updatedConfigs[existingIndex].formations = currentFormations;
+    } else {
+      updatedConfigs.push({
+        teamCode: selectedTeam,
+        formations: currentFormations
+      });
     }
+
+    setFormationConfigs(updatedConfigs);
+    localStorage.setItem('tournamentFormations', JSON.stringify(updatedConfigs));
+    message.success('阵容保存成功！');
   };
 
-  const renderPlayerOption = (player: Player) => (
-    <Option key={player.id} value={player.id}>
-      {player.name} (等级{player.skillLevel})
-    </Option>
-  );
-
-  const getPlayerName = (playerId: string) => {
-    const player = players.find(p => p.id === playerId);
-    return player ? `${player.name} (等级${player.skillLevel})` : '';
+  // 获取队伍的可用队员
+  const getTeamPlayers = (teamCode: string) => {
+    return players.filter(p => p.teamCode === teamCode && p.name);
   };
 
-  if (!teams.length) {
+  // 处理阵容选择变化
+  const handleFormationChange = (formation: string, selectedCodes: string[]) => {
+    setCurrentFormations(prev => ({
+      ...prev,
+      [formation]: selectedCodes
+    }));
+  };
+
+  // 获取队员显示名称
+  const getPlayerDisplay = (playerCode: string) => {
+    const player = players.find(p => p.code === playerCode);
+    if (player) {
+      return player.name ? `${playerCode} - ${player.name}` : playerCode;
+    }
+    return playerCode;
+  };
+
+  // 获取队伍已完成的阵容数
+  const getTeamCompletedFormations = (teamCode: string) => {
+    const teamFormation = formationConfigs.find(f => f.teamCode === teamCode);
+    if (!teamFormation) return 0;
+    
+    return Object.values(teamFormation.formations).filter(f => f.length === 2).length;
+  };
+
+  if (!tournamentConfig || !players.length) {
     return (
-      <Empty description="暂无队伍，请先创建队伍">
-        <Button type="primary" href="/teams">
-          去创建队伍
-        </Button>
+      <Empty
+        description="请先完成比赛统筹和队伍管理配置"
+        style={{ marginTop: 100 }}
+      >
+        <Space>
+          <Button type="primary" onClick={() => navigate('/tournament-setup')}>
+            比赛统筹
+          </Button>
+          <Button onClick={() => navigate('/teams')}>
+            队伍管理
+          </Button>
+        </Space>
       </Empty>
     );
   }
 
+  // 生成队伍选项
+  const teamOptions = [];
+  for (let i = 0; i < tournamentConfig.teamCount; i++) {
+    const teamCode = String.fromCharCode(65 + i);
+    teamOptions.push(teamCode);
+  }
+
+  // 统计已配置的队伍数
+  const configuredTeamsCount = formationConfigs.filter(config => 
+    Object.values(config.formations).every(f => f.length === 2)
+  ).length;
+
   return (
     <div>
-      <div style={{ marginBottom: 24 }}>
-        <Space>
-          <span>选择队伍：</span>
-          <Select
-            style={{ width: 200 }}
-            placeholder="请选择队伍"
-            value={selectedTeam}
-            onChange={setSelectedTeam}
-          >
-            {teams.map(team => (
-              <Option key={team.id} value={team.id}>
-                {team.name}
-              </Option>
-            ))}
-          </Select>
-        </Space>
-      </div>
+      <Title level={2}>
+        <SettingOutlined /> 阵容配置
+      </Title>
+
+      <Alert
+        message="配置说明"
+        description={`根据比赛统筹中设置的 ${tournamentConfig.formations.length} 个比赛项目（${tournamentConfig.formations.join('、')}），为每个队伍配置具体的参赛队员。每个阵容位置需要选择2名队员。`}
+        type="info"
+        showIcon
+        style={{ marginBottom: 16 }}
+      />
+
+      <Card style={{ marginBottom: 16 }}>
+        <Row gutter={16}>
+          <Col span={8}>
+            <Space>
+              <TeamOutlined />
+              <Text strong>选择队伍：</Text>
+              <Select
+                style={{ width: 120 }}
+                placeholder="选择队伍"
+                value={selectedTeam}
+                onChange={setSelectedTeam}
+              >
+                {teamOptions.map(team => {
+                  const completed = getTeamCompletedFormations(team);
+                  const total = tournamentConfig.formations.length;
+                  return (
+                    <Option key={team} value={team}>
+                      队伍 {team} {completed}/{total}
+                    </Option>
+                  );
+                })}
+              </Select>
+            </Space>
+          </Col>
+          <Col span={8}>
+            <Space>
+              <Text>已配置: </Text>
+              <Tag color="success">{configuredTeamsCount}/{tournamentConfig.teamCount} 队伍</Tag>
+            </Space>
+          </Col>
+          <Col span={8} style={{ textAlign: 'right' }}>
+            <Button 
+              type="primary" 
+              icon={<SaveOutlined />} 
+              onClick={saveFormations}
+              disabled={!selectedTeam}
+            >
+              保存阵容
+            </Button>
+          </Col>
+        </Row>
+      </Card>
 
       {selectedTeam && (
-        <div>
-          <div style={{ marginBottom: 24 }}>
-            <h3>队员概览</h3>
-            <Space>
-              <Tag color="blue">男队员: {malePlayers.length}人</Tag>
-              <Tag color="pink">女队员: {femalePlayers.length}人</Tag>
-              <Tag color="green">总人数: {players.length}人</Tag>
-            </Space>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16 }}>
-            {/* 第一男双 */}
-            <Card title="第一男双" loading={loading}>
-              <Select
-                mode="multiple"
-                style={{ width: '100%' }}
-                placeholder="请选择2名男队员"
-                value={md1Players}
-                onChange={setMd1Players}
-                maxTagCount={2}
-              >
-                {malePlayers.map(renderPlayerOption)}
-              </Select>
-              <Button
-                type="primary"
-                style={{ marginTop: 16, width: '100%' }}
-                onClick={() => saveFormation('MD1', md1Players)}
-                disabled={md1Players.length !== 2}
-              >
-                保存第一男双
-              </Button>
-            </Card>
-
-            {/* 第二男双 */}
-            <Card title="第二男双" loading={loading}>
-              <Select
-                mode="multiple"
-                style={{ width: '100%' }}
-                placeholder="请选择2名男队员"
-                value={md2Players}
-                onChange={setMd2Players}
-                maxTagCount={2}
-              >
-                {malePlayers.map(renderPlayerOption)}
-              </Select>
-              <Button
-                type="primary"
-                style={{ marginTop: 16, width: '100%' }}
-                onClick={() => saveFormation('MD2', md2Players)}
-                disabled={md2Players.length !== 2}
-              >
-                保存第二男双
-              </Button>
-            </Card>
-
-            {/* 混双 */}
-            <Card title="混双" loading={loading}>
-              <Select
-                mode="multiple"
-                style={{ width: '100%' }}
-                placeholder="请选择1男1女"
-                value={xd1Players}
-                onChange={setXd1Players}
-                maxTagCount={2}
-              >
-                <Select.OptGroup label="男队员">
-                  {malePlayers.map(renderPlayerOption)}
-                </Select.OptGroup>
-                <Select.OptGroup label="女队员">
-                  {femalePlayers.map(renderPlayerOption)}
-                </Select.OptGroup>
-              </Select>
-              <Button
-                type="primary"
-                style={{ marginTop: 16, width: '100%' }}
-                onClick={() => saveFormation('XD1', xd1Players)}
-                disabled={xd1Players.length !== 2}
-              >
-                保存混双
-              </Button>
-            </Card>
-          </div>
-
-          {/* 当前阵容 */}
-          <div style={{ marginTop: 32 }}>
-            <h3>当前阵容</h3>
-            <Table
-              dataSource={formations}
-              rowKey="id"
-              pagination={false}
-              columns={[
-                {
-                  title: '项目',
-                  dataIndex: 'type',
-                  key: 'type',
-                  render: getFormationName,
-                },
-                {
-                  title: '队员',
-                  dataIndex: 'playerIds',
-                  key: 'players',
-                  render: (playerIds: string[]) => (
-                    <Space>
-                      {playerIds.map(id => (
-                        <Tag key={id}>{getPlayerName(id)}</Tag>
-                      ))}
-                    </Space>
-                  ),
-                },
-              ]}
-              locale={{ emptyText: '暂未配置阵容' }}
+        <Card title={`队伍 ${selectedTeam} 阵容配置`}>
+          <Table
+            dataSource={tournamentConfig.formations.map((formation: string) => ({
+              key: formation,
+              formation,
+              players: currentFormations[formation] || [],
+            }))}
+            pagination={false}
+            rowKey="formation"
+          >
+            <Table.Column
+              title="比赛项目"
+              dataIndex="formation"
+              key="formation"
+              render={(formation: string) => (
+                <Tag color="blue" style={{ fontSize: 16 }}>
+                  {formation}
+                </Tag>
+              )}
             />
-          </div>
-        </div>
+            <Table.Column
+              title="选择队员"
+              dataIndex="players"
+              key="players"
+              render={(players: string[], record: any) => {
+                const teamPlayers = getTeamPlayers(selectedTeam);
+                return (
+                  <Select
+                    mode="multiple"
+                    style={{ width: '100%' }}
+                    placeholder="选择2名队员"
+                    value={players}
+                    onChange={(values) => handleFormationChange(record.formation, values)}
+                    optionLabelProp="label"
+                  >
+                    {teamPlayers.map(player => (
+                      <Option key={player.code} value={player.code} label={player.code}>
+                        <Space>
+                          <UserOutlined />
+                          <span>{player.code} - {player.name || '未命名'}</span>
+                        </Space>
+                      </Option>
+                    ))}
+                  </Select>
+                );
+              }}
+            />
+            <Table.Column
+              title="已选队员"
+              key="selectedPlayers"
+              render={(_: any, record: any) => (
+                <Space direction="vertical" style={{ width: '100%' }}>
+                  {record.players.map((code: string) => (
+                    <Tag key={code} color="orange">
+                      {getPlayerDisplay(code)}
+                    </Tag>
+                  ))}
+                </Space>
+              )}
+            />
+          </Table>
+        </Card>
       )}
     </div>
   );

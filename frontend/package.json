@@ -6,6 +6,7 @@
     "@ant-design/icons": "^5.0.1",
     "antd": "^5.6.0",
     "axios": "^1.4.0",
+    "badminton-tournament-frontend": "file:",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2",
@@ -23,4 +24,4 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   }
-} 
+}
