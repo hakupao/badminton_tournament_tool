@@ -5,7 +5,7 @@ echo    羽毛球比赛工具 - 一键启动脚本
 echo ====================================
 echo.
 
-echo [1/5] 检查Node.js环境...
+echo [1/4] 检查Node.js环境...
 node --version >nul 2>&1
 if %errorlevel% neq 0 (
     echo ❌ 错误：未找到Node.js，请先安装Node.js
@@ -16,7 +16,7 @@ if %errorlevel% neq 0 (
 echo ✅ Node.js环境检查通过
 
 echo.
-echo [2/5] 检查Python环境...
+echo [2/4] 检查Python环境...
 python --version >nul 2>&1
 if %errorlevel% neq 0 (
     echo ❌ 错误：未找到Python，请先安装Python
@@ -27,23 +27,7 @@ if %errorlevel% neq 0 (
 echo ✅ Python环境检查通过
 
 echo.
-echo [3/5] 检查MongoDB服务...
-net start | find "MongoDB" >nul
-if %errorlevel% neq 0 (
-    echo ⚠️  警告：MongoDB服务未运行，正在尝试启动...
-    net start MongoDB >nul 2>&1
-    if %errorlevel% neq 0 (
-        echo ❌ 无法启动MongoDB服务，请手动启动或安装MongoDB
-        echo 下载地址：https://www.mongodb.com/try/download/community
-    ) else (
-        echo ✅ MongoDB服务启动成功
-    )
-) else (
-    echo ✅ MongoDB服务运行正常
-)
-
-echo.
-echo [4/5] 安装/更新依赖...
+echo [3/4] 安装/更新依赖...
 echo 正在安装前端依赖...
 cd frontend
 if not exist "node_modules" (
@@ -82,7 +66,7 @@ if %errorlevel% neq 0 (
 echo ✅ 依赖安装完成
 
 echo.
-echo [5/5] 启动服务...
+echo [4/4] 启动服务...
 cd ..
 
 echo 🚀 正在启动后端服务（Flask）...

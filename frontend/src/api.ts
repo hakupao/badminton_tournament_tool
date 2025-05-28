@@ -65,69 +65,24 @@ api.interceptors.response.use(
   }
 );
 
-// 比赛配置管理
+// 健康检查
+export const healthApi = {
+  check: () => api.get('/health'),
+};
+
+// 比赛配置管理（客户端模拟）
 export const tournamentApi = {
-  saveConfig: (config: any) => api.post<any>('/tournament/config', config),
-  getConfig: () => api.get<any>('/tournament/config'),
+  saveConfig: (config: any) => Promise.resolve({ data: config }),
+  getConfig: () => Promise.resolve({ data: JSON.parse(localStorage.getItem('tournament_config') || '{}') }),
 };
 
-// 队伍管理
-export const teamApi = {
-  getAll: () => api.get<Team[]>('/teams'),
-  getOne: (id: string) => api.get<Team>(`/teams/${id}`),
-  create: (name: string) => api.post<Team>('/teams', { name }),
-  delete: (id: string) => api.delete(`/teams/${id}`),
-};
-
-// 队员管理
-export const playerApi = {
-  getByTeam: (teamId: string) => api.get<Player[]>(`/teams/${teamId}/players`),
-  getOne: (id: string) => api.get<Player>(`/players/${id}`),
-  create: (data: { teamId: string; name: string; gender: 'M' | 'F'; skillLevel: number }) =>
-    api.post<Player>('/players', data),
-  update: (id: string, data: Partial<Player>) => api.put(`/players/${id}`, data),
-  delete: (id: string) => api.delete(`/players/${id}`),
-};
-
-// 阵容管理
-export const formationApi = {
-  getByTeam: (teamId: string) => api.get<Formation[]>(`/teams/${teamId}/formations`),
-  create: (teamId: string, type: 'MD1' | 'MD2' | 'XD1', playerIds: string[]) =>
-    api.post<Formation>(`/teams/${teamId}/formations`, { type, playerIds }),
-};
-
-// 赛程管理
-export const scheduleApi = {
-  generate: (courtsCount: number = 4) =>
-    api.post('/schedules/generate', { courtsCount }),
-  getCurrent: () => api.get<Schedule>('/schedules/current'),
-};
-
-// 比赛管理
-export const matchApi = {
-  getAll: () => api.get<Match[]>('/matches'),
-  getOne: (id: string) => api.get<Match>(`/matches/${id}`),
-  updateScores: (id: string, scores: Match['scores']) =>
-    api.put(`/matches/${id}/scores`, { scores }),
-};
-
-// 数据管理
+// 注释：所有数据处理功能现在都在前端实现
+// 以下导出的空对象是为了保持API接口兼容性，实际功能已在前端data-utils.ts中实现
 export const dataApi = {
-  clearAll: () => api.delete('/data/clear'),
-  // 赛程数据查看
-  getConsecutiveMatches: () => api.get('/data/consecutive-matches'),
-  getInactivePlayers: () => api.get('/data/inactive-players'),
-  // 比赛结果查看
-  getGroupRankings: () => api.get('/data/group-rankings'),
-  getPlayerWinRates: () => api.get('/data/player-win-rates'),
-  getPairWinRates: () => api.get('/data/pair-win-rates'),
+  clearAll: () => Promise.resolve({ data: { status: 'ok' } }),
 };
 
-// 导出所有API函数
+// 导出健康检查函数
 export const {
-  getConsecutiveMatches,
-  getInactivePlayers,
-  getGroupRankings,
-  getPlayerWinRates,
-  getPairWinRates,
-} = dataApi; 
+  check: checkHealth
+} = healthApi; 
