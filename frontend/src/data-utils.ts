@@ -33,8 +33,8 @@ export function get_consecutive_matches(matches: any[]): any[] {
     }
     
     // 获取当前时间段和下一个时间段的所有选手
-    const current_players = new Set();
-    const next_players = new Set();
+    const current_players = new Set<string>();
+    const next_players = new Set<string>();
     
     for (const match of time_slots[current_slot]) {
       // 同时检查 players 和 teamA_Players/teamB_Players
@@ -65,7 +65,7 @@ export function get_consecutive_matches(matches: any[]): any[] {
     }
     
     // 找出在两个时间段都出现的选手
-    const common_players = [...current_players].filter((player: string) => next_players.has(player));
+    const common_players = [...current_players].filter(player => next_players.has(player));
     
     for (const player of common_players) {
       result.push({
@@ -220,7 +220,7 @@ export function get_player_win_rates(matches: any[]): any[] {
           match.teamB_Players : match.teamA_Players;
         
         // 为所有参赛队员记录总场次
-        [...(winningTeamPlayers || []), ...(losingTeamPlayers || [])].forEach(player => {
+        [...(winningTeamPlayers || []), ...(losingTeamPlayers || [])].forEach((player: string) => {
           if (!player_stats[player]) {
             player_stats[player] = { wins: 0, total: 0 };
           }
@@ -228,7 +228,7 @@ export function get_player_win_rates(matches: any[]): any[] {
         });
         
         // 为获胜队员记录胜场
-        (winningTeamPlayers || []).forEach(player => {
+        (winningTeamPlayers || []).forEach((player: string) => {
           player_stats[player].wins += 1;
         });
       }
@@ -453,7 +453,13 @@ export function get_player_consecutive_matches_three(matches: any[]): any[] {
     return [];
   }
   
-  const result = [];
+  const result: Array<{
+    id: string;
+    player: string;
+    timeSlot1: string;
+    timeSlot2: string;
+    timeSlot3: string;
+  }> = [];
   
   // 遍历所有可能的连续三个时间段
   for (let i = 0; i < sorted_slots.length - 2; i++) {
@@ -554,7 +560,14 @@ export function get_player_consecutive_matches_four(matches: any[]): any[] {
     return [];
   }
   
-  const result = [];
+  const result: Array<{
+    id: string;
+    player: string;
+    timeSlot1: string;
+    timeSlot2: string;
+    timeSlot3: string;
+    timeSlot4: string;
+  }> = [];
   
   // 遍历所有可能的连续四个时间段
   for (let i = 0; i < sorted_slots.length - 3; i++) {
