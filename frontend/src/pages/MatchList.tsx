@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Tag, Button, Modal, InputNumber, Space, message, Empty, Select, Alert, Tabs, Card, Row, Col } from 'antd';
+import { Table, Tag, Button, Modal, InputNumber, Space, message, Empty, Select, Alert, Card } from 'antd';
 import { EditOutlined, TrophyOutlined, UserSwitchOutlined, TableOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { Match } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { useAppState } from '../store';
 
 const { Option } = Select;
-const { TabPane } = Tabs;
 
 // 定义PlayerInfo接口，与TeamManagement中的保持一致
 interface PlayerInfo {
@@ -14,6 +13,12 @@ interface PlayerInfo {
   name: string;
   teamCode: string; // 如 A, B
   playerNumber: number; // 如 1, 2
+}
+
+// 自定义类型定义
+interface MatrixRowData {
+  timeSlot: number;
+  [key: string]: any;
 }
 
 const MatchList: React.FC = () => {
@@ -181,14 +186,6 @@ const MatchList: React.FC = () => {
         scores.teamBScore > scores.teamAScore ? 
           selectedMatch.teamB_Id : 
           undefined;
-
-      // 创建更新后的比赛对象
-      const updatedMatch = {
-        ...selectedMatch,
-        scores: matchScores,
-        status: 'finished' as 'pending' | 'ongoing' | 'finished',
-        winner_TeamId: winner_TeamId
-      };
       
       // 更新本地存储和状态
       saveScoreToLocalStorage(selectedMatch.id, matchScores, winner_TeamId);
@@ -221,21 +218,21 @@ const MatchList: React.FC = () => {
     setGlobalMatches(updatedMatches);
     localStorage.setItem('tournamentMatches', JSON.stringify(updatedMatches));
     
-    // 手动触发更新后端
-    try {
-      fetch('/api/matches', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          matches: updatedMatches,
-          timeSlots: Array.from(new Set(updatedMatches.map(m => `第${m.timeSlot + 1}时段`))) 
-        }),
-      });
-    } catch (error) {
-      console.error('同步数据到后端失败:', error);
-    }
+    // 注释：后端API已移除，数据仅保存在前端
+    // try {
+    //   fetch('/api/matches', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ 
+    //       matches: updatedMatches,
+    //       timeSlots: Array.from(new Set(updatedMatches.map(m => `第${m.timeSlot + 1}时段`))) 
+    //     }),
+    //   });
+    // } catch (error) {
+    //   console.error('同步数据到后端失败:', error);
+    // }
   };
 
   const getMatchTypeName = (type: string) => {
@@ -363,28 +360,6 @@ const MatchList: React.FC = () => {
       message.error('更新参赛选手失败');
       console.error('更新参赛选手错误:', error);
     }
-  };
-
-  // 获取特定队伍的所有队员
-  const getTeamPlayers = (teamId: string) => {
-    // 尝试多种可能的转换方式
-    let teamCode = teamId;
-    
-    // 如果是 "teamA" 格式，提取字母部分
-    if (teamId && typeof teamId === 'string' && teamId.startsWith('team')) {
-      teamCode = teamId.replace(/^team([A-Z]).*$/, '$1');
-    } 
-    // 如果直接是字母，如 "A"、"B"，则直接使用
-    else if (teamId && typeof teamId === 'string' && teamId.match(/^[A-Z]$/)) {
-      teamCode = teamId;
-    }
-    
-    console.log('teamId:', teamId, 'teamCode:', teamCode, 'allPlayers长度:', allPlayers.length);
-    
-    // 返回该队伍的所有有名字的队员
-    const players = allPlayers.filter(player => player.teamCode === teamCode && player.name);
-    console.log('筛选后的队员:', players);
-    return players;
   };
 
   // 获取队员显示名称
@@ -516,7 +491,7 @@ const MatchList: React.FC = () => {
   };
 
   // 生成矩阵视图数据
-  const generateMatrixData = () => {
+  const generateMatrixData = (matches: Match[]): MatrixRowData[] => {
     if (!matches.length) return [];
     
     // 获取所有时间段
@@ -527,7 +502,7 @@ const MatchList: React.FC = () => {
     
     // 按时间段和场地组织比赛数据
     const matrixData = timeSlots.map(timeSlot => {
-      const row: { timeSlot: number, [key: string]: any } = { timeSlot };
+      const row: MatrixRowData = { timeSlot };
       
       courts.forEach(court => {
         const courtMatch = matches.find(match => match.timeSlot === timeSlot && match.court === court);
@@ -541,8 +516,8 @@ const MatchList: React.FC = () => {
   };
 
   // 矩阵视图组件
-  const MatrixView = () => {
-    const matrixData = generateMatrixData();
+  const MatrixView: React.FC<{ matches: Match[] }> = ({ matches }) => {
+    const matrixData = generateMatrixData(matches);
     const courts = [...new Set(matches.map(match => match.court))].sort((a, b) => a - b);
     
     const styles = {
@@ -635,7 +610,7 @@ const MatchList: React.FC = () => {
     return (
       <div style={styles.matrixView}>
         {/* 按时间段组织显示 */}
-        {matrixData.map((row: { timeSlot: number, [key: string]: any }, index: number) => (
+        {matrixData.map((row: MatrixRowData, index: number) => (
           <div key={index} style={styles.timeSlotContainer}>
             {/* 时间段标题 */}
             <div style={styles.timeSlotTitle}>
@@ -755,7 +730,7 @@ const MatchList: React.FC = () => {
           }}
         />
       ) : (
-        <MatrixView />
+        <MatrixView matches={matches} />
       )}
       
       <Modal
