@@ -1,6 +1,4 @@
 import axios from 'axios';
-// 移除未使用的导入类型
-// import { Team, Player, Formation, Match, Schedule } from './types';
 
 const api = axios.create({
   baseURL: '/api',
