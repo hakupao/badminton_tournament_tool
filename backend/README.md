@@ -1,77 +1,71 @@
-# 羽毛球赛事管理系统 - 后端
+# 羽毛球比赛管理工具 - 后端
 
-## 项目概述
+羽毛球比赛管理工具的后端实现，基于Flask的轻量级API服务。
 
-后端基于Python Flask框架开发，为羽毛球赛事管理系统提供基础API服务。在本系统中，大部分数据处理功能都在前端实现，后端仅提供最基本的健康检查API。
+## 特点
 
-## 技术栈
-
-- **Python**: 编程语言
-- **Flask**: Web框架
-- **Flask-CORS**: 处理跨域请求
-- **virtualenv**: Python虚拟环境
-
-## 主要功能
-
-- RESTful API接口(健康检查)
-- 跨域资源共享(CORS)支持
+- 使用Flask框架，提供简洁高效的REST API
+- 轻量级设计，仅提供必要的API支持
+- 易于部署和维护
+- 支持跨域请求，方便前端开发
 
 ## 项目结构
 
 ```
 backend/
-├── app.py                # 应用主入口，包含API路由定义
-├── config.py             # 配置文件
-├── requirements.txt      # 项目依赖
-└── venv/                 # Python虚拟环境(由启动脚本创建)
+├── app.py           # 应用入口
+├── config.py        # 配置文件
+├── requirements.txt # 依赖清单
+└── venv/            # 虚拟环境（不包含在版本控制中）
 ```
 
 ## API接口
 
-### 健康检查
-- `GET /api/health` - 服务健康状态检查
+当前版本主要提供以下API：
 
-## 开发指南
+- `GET /api/health` - 健康检查接口
 
-### 环境准备
+注意：本项目采用"前端为主"的架构，大部分业务逻辑在前端实现，后端主要提供基础API支持。
 
-确保已安装Python 3.8或更高版本。
+## 开发环境配置
 
-### 创建虚拟环境
-
+1. 创建并激活虚拟环境
 ```bash
-cd backend
+# Windows
 python -m venv venv
-```
-
-### 激活虚拟环境
-
-**Windows**:
-```bash
 venv\Scripts\activate
-```
 
-**Linux/macOS**:
-```bash
+# Linux/Mac
+python -m venv venv
 source venv/bin/activate
 ```
 
-### 安装依赖
-
+2. 安装依赖
 ```bash
 pip install -r requirements.txt
 ```
 
-### 启动开发服务器
-
+3. 启动开发服务器
 ```bash
 python app.py
 ```
 
-服务器默认在`http://localhost:5000`上运行。
+## 部署
 
-## 配置
+可以使用多种方式部署：
 
-主要配置参数位于`config.py`文件中，包括：
+1. 直接运行
+```bash
+python app.py
+```
 
-- 服务器端口 
+2. 使用Gunicorn（生产环境推荐）
+```bash
+gunicorn -w 4 -b 0.0.0.0:5000 app:app
+```
+
+3. 使用Docker（示例Dockerfile在项目根目录）
+```bash
+docker build -t badminton-backend .
+docker run -p 5000:5000 badminton-backend
+``` 

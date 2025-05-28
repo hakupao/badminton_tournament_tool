@@ -6,6 +6,7 @@
 - **响应格式**: 所有API均返回JSON格式数据
 - **错误处理**: 错误时返回带有错误信息的JSON对象
 - **跨域**: 所有API已启用CORS，支持跨域请求
+- **架构说明**: 本项目采用"前端为主"的架构，大部分业务逻辑在前端实现，后端API较少
 
 ## API列表
 
@@ -25,229 +26,155 @@
 }
 ```
 
-### 数据分析接口
+## 前端API接口
 
-#### GET /api/data/consecutive-matches
+在当前版本中，大部分功能直接在前端实现，数据通过浏览器本地存储(localStorage)保存。下面是前端中定义的主要数据操作功能：
 
-获取在连续两个时间段都比赛的选手。
+### 本地存储键
 
-**请求参数**: 无（使用服务器内存中的数据）
+前端使用以下localStorage键存储数据：
 
-**响应示例**:
-```json
-[
-  {
-    "id": "player1_slot1_slot2",
-    "player": "player1",
-    "timeSlot1": "09:00-10:00",
-    "timeSlot2": "10:00-11:00"
-  },
-  {
-    "id": "player2_slot2_slot3",
-    "player": "player2",
-    "timeSlot1": "10:00-11:00",
-    "timeSlot2": "11:00-12:00"
-  }
-]
-```
+| 键名 | 描述 |
+|------|------|
+| tournamentConfig | 比赛配置信息 |
+| tournamentTeams | 队伍信息 |
+| tournamentPlayers | 队员信息 |
+| tournamentSchedule | 赛程信息 |
+| tournamentMatches | 比赛详情 |
 
-#### GET /api/data/inactive-players
+### 前端数据结构
 
-获取在连续三个时间段都没有参加比赛的选手。
+#### Match对象
 
-**请求参数**: 无（使用服务器内存中的数据）
-
-**响应示例**:
-```json
-[
-  {
-    "id": "player3_inactive",
-    "player": "player3",
-    "lastMatchTime": "09:00-10:00"
-  },
-  {
-    "id": "player4_inactive",
-    "player": "player4",
-    "lastMatchTime": "从未参赛"
-  }
-]
-```
-
-#### GET /api/data/group-rankings
-
-获取循环赛中每个团体的实时排名。
-
-**请求参数**: 无（使用服务器内存中的数据）
-
-**响应示例**:
-```json
-[
-  {
-    "id": "team1",
-    "group": "team1",
-    "wins": 5,
-    "losses": 1,
-    "winRate": 0.833
-  },
-  {
-    "id": "team2",
-    "group": "team2",
-    "wins": 3,
-    "losses": 3,
-    "winRate": 0.5
-  }
-]
-```
-
-#### GET /api/data/player-win-rates
-
-获取每个参加比赛的选手的胜率。
-
-**请求参数**: 无（使用服务器内存中的数据）
-
-**响应示例**:
-```json
-[
-  {
-    "id": "player1",
-    "player": "player1",
-    "wins": 8,
-    "total": 10,
-    "winRate": 0.8
-  },
-  {
-    "id": "player2",
-    "player": "player2",
-    "wins": 6,
-    "total": 10,
-    "winRate": 0.6
-  }
-]
-```
-
-#### GET /api/data/pair-win-rates
-
-获取每个组合的胜率。
-
-**请求参数**: 无（使用服务器内存中的数据）
-
-**响应示例**:
-```json
-[
-  {
-    "id": "player1_player2",
-    "pair": "player1 & player2",
-    "wins": 5,
-    "total": 6,
-    "winRate": 0.833
-  },
-  {
-    "id": "player3_player4",
-    "pair": "player3 & player4",
-    "wins": 4,
-    "total": 6,
-    "winRate": 0.667
-  }
-]
-```
-
-### 数据更新接口
-
-#### POST /api/matches
-
-更新比赛数据到服务器内存中。
-
-**请求体**:
-```json
-{
-  "matches": [
-    {
-      "id": "match1",
-      "timeSlot": "09:00-10:00",
-      "players": ["player1", "player2", "player3", "player4"],
-      "groups": ["team1", "team2"],
-      "status": "completed",
-      "winner": "team1",
-      "winningPlayers": ["player1", "player2"],
-      "winningPairs": [["player1", "player2"]]
-    }
-  ],
-  "timeSlots": ["09:00-10:00", "10:00-11:00", "11:00-12:00"]
+```typescript
+interface Match {
+  id: string;
+  round: number;
+  timeSlot: number;
+  court: number;
+  matchType: string;
+  teamA_Id: string;
+  teamB_Id: string;
+  teamA_Name: string;
+  teamB_Name: string;
+  teamA_Players: string[];
+  teamB_Players: string[];
+  teamA_PlayerNames: string[];
+  teamB_PlayerNames: string[];
+  status: 'pending' | 'ongoing' | 'finished';
+  scores: {
+    set: number;
+    teamAScore: number;
+    teamBScore: number;
+  }[];
+  winner_TeamId?: string;
+  createdAt: string;
 }
 ```
 
-**响应示例**:
-```json
-{
-  "status": "ok"
+#### PlayerInfo对象
+
+```typescript
+interface PlayerInfo {
+  code: string;      // 如 A1, B2
+  name: string;
+  teamCode: string;  // 如 A, B
+  playerNumber: number; // 如 1, 2
+}
+```
+
+#### TournamentConfig对象
+
+```typescript
+interface TournamentConfig {
+  teamCount: number;
+  teamCapacity: number;
+  formations: string[];
+  courtCount: number;
+  matchDuration: number;
 }
 ```
 
 ## 错误处理
 
-所有API在发生错误时将返回适当的HTTP状态码和错误信息。
+前端API请求使用axios拦截器统一处理错误：
 
-**示例错误响应**:
-```json
-{
-  "error": "发生错误",
-  "message": "详细错误信息",
-  "status": "error"
-}
+```javascript
+// API请求拦截器
+api.interceptors.request.use(
+  (config) => {
+    console.log('API Request:', config.method?.toUpperCase(), config.url, config.data);
+    return config;
+  },
+  (error) => {
+    console.error('Request Error:', error);
+    return Promise.reject(error);
+  }
+);
+
+// API响应拦截器
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.code === 'ECONNABORTED') {
+      throw new Error('请求超时，请检查网络连接');
+    }
+    
+    if (!error.response) {
+      throw new Error('网络错误，请检查后端服务是否正在运行');
+    }
+    
+    if (error.response?.data?.error) {
+      throw new Error(error.response.data.error);
+    }
+    
+    // 根据状态码返回不同的错误信息
+    switch (error.response?.status) {
+      case 400:
+        throw new Error('请求参数错误');
+      case 404:
+        throw new Error('请求的资源不存在');
+      case 500:
+        throw new Error('服务器内部错误');
+      default:
+        throw new Error(`请求失败: ${error.message}`);
+    }
+  }
+);
 ```
 
-常见HTTP状态码:
-- `200 OK`: 请求成功
-- `400 Bad Request`: 请求参数错误
-- `404 Not Found`: 资源不存在
-- `500 Internal Server Error`: 服务器内部错误
+## 开发说明
 
-## 数据结构
+### 前后端交互
 
-### 比赛对象
+当前版本的前后端交互非常简单，仅包含健康检查API。大部分数据操作都在前端完成并保存在localStorage中。
 
-比赛对象的字段说明:
+### 未来扩展
 
-| 字段 | 类型 | 描述 |
-|------|------|------|
-| id | string | 比赛唯一标识符 |
-| timeSlot | string | 比赛时间段 |
-| players | string[] | 参赛选手列表 |
-| groups | string[] | 参赛团队列表 |
-| status | string | 比赛状态，可选值: "pending", "ongoing", "completed" |
-| winner | string | 获胜团队（仅当status为completed时有效） |
-| winningPlayers | string[] | 获胜选手列表 |
-| winningPairs | string[][] | 获胜组合列表 |
+随着项目发展，可能会增加以下API：
+
+1. 队伍和队员管理API
+2. 比赛记录和更新API
+3. 赛程生成和管理API
+4. 数据分析和统计API
 
 ## 开发示例
 
-### 使用Axios调用API
+### 健康检查API调用
 
 ```javascript
 import axios from 'axios';
 
-// 获取选手胜率数据
-const getPlayerWinRates = async () => {
+const checkHealth = async () => {
   try {
-    const response = await axios.get('http://localhost:5000/api/data/player-win-rates');
+    const response = await axios.get('http://localhost:5000/api/health');
+    console.log('服务器状态:', response.data);
     return response.data;
   } catch (error) {
-    console.error('获取选手胜率失败:', error);
-    return [];
-  }
-};
-
-// 更新比赛数据
-const updateMatches = async (matches, timeSlots) => {
-  try {
-    const response = await axios.post('http://localhost:5000/api/matches', {
-      matches,
-      timeSlots
-    });
-    return response.data;
-  } catch (error) {
-    console.error('更新比赛数据失败:', error);
-    throw error;
+    console.error('健康检查失败:', error);
+    return { status: 'error', message: error.message };
   }
 };
 ``` 
