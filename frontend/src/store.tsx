@@ -42,38 +42,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const setMatches = (newMatches: any[]) => {
     setMatchesState(newMatches);
     localStorage.setItem('badminton_matches', JSON.stringify(newMatches));
-    
-    // 同时同步到后端
-    try {
-      fetch('/api/matches', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ matches: newMatches, timeSlots }),
-      });
-    } catch (error) {
-      console.error('Failed to sync matches to backend:', error);
-    }
   };
 
   // 更新timeSlots并保存到localStorage
   const setTimeSlots = (newTimeSlots: string[]) => {
     setTimeSlotsState(newTimeSlots);
     localStorage.setItem('badminton_timeSlots', JSON.stringify(newTimeSlots));
-    
-    // 同时同步到后端
-    try {
-      fetch('/api/matches', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ matches, timeSlots: newTimeSlots }),
-      });
-    } catch (error) {
-      console.error('Failed to sync timeSlots to backend:', error);
-    }
   };
 
   // 更新单个比赛结果
@@ -83,23 +57,6 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     );
     setMatches(updatedMatches);
   };
-
-  // 当组件挂载时，将数据同步到后端
-  useEffect(() => {
-    if (matches.length > 0 || timeSlots.length > 0) {
-      try {
-        fetch('/api/matches', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ matches, timeSlots }),
-        });
-      } catch (error) {
-        console.error('Failed to sync data to backend on mount:', error);
-      }
-    }
-  }, []);
 
   return (
     <AppContext.Provider value={{ matches, timeSlots, setMatches, setTimeSlots, updateMatchResult }}>
