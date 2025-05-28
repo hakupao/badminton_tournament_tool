@@ -82,7 +82,7 @@ export function get_consecutive_matches(matches: any[]): any[] {
 
 export function get_inactive_players(matches: any[], time_slots: string[]): any[] {
   // 获取所有选手
-  const all_players = new Set();
+  const all_players = new Set<string>();
   for (const match of matches) {
     // 同时检查 players 和 teamA_Players/teamB_Players
     if (match.players) {
@@ -97,11 +97,11 @@ export function get_inactive_players(matches: any[], time_slots: string[]): any[
     }
   }
   
-  // 提取数字时间段ID
-  const timeSlotNumbers = time_slots.map(slot => {
-    const match = slot.match(/第(\d+)时段/);
-    return match ? parseInt(match[1], 10) : -1;
-  }).filter(num => num !== -1);
+  // 提取数字时间段ID - 注：此变量未使用，已注释
+  // const timeSlotNumbers = time_slots.map(slot => {
+  //   const match = slot.match(/第(\d+)时段/);
+  //   return match ? parseInt(match[1], 10) : -1;
+  // }).filter(num => num !== -1);
   
   // 按时间段分组
   const player_last_match: { [key: string]: number } = {};
