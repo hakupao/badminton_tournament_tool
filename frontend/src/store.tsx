@@ -1,19 +1,20 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
+import { Match } from './types';
 
 // 定义状态类型
 interface AppState {
-  matches: any[];
+  matches: Match[];
   timeSlots: string[];
-  setMatches: (matches: any[]) => void;
+  setMatches: (matches: Match[]) => void;
   setTimeSlots: (timeSlots: string[]) => void;
-  updateMatchResult: (matchId: string, result: any) => void;
+  updateMatchResult: (matchId: string, result: Partial<Match>) => void;
 }
 
 // 创建Context
 export const AppContext = createContext<AppState | undefined>(undefined);
 
 // 从localStorage获取初始数据
-const getInitialMatches = (): any[] => {
+const getInitialMatches = (): Match[] => {
   try {
     const storedMatches = localStorage.getItem('badminton_matches');
     return storedMatches ? JSON.parse(storedMatches) : [];
@@ -35,11 +36,11 @@ const getInitialTimeSlots = (): string[] => {
 
 // Context Provider组件
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [matches, setMatchesState] = useState<any[]>(getInitialMatches);
+  const [matches, setMatchesState] = useState<Match[]>(getInitialMatches);
   const [timeSlots, setTimeSlotsState] = useState<string[]>(getInitialTimeSlots);
 
   // 更新matches并保存到localStorage
-  const setMatches = (newMatches: any[]) => {
+  const setMatches = (newMatches: Match[]) => {
     setMatchesState(newMatches);
     localStorage.setItem('badminton_matches', JSON.stringify(newMatches));
   };
@@ -51,7 +52,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // 更新单个比赛结果
-  const updateMatchResult = (matchId: string, result: any) => {
+  const updateMatchResult = (matchId: string, result: Partial<Match>) => {
     const updatedMatches = matches.map(match => 
       match.id === matchId ? { ...match, ...result } : match
     );
