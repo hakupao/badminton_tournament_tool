@@ -26,7 +26,7 @@ export interface Match {
   round: number;
   timeSlot: number;
   court: number;
-  matchType: 'MD1' | 'MD2' | 'XD1';
+  matchType: string;
   teamA_Id: string;
   teamB_Id: string;
   teamA_Name?: string;
