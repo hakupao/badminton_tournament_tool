@@ -33,7 +33,7 @@ const DataManagement: React.FC = () => {
     if (matches && matches.length > 0) {
       console.log('数据管理页面刷新数据', matches);
       setConsecutiveMatches(get_consecutive_matches(matches));
-      setInactivePlayers(get_inactive_players(matches, timeSlots));
+      setInactivePlayers(get_inactive_players(matches));
       setGroupRankings(get_group_rankings(matches));
       setPlayerWinRates(get_player_win_rates(matches));
       setPairWinRates(get_pair_win_rates(matches));
@@ -54,7 +54,7 @@ const DataManagement: React.FC = () => {
           if (parsedMatches.length > 0 && JSON.stringify(parsedMatches) !== JSON.stringify(matches)) {
             console.log('从localStorage更新数据');
             setConsecutiveMatches(get_consecutive_matches(parsedMatches));
-            setInactivePlayers(get_inactive_players(parsedMatches, timeSlots));
+            setInactivePlayers(get_inactive_players(parsedMatches));
             setGroupRankings(get_group_rankings(parsedMatches));
             setPlayerWinRates(get_player_win_rates(parsedMatches));
             setPairWinRates(get_pair_win_rates(parsedMatches));

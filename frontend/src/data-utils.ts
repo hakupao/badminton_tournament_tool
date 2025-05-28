@@ -80,7 +80,7 @@ export function get_consecutive_matches(matches: any[]): any[] {
   return result;
 }
 
-export function get_inactive_players(matches: any[], time_slots: string[]): any[] {
+export function get_inactive_players(matches: any[]): any[] {
   // 获取所有选手
   const all_players = new Set<string>();
   for (const match of matches) {
