@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Tag, Button, Modal, InputNumber, Space, message, Empty, Select, Alert, Card } from 'antd';
-import { EditOutlined, TrophyOutlined, UserSwitchOutlined, TableOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { Table, Tag, Button, Modal, InputNumber, Space, message, Empty, Select, Alert, Card, Input } from 'antd';
+import { EditOutlined, TrophyOutlined, UserSwitchOutlined, TableOutlined, AppstoreOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Match } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { useAppState } from '../store';
+import * as XLSX from 'xlsx';
 
 const { Option } = Select;
 
@@ -27,6 +28,7 @@ const MatchList: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [scoreModalVisible, setScoreModalVisible] = useState(false);
   const [playersModalVisible, setPlayersModalVisible] = useState(false);
+  const [exportModalVisible, setExportModalVisible] = useState(false);
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
   const [scores, setScores] = useState<{ teamAScore: number; teamBScore: number }>({
     teamAScore: 0,
@@ -43,6 +45,7 @@ const MatchList: React.FC = () => {
     matchDuration: number;
   } | null>(null);
   const [viewMode, setViewMode] = useState<'list' | 'matrix'>('matrix'); // 默认使用矩阵视图
+  const [exportFileName, setExportFileName] = useState('羽毛球比赛列表');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -218,21 +221,6 @@ const MatchList: React.FC = () => {
     setGlobalMatches(updatedMatches);
     localStorage.setItem('tournamentMatches', JSON.stringify(updatedMatches));
     
-    // 注释：后端API已移除，数据仅保存在前端
-    // try {
-    //   fetch('/api/matches', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ 
-    //       matches: updatedMatches,
-    //       timeSlots: Array.from(new Set(updatedMatches.map(m => `第${m.timeSlot + 1}时段`))) 
-    //     }),
-    //   });
-    // } catch (error) {
-    //   console.error('同步数据到后端失败:', error);
-    // }
   };
 
   const getMatchTypeName = (type: string) => {
@@ -672,6 +660,201 @@ const MatchList: React.FC = () => {
     );
   };
 
+  // 导出矩阵视图为Excel
+  const exportToExcel = () => {
+    try {
+      // 获取矩阵数据
+      const matrixData = generateMatrixData(matches);
+      
+      // 获取所有场地
+      const courts = [...new Set(matches.map(match => match.court))].sort((a, b) => a - b);
+      
+      // 创建工作簿
+      const workbook = XLSX.utils.book_new();
+      
+      // 1. 创建简单矩阵视图工作表
+      const simpleWorksheet = XLSX.utils.aoa_to_sheet([]);
+      
+      // 添加表头行
+      const headerRow = ['时间段', ...courts.map(court => `${court}号场地`)];
+      XLSX.utils.sheet_add_aoa(simpleWorksheet, [headerRow], { origin: 'A1' });
+      
+      // 添加数据行
+      matrixData.forEach((row, rowIndex) => {
+        const dataRow = [`第${row.timeSlot + 1}时段`];
+        
+        courts.forEach(court => {
+          const match = row[`court${court}`];
+          if (match) {
+            // 获取队员编码
+            const teamACode = match.teamA_Id?.charAt?.(match.teamA_Id.length - 1) || 'A';
+            const teamBCode = match.teamB_Id?.charAt?.(match.teamB_Id.length - 1) || 'B';
+            
+            // 处理队员信息
+            let teamAPlayersStr = '';
+            let teamBPlayersStr = '';
+            
+            if (match.teamA_Players && match.teamA_Players.length > 0) {
+              teamAPlayersStr = match.teamA_Players.join('+');
+            } else {
+              // 如果没有指定队员，则根据比赛类型推断
+              if (match.matchType.includes('1+2') || match.matchType === 'MD1' || match.matchType === 'MD2') {
+                teamAPlayersStr = `${teamACode}1+${teamACode}2`;
+              } else if (match.matchType.includes('3+5') || match.matchType === 'XD1') {
+                teamAPlayersStr = `${teamACode}3+${teamACode}5`;
+              } else {
+                teamAPlayersStr = `${teamACode}?+${teamACode}?`;
+              }
+            }
+            
+            if (match.teamB_Players && match.teamB_Players.length > 0) {
+              teamBPlayersStr = match.teamB_Players.join('+');
+            } else {
+              // 如果没有指定队员，则根据比赛类型推断
+              if (match.matchType.includes('1+2') || match.matchType === 'MD1' || match.matchType === 'MD2') {
+                teamBPlayersStr = `${teamBCode}1+${teamBCode}2`;
+              } else if (match.matchType.includes('3+5') || match.matchType === 'XD1') {
+                teamBPlayersStr = `${teamBCode}3+${teamBCode}5`;
+              } else {
+                teamBPlayersStr = `${teamBCode}?+${teamBCode}?`;
+              }
+            }
+            
+            // 新的比赛信息格式
+            const matchInfo = `${teamAPlayersStr}:${teamBPlayersStr}`;
+            dataRow.push(matchInfo);
+          } else {
+            dataRow.push('未安排比赛');
+          }
+        });
+        
+        XLSX.utils.sheet_add_aoa(simpleWorksheet, [dataRow], { origin: { r: rowIndex + 2, c: 0 } });
+      });
+      
+      // 设置列宽
+      const wscols = [
+        { wch: 10 }, // 时间段列宽
+        ...Array(courts.length).fill({ wch: 30 }) // 场地列宽增加到30
+      ];
+      simpleWorksheet['!cols'] = wscols;
+      
+      // 添加简单矩阵视图工作表
+      XLSX.utils.book_append_sheet(workbook, simpleWorksheet, '比赛矩阵');
+      
+      // 2. 创建详细比赛信息工作表
+      const detailsData = [];
+      
+      // 添加表头
+      detailsData.push([
+        '时间段', 
+        '场地', 
+        '对阵队员编码',
+        '比赛状态', 
+        '比分'
+      ]);
+      
+      // 添加比赛数据
+      matches.sort((a, b) => {
+        // 先按时间段排序
+        if (a.timeSlot !== b.timeSlot) return a.timeSlot - b.timeSlot;
+        // 再按场地排序
+        return a.court - b.court;
+      }).forEach(match => {
+        // 获取队伍代码
+        const teamACode = match.teamA_Id?.charAt?.(match.teamA_Id.length - 1) || 'A';
+        const teamBCode = match.teamB_Id?.charAt?.(match.teamB_Id.length - 1) || 'B';
+        
+        // 处理A队队员字符串
+        let teamAPlayersStr = '';
+        if (match.teamA_Players && match.teamA_Players.length > 0) {
+          teamAPlayersStr = match.teamA_Players.join('+');
+        } else {
+          // 如果没有指定队员，则根据比赛类型推断
+          if (match.matchType.includes('1+2') || match.matchType === 'MD1' || match.matchType === 'MD2') {
+            teamAPlayersStr = `${teamACode}1+${teamACode}2`;
+          } else if (match.matchType.includes('3+5') || match.matchType === 'XD1') {
+            teamAPlayersStr = `${teamACode}3+${teamACode}5`;
+          } else {
+            teamAPlayersStr = `${teamACode}?+${teamACode}?`;
+          }
+        }
+        
+        // 处理B队队员字符串
+        let teamBPlayersStr = '';
+        if (match.teamB_Players && match.teamB_Players.length > 0) {
+          teamBPlayersStr = match.teamB_Players.join('+');
+        } else {
+          // 如果没有指定队员，则根据比赛类型推断
+          if (match.matchType.includes('1+2') || match.matchType === 'MD1' || match.matchType === 'MD2') {
+            teamBPlayersStr = `${teamBCode}1+${teamBCode}2`;
+          } else if (match.matchType.includes('3+5') || match.matchType === 'XD1') {
+            teamBPlayersStr = `${teamBCode}3+${teamBCode}5`;
+          } else {
+            teamBPlayersStr = `${teamBCode}?+${teamBCode}?`;
+          }
+        }
+        
+        // 合并的队员格式，用于显示
+        const playersFormatStr = `${teamAPlayersStr}:${teamBPlayersStr}`;
+        
+        // 处理比赛状态
+        let statusStr = '';
+        switch (match.status) {
+          case 'pending': statusStr = '未开始'; break;
+          case 'ongoing': statusStr = '进行中'; break;
+          case 'finished': statusStr = '已结束'; break;
+          default: statusStr = match.status;
+        }
+        
+        // 处理比分字符串
+        let scoreStr = '';
+        if (match.scores && match.scores.length > 0) {
+          scoreStr = `${match.scores[0].teamAScore} : ${match.scores[0].teamBScore}`;
+        }
+        
+        detailsData.push([
+          `第${match.timeSlot + 1}时段`,
+          `${match.court}号场`,
+          playersFormatStr,
+          statusStr,
+          scoreStr
+        ]);
+      });
+      
+      // 创建详细信息工作表
+      const detailsWorksheet = XLSX.utils.aoa_to_sheet(detailsData);
+      
+      // 设置详细信息工作表的列宽
+      const detailsCols = [
+        { wch: 10 }, // 时间段
+        { wch: 8 },  // 场地
+        { wch: 20 }, // 对阵队员编码
+        { wch: 10 }, // 比赛状态
+        { wch: 10 }  // 比分
+      ];
+      detailsWorksheet['!cols'] = detailsCols;
+      
+      // 添加详细信息工作表
+      XLSX.utils.book_append_sheet(workbook, detailsWorksheet, '比赛详细信息');
+      
+      // 导出Excel文件
+      const fileName = `${exportFileName}.xlsx`;
+      XLSX.writeFile(workbook, fileName);
+      
+      message.success('导出成功！');
+      setExportModalVisible(false);
+    } catch (error) {
+      console.error('导出Excel失败:', error);
+      message.error('导出失败，请重试');
+    }
+  };
+
+  // 处理导出按钮点击
+  const handleExportClick = () => {
+    setExportFileName('羽毛球比赛列表');
+    setExportModalVisible(true);
+  };
+
   if (matches.length === 0 && !loading) {
     return (
       <div>
@@ -699,7 +882,7 @@ const MatchList: React.FC = () => {
         <TrophyOutlined /> 比赛列表
       </h2>
       
-      <div style={{ marginBottom: 16 }}>
+      <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
         <Button.Group>
           <Button 
             type={viewMode === 'matrix' ? 'primary' : 'default'} 
@@ -716,6 +899,14 @@ const MatchList: React.FC = () => {
             列表视图
           </Button>
         </Button.Group>
+        
+        <Button 
+          type="primary"
+          icon={<DownloadOutlined />}
+          onClick={handleExportClick}
+        >
+          导出Excel
+        </Button>
       </div>
       
       {viewMode === 'list' ? (
@@ -882,6 +1073,37 @@ const MatchList: React.FC = () => {
             })()}
           </Space>
         )}
+      </Modal>
+
+      {/* 导出文件名对话框 */}
+      <Modal
+        title="导出Excel"
+        open={exportModalVisible}
+        onOk={exportToExcel}
+        onCancel={() => setExportModalVisible(false)}
+        okText="导出"
+        cancelText="取消"
+      >
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ display: 'block', marginBottom: 8 }}>文件名：</label>
+          <Input 
+            value={exportFileName}
+            onChange={(e) => setExportFileName(e.target.value)}
+            placeholder="请输入导出文件名"
+            suffix=".xlsx"
+          />
+        </div>
+        <Alert 
+          message="Excel文件将包含两个表格："
+          description={
+            <ul style={{ margin: '8px 0 0 0', paddingLeft: 16 }}>
+              <li>比赛矩阵：按时间段和场地排列，只显示"A1+A2:B1+B2"格式的队员编码</li>
+              <li>比赛详细信息：包含时间段、场地、队员编码、比赛状态和比分</li>
+            </ul>
+          }
+          type="info"
+          showIcon
+        />
       </Modal>
     </div>
   );
