@@ -104,7 +104,7 @@ const FormationManagement: React.FC = () => {
 
   // 获取队伍的可用队员
   const getTeamPlayers = (teamCode: string) => {
-    return players.filter(p => p.teamCode === teamCode && p.name);
+    return players.filter(p => p.teamCode === teamCode);
   };
 
   // 处理阵容选择变化
@@ -130,6 +130,36 @@ const FormationManagement: React.FC = () => {
     if (!teamFormation) return 0;
     
     return Object.values(teamFormation.formations).filter(f => f.length === 2).length;
+  };
+
+  // 自动生成并保存所有队伍的阵容
+  const autoGenerateAllFormations = () => {
+    if (!tournamentConfig) return;
+    
+    const newFormations: FormationConfig[] = [];
+    
+    // 为每个队伍生成默认阵容
+    for (let i = 0; i < tournamentConfig.teamCount; i++) {
+      const teamCode = String.fromCharCode(65 + i);
+      const formations: { [key: string]: string[] } = {};
+      
+      // 为每个比赛项目生成默认阵容
+      tournamentConfig.formations.forEach((f: string) => {
+        const nums = f.split('+').map(n => parseInt(n));
+        const code1 = `${teamCode}${nums[0]}`;
+        const code2 = `${teamCode}${nums[1]}`;
+        formations[f] = [code1, code2];
+      });
+      
+      newFormations.push({
+        teamCode,
+        formations
+      });
+    }
+    
+    setFormationConfigs(newFormations);
+    localStorage.setItem('tournamentFormations', JSON.stringify(newFormations));
+    message.success('已自动生成并保存所有队伍的默认阵容！');
   };
 
   if (!tournamentConfig || !players.length) {
@@ -186,7 +216,22 @@ const FormationManagement: React.FC = () => {
                 style={{ width: 120 }}
                 placeholder="选择队伍"
                 value={selectedTeam}
-                onChange={setSelectedTeam}
+                onChange={(value) => {
+                  setSelectedTeam(value);
+                  // 检查是否有已保存的阵容
+                  const hasFormation = formationConfigs.some(f => f.teamCode === value);
+                  if (!hasFormation && tournamentConfig) {
+                    // 自动生成默认阵容
+                    const defaultFormations: { [key: string]: string[] } = {};
+                    tournamentConfig.formations.forEach((f: string) => {
+                      const nums = f.split('+').map(n => parseInt(n));
+                      const code1 = `${value}${nums[0]}`;
+                      const code2 = `${value}${nums[1]}`;
+                      defaultFormations[f] = [code1, code2];
+                    });
+                    setCurrentFormations(defaultFormations);
+                  }
+                }}
               >
                 {teamOptions.map(team => {
                   const completed = getTeamCompletedFormations(team);
@@ -207,14 +252,23 @@ const FormationManagement: React.FC = () => {
             </Space>
           </Col>
           <Col span={8} style={{ textAlign: 'right' }}>
-            <Button 
-              type="primary" 
-              icon={<SaveOutlined />} 
-              onClick={saveFormations}
-              disabled={!selectedTeam}
-            >
-              保存阵容
-            </Button>
+            <Space>
+              <Button 
+                type="default" 
+                icon={<SettingOutlined />} 
+                onClick={autoGenerateAllFormations}
+              >
+                自动生成阵容
+              </Button>
+              <Button 
+                type="primary" 
+                icon={<SaveOutlined />} 
+                onClick={saveFormations}
+                disabled={!selectedTeam}
+              >
+                保存阵容
+              </Button>
+            </Space>
           </Col>
         </Row>
       </Card>
@@ -259,7 +313,7 @@ const FormationManagement: React.FC = () => {
                       <Option key={player.code} value={player.code} label={player.code}>
                         <Space>
                           <UserOutlined />
-                          <span>{player.code} - {player.name || '未命名'}</span>
+                          <span>{player.code}{player.name ? ` - ${player.name}` : ''}</span>
                         </Space>
                       </Option>
                     ))}
