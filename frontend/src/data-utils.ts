@@ -296,7 +296,7 @@ export function get_pair_win_rates(matches: Match[]): { id: string; pair: string
   return result;
 }
 
-export function get_player_consecutive_matches_count(matches: Match[]): { id: string; player: string; consecutiveCount: number }[] {
+export function get_player_consecutive_matches_count(matches: Match[]): { id: string; player: string; maxConsecutiveMatches: number }[] {
   // 按时间段分组
   const time_slots: { [key: string]: Match[] } = {};
   for (const match of matches) {
@@ -380,17 +380,17 @@ export function get_player_consecutive_matches_count(matches: Match[]): { id: st
     result.push({
       id: player,
       player: player,
-      consecutiveCount: max_consecutive
+      maxConsecutiveMatches: max_consecutive
     });
   }
   
   // 按连续场次降序排序
-  result.sort((a, b) => b.consecutiveCount - a.consecutiveCount);
+  result.sort((a, b) => b.maxConsecutiveMatches - a.maxConsecutiveMatches);
   
   return result;
 }
 
-export function get_player_consecutive_matches_three(matches: Match[]): { id: string; player: string; slots: string[] }[] {
+export function get_player_consecutive_matches_three(matches: Match[]): { id: string; player: string; timeSlot1: string; timeSlot2: string; timeSlot3: string }[] {
   // 按时间段分组
   const time_slots: { [key: string]: Match[] } = {};
   for (const match of matches) {
@@ -465,11 +465,9 @@ export function get_player_consecutive_matches_three(matches: Match[]): { id: st
         result.push({
           id: `${player}_3consec_${i}`,
           player: player,
-          slots: [
-            `第${sorted_slots[i]}时段`,
-            `第${sorted_slots[i+1]}时段`,
-            `第${sorted_slots[i+2]}时段`
-          ]
+          timeSlot1: `第${sorted_slots[i] + 1}时段`,
+          timeSlot2: `第${sorted_slots[i+1] + 1}时段`,
+          timeSlot3: `第${sorted_slots[i+2] + 1}时段`
         });
         break; // 只记录一次
       }
@@ -479,7 +477,7 @@ export function get_player_consecutive_matches_three(matches: Match[]): { id: st
   return result;
 }
 
-export function get_player_consecutive_matches_four(matches: Match[]): { id: string; player: string; slots: string[] }[] {
+export function get_player_consecutive_matches_four(matches: Match[]): { id: string; player: string; timeSlot1: string; timeSlot2: string; timeSlot3: string; timeSlot4: string }[] {
   // 按时间段分组
   const time_slots: { [key: string]: Match[] } = {};
   for (const match of matches) {
@@ -554,17 +552,253 @@ export function get_player_consecutive_matches_four(matches: Match[]): { id: str
         result.push({
           id: `${player}_4consec_${i}`,
           player: player,
-          slots: [
-            `第${sorted_slots[i]}时段`,
-            `第${sorted_slots[i+1]}时段`,
-            `第${sorted_slots[i+2]}时段`,
-            `第${sorted_slots[i+3]}时段`
-          ]
+          timeSlot1: `第${sorted_slots[i] + 1}时段`,
+          timeSlot2: `第${sorted_slots[i+1] + 1}时段`,
+          timeSlot3: `第${sorted_slots[i+2] + 1}时段`,
+          timeSlot4: `第${sorted_slots[i+3] + 1}时段`
         });
         break; // 只记录一次
       }
     }
   }
+  
+  return result;
+}
+
+export function get_group_point_difference(matches: Match[]): { id: string; group: string; wins: number; losses: number; winRate: number; pointsWon: number; pointsLost: number; pointDiff: number }[] {
+  // 统计每个团体的胜负场次和净胜球
+  const group_stats: { [key: string]: { wins: number, losses: number, pointsWon: number, pointsLost: number } } = {};
+  
+  for (const match of matches) {
+    if (match.status === 'finished') {
+      // 获取获胜队伍ID
+      const winner_TeamId = match.winner_TeamId;
+      if (winner_TeamId) {
+        // 如果group_stats中没有该队伍，初始化
+        if (!group_stats[match.teamA_Id]) {
+          group_stats[match.teamA_Id] = { wins: 0, losses: 0, pointsWon: 0, pointsLost: 0 };
+        }
+        if (!group_stats[match.teamB_Id]) {
+          group_stats[match.teamB_Id] = { wins: 0, losses: 0, pointsWon: 0, pointsLost: 0 };
+        }
+        
+        // 记录胜负
+        if (winner_TeamId === match.teamA_Id) {
+          group_stats[match.teamA_Id].wins += 1;
+          group_stats[match.teamB_Id].losses += 1;
+        } else {
+          group_stats[match.teamB_Id].wins += 1;
+          group_stats[match.teamA_Id].losses += 1;
+        }
+        
+        // 计算分数
+        for (const score of match.scores) {
+          group_stats[match.teamA_Id].pointsWon += score.teamAScore;
+          group_stats[match.teamA_Id].pointsLost += score.teamBScore;
+          group_stats[match.teamB_Id].pointsWon += score.teamBScore;
+          group_stats[match.teamB_Id].pointsLost += score.teamAScore;
+        }
+      }
+    }
+  }
+  
+  // 计算胜率和净胜球
+  const result = [];
+  for (const group in group_stats) {
+    const stats = group_stats[group];
+    const total = stats.wins + stats.losses;
+    const win_rate = total > 0 ? stats.wins / total : 0;
+    const pointDiff = stats.pointsWon - stats.pointsLost;
+    
+    result.push({
+      id: group,
+      group: `队伍${group}`, // 格式化团队名称
+      wins: stats.wins,
+      losses: stats.losses,
+      winRate: win_rate,
+      pointsWon: stats.pointsWon,
+      pointsLost: stats.pointsLost,
+      pointDiff: pointDiff
+    });
+  }
+  
+  // 按胜率降序排序，胜率相同则按净胜球排序
+  result.sort((a, b) => {
+    if (b.winRate !== a.winRate) {
+      return b.winRate - a.winRate;
+    }
+    return b.pointDiff - a.pointDiff;
+  });
+  
+  return result;
+}
+
+export function get_player_point_difference(matches: Match[]): { id: string; player: string; wins: number; total: number; winRate: number; pointsWon: number; pointsLost: number; pointDiff: number }[] {
+  // 统计每个选手的胜负场次和净胜球
+  const player_stats: { [key: string]: { wins: number, total: number, pointsWon: number, pointsLost: number } } = {};
+  
+  for (const match of matches) {
+    if (match.status === 'finished') {
+      const winner_TeamId = match.winner_TeamId;
+      if (winner_TeamId) {
+        // 获取胜队和负队的队员
+        const winningTeamPlayers = winner_TeamId === match.teamA_Id ? 
+          match.teamA_Players : match.teamB_Players;
+        const losingTeamPlayers = winner_TeamId === match.teamA_Id ? 
+          match.teamB_Players : match.teamA_Players;
+        
+        // 为所有参赛队员记录总场次
+        [...(winningTeamPlayers || []), ...(losingTeamPlayers || [])].forEach((player: string) => {
+          if (!player_stats[player]) {
+            player_stats[player] = { wins: 0, total: 0, pointsWon: 0, pointsLost: 0 };
+          }
+          player_stats[player].total += 1;
+        });
+        
+        // 为获胜队员记录胜场
+        (winningTeamPlayers || []).forEach((player: string) => {
+          player_stats[player].wins += 1;
+        });
+        
+        // 计算每个选手的得分和失分
+        for (const score of match.scores) {
+          // 计算胜队选手的得分和失分
+          (winningTeamPlayers || []).forEach((player: string) => {
+            if (winner_TeamId === match.teamA_Id) {
+              player_stats[player].pointsWon += score.teamAScore;
+              player_stats[player].pointsLost += score.teamBScore;
+            } else {
+              player_stats[player].pointsWon += score.teamBScore;
+              player_stats[player].pointsLost += score.teamAScore;
+            }
+          });
+          
+          // 计算负队选手的得分和失分
+          (losingTeamPlayers || []).forEach((player: string) => {
+            if (winner_TeamId === match.teamA_Id) {
+              player_stats[player].pointsWon += score.teamBScore;
+              player_stats[player].pointsLost += score.teamAScore;
+            } else {
+              player_stats[player].pointsWon += score.teamAScore;
+              player_stats[player].pointsLost += score.teamBScore;
+            }
+          });
+        }
+      }
+    }
+  }
+  
+  // 计算胜率和净胜球
+  const result = [];
+  for (const player in player_stats) {
+    const stats = player_stats[player];
+    const win_rate = stats.total > 0 ? stats.wins / stats.total : 0;
+    const pointDiff = stats.pointsWon - stats.pointsLost;
+    
+    result.push({
+      id: player,
+      player: player,
+      wins: stats.wins,
+      total: stats.total,
+      winRate: win_rate,
+      pointsWon: stats.pointsWon,
+      pointsLost: stats.pointsLost,
+      pointDiff: pointDiff
+    });
+  }
+  
+  // 按胜率降序排序，胜率相同则按净胜球排序
+  result.sort((a, b) => {
+    if (b.winRate !== a.winRate) {
+      return b.winRate - a.winRate;
+    }
+    return b.pointDiff - a.pointDiff;
+  });
+  
+  return result;
+}
+
+export function get_pair_point_difference(matches: Match[]): { id: string; pair: string; wins: number; total: number; winRate: number; pointsWon: number; pointsLost: number; pointDiff: number }[] {
+  // 统计每个组合的胜负场次和净胜球
+  const pair_stats: { [key: string]: { wins: number, total: number, pointsWon: number, pointsLost: number } } = {};
+  
+  for (const match of matches) {
+    if (match.status === 'finished' && match.winner_TeamId) {
+      // 获取胜队和负队的队员
+      const winningTeamPlayers = match.winner_TeamId === match.teamA_Id ? 
+        match.teamA_Players : match.teamB_Players;
+      const losingTeamPlayers = match.winner_TeamId === match.teamA_Id ? 
+        match.teamB_Players : match.teamA_Players;
+      
+      // 只处理双打组合（两个队员）
+      if (winningTeamPlayers && winningTeamPlayers.length === 2) {
+        const pairKey = winningTeamPlayers.sort().join('-');
+        if (!pair_stats[pairKey]) {
+          pair_stats[pairKey] = { wins: 0, total: 0, pointsWon: 0, pointsLost: 0 };
+        }
+        pair_stats[pairKey].wins += 1;
+        pair_stats[pairKey].total += 1;
+        
+        // 计算得分和失分
+        for (const score of match.scores) {
+          if (match.winner_TeamId === match.teamA_Id) {
+            pair_stats[pairKey].pointsWon += score.teamAScore;
+            pair_stats[pairKey].pointsLost += score.teamBScore;
+          } else {
+            pair_stats[pairKey].pointsWon += score.teamBScore;
+            pair_stats[pairKey].pointsLost += score.teamAScore;
+          }
+        }
+      }
+      
+      // 处理负队组合
+      if (losingTeamPlayers && losingTeamPlayers.length === 2) {
+        const pairKey = losingTeamPlayers.sort().join('-');
+        if (!pair_stats[pairKey]) {
+          pair_stats[pairKey] = { wins: 0, total: 0, pointsWon: 0, pointsLost: 0 };
+        }
+        pair_stats[pairKey].total += 1;
+        
+        // 计算得分和失分
+        for (const score of match.scores) {
+          if (match.winner_TeamId === match.teamA_Id) {
+            pair_stats[pairKey].pointsWon += score.teamBScore;
+            pair_stats[pairKey].pointsLost += score.teamAScore;
+          } else {
+            pair_stats[pairKey].pointsWon += score.teamAScore;
+            pair_stats[pairKey].pointsLost += score.teamBScore;
+          }
+        }
+      }
+    }
+  }
+  
+  // 计算胜率和净胜球
+  const result = [];
+  for (const pair in pair_stats) {
+    const stats = pair_stats[pair];
+    const win_rate = stats.total > 0 ? stats.wins / stats.total : 0;
+    const pointDiff = stats.pointsWon - stats.pointsLost;
+    
+    result.push({
+      id: pair,
+      pair: pair.replace('-', ' & '),
+      wins: stats.wins,
+      total: stats.total,
+      winRate: win_rate,
+      pointsWon: stats.pointsWon,
+      pointsLost: stats.pointsLost,
+      pointDiff: pointDiff
+    });
+  }
+  
+  // 按胜率降序排序，胜率相同则按净胜球排序
+  result.sort((a, b) => {
+    if (b.winRate !== a.winRate) {
+      return b.winRate - a.winRate;
+    }
+    return b.pointDiff - a.pointDiff;
+  });
   
   return result;
 } 
