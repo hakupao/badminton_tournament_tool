@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Tabs, Card, Typography, Space, Empty, Button } from 'antd';
 import type { TabsProps } from 'antd';
+import type { SortOrder } from 'antd/es/table/interface';
 import { useAppState } from '../store';
 import { useNavigate } from 'react-router-dom';
 import { 
   get_consecutive_matches, 
   get_inactive_players, 
-  get_group_rankings,
-  get_player_win_rates,
-  get_pair_win_rates,
+  get_group_point_difference,
+  get_player_point_difference,
+  get_pair_point_difference,
   get_player_consecutive_matches_count,
   get_player_consecutive_matches_three,
   get_player_consecutive_matches_four
@@ -16,13 +17,47 @@ import {
 
 const { Title } = Typography;
 
+// 定义表格数据类型
+interface GroupRanking {
+  id: string;
+  group: string;
+  wins: number;
+  losses: number;
+  winRate: number;
+  pointsWon: number;
+  pointsLost: number;
+  pointDiff: number;
+}
+
+interface PlayerWinRate {
+  id: string;
+  player: string;
+  wins: number;
+  total: number;
+  winRate: number;
+  pointsWon: number;
+  pointsLost: number;
+  pointDiff: number;
+}
+
+interface PairWinRate {
+  id: string;
+  pair: string;
+  wins: number;
+  total: number;
+  winRate: number;
+  pointsWon: number;
+  pointsLost: number;
+  pointDiff: number;
+}
+
 const DataManagement: React.FC = () => {
   const { matches, timeSlots } = useAppState();
   const [consecutiveMatches, setConsecutiveMatches] = useState<any[]>([]);
   const [inactivePlayers, setInactivePlayers] = useState<any[]>([]);
-  const [groupRankings, setGroupRankings] = useState<any[]>([]);
-  const [playerWinRates, setPlayerWinRates] = useState<any[]>([]);
-  const [pairWinRates, setPairWinRates] = useState<any[]>([]);
+  const [groupRankings, setGroupRankings] = useState<GroupRanking[]>([]);
+  const [playerWinRates, setPlayerWinRates] = useState<PlayerWinRate[]>([]);
+  const [pairWinRates, setPairWinRates] = useState<PairWinRate[]>([]);
   const [playerConsecutiveCount, setPlayerConsecutiveCount] = useState<any[]>([]);
   const [playerConsecutiveThree, setPlayerConsecutiveThree] = useState<any[]>([]);
   const [playerConsecutiveFour, setPlayerConsecutiveFour] = useState<any[]>([]);
@@ -34,9 +69,9 @@ const DataManagement: React.FC = () => {
       console.log('数据管理页面刷新数据', matches);
       setConsecutiveMatches(get_consecutive_matches(matches));
       setInactivePlayers(get_inactive_players(matches));
-      setGroupRankings(get_group_rankings(matches));
-      setPlayerWinRates(get_player_win_rates(matches));
-      setPairWinRates(get_pair_win_rates(matches));
+      setGroupRankings(get_group_point_difference(matches));
+      setPlayerWinRates(get_player_point_difference(matches));
+      setPairWinRates(get_pair_point_difference(matches));
       setPlayerConsecutiveCount(get_player_consecutive_matches_count(matches));
       setPlayerConsecutiveThree(get_player_consecutive_matches_three(matches));
       setPlayerConsecutiveFour(get_player_consecutive_matches_four(matches));
@@ -55,9 +90,9 @@ const DataManagement: React.FC = () => {
             console.log('从localStorage更新数据');
             setConsecutiveMatches(get_consecutive_matches(parsedMatches));
             setInactivePlayers(get_inactive_players(parsedMatches));
-            setGroupRankings(get_group_rankings(parsedMatches));
-            setPlayerWinRates(get_player_win_rates(parsedMatches));
-            setPairWinRates(get_pair_win_rates(parsedMatches));
+            setGroupRankings(get_group_point_difference(parsedMatches));
+            setPlayerWinRates(get_player_point_difference(parsedMatches));
+            setPairWinRates(get_pair_point_difference(parsedMatches));
             setPlayerConsecutiveCount(get_player_consecutive_matches_count(parsedMatches));
             setPlayerConsecutiveThree(get_player_consecutive_matches_three(parsedMatches));
             setPlayerConsecutiveFour(get_player_consecutive_matches_four(parsedMatches));
@@ -191,22 +226,53 @@ const DataManagement: React.FC = () => {
       title: '团体',
       dataIndex: 'group',
       key: 'group',
+      sorter: (a: GroupRanking, b: GroupRanking) => a.group.localeCompare(b.group),
     },
     {
       title: '胜场',
       dataIndex: 'wins',
       key: 'wins',
+      sorter: (a: GroupRanking, b: GroupRanking) => a.wins - b.wins,
     },
     {
       title: '负场',
       dataIndex: 'losses',
       key: 'losses',
+      sorter: (a: GroupRanking, b: GroupRanking) => a.losses - b.losses,
     },
     {
       title: '胜率',
       dataIndex: 'winRate',
       key: 'winRate',
+      sorter: (a: GroupRanking, b: GroupRanking) => a.winRate - b.winRate,
+      defaultSortOrder: 'descend' as SortOrder,
       render: (text: number) => `${(text * 100).toFixed(1)}%`,
+    },
+    {
+      title: '得分',
+      dataIndex: 'pointsWon',
+      key: 'pointsWon',
+      sorter: (a: GroupRanking, b: GroupRanking) => a.pointsWon - b.pointsWon,
+    },
+    {
+      title: '失分',
+      dataIndex: 'pointsLost',
+      key: 'pointsLost',
+      sorter: (a: GroupRanking, b: GroupRanking) => a.pointsLost - b.pointsLost,
+    },
+    {
+      title: '净胜球',
+      dataIndex: 'pointDiff',
+      key: 'pointDiff',
+      sorter: (a: GroupRanking, b: GroupRanking) => a.pointDiff - b.pointDiff,
+      render: (text: number) => {
+        const value = text;
+        return (
+          <span style={{ color: value > 0 ? 'green' : value < 0 ? 'red' : 'inherit' }}>
+            {value > 0 ? `+${value}` : value}
+          </span>
+        );
+      },
     },
   ];
 
@@ -215,22 +281,53 @@ const DataManagement: React.FC = () => {
       title: '选手',
       dataIndex: 'player',
       key: 'player',
+      sorter: (a: PlayerWinRate, b: PlayerWinRate) => a.player.localeCompare(b.player),
     },
     {
       title: '胜场',
       dataIndex: 'wins',
       key: 'wins',
+      sorter: (a: PlayerWinRate, b: PlayerWinRate) => a.wins - b.wins,
     },
     {
       title: '总场次',
       dataIndex: 'total',
       key: 'total',
+      sorter: (a: PlayerWinRate, b: PlayerWinRate) => a.total - b.total,
     },
     {
       title: '胜率',
       dataIndex: 'winRate',
       key: 'winRate',
+      sorter: (a: PlayerWinRate, b: PlayerWinRate) => a.winRate - b.winRate,
+      defaultSortOrder: 'descend' as SortOrder,
       render: (text: number) => `${(text * 100).toFixed(1)}%`,
+    },
+    {
+      title: '得分',
+      dataIndex: 'pointsWon',
+      key: 'pointsWon',
+      sorter: (a: PlayerWinRate, b: PlayerWinRate) => a.pointsWon - b.pointsWon,
+    },
+    {
+      title: '失分',
+      dataIndex: 'pointsLost',
+      key: 'pointsLost',
+      sorter: (a: PlayerWinRate, b: PlayerWinRate) => a.pointsLost - b.pointsLost,
+    },
+    {
+      title: '净胜球',
+      dataIndex: 'pointDiff',
+      key: 'pointDiff',
+      sorter: (a: PlayerWinRate, b: PlayerWinRate) => a.pointDiff - b.pointDiff,
+      render: (text: number) => {
+        const value = text;
+        return (
+          <span style={{ color: value > 0 ? 'green' : value < 0 ? 'red' : 'inherit' }}>
+            {value > 0 ? `+${value}` : value}
+          </span>
+        );
+      },
     },
   ];
 
@@ -239,22 +336,53 @@ const DataManagement: React.FC = () => {
       title: '组合',
       dataIndex: 'pair',
       key: 'pair',
+      sorter: (a: PairWinRate, b: PairWinRate) => a.pair.localeCompare(b.pair),
     },
     {
       title: '胜场',
       dataIndex: 'wins',
       key: 'wins',
+      sorter: (a: PairWinRate, b: PairWinRate) => a.wins - b.wins,
     },
     {
       title: '总场次',
       dataIndex: 'total',
       key: 'total',
+      sorter: (a: PairWinRate, b: PairWinRate) => a.total - b.total,
     },
     {
       title: '胜率',
       dataIndex: 'winRate',
       key: 'winRate',
+      sorter: (a: PairWinRate, b: PairWinRate) => a.winRate - b.winRate,
+      defaultSortOrder: 'descend' as SortOrder,
       render: (text: number) => `${(text * 100).toFixed(1)}%`,
+    },
+    {
+      title: '得分',
+      dataIndex: 'pointsWon',
+      key: 'pointsWon',
+      sorter: (a: PairWinRate, b: PairWinRate) => a.pointsWon - b.pointsWon,
+    },
+    {
+      title: '失分',
+      dataIndex: 'pointsLost',
+      key: 'pointsLost',
+      sorter: (a: PairWinRate, b: PairWinRate) => a.pointsLost - b.pointsLost,
+    },
+    {
+      title: '净胜球',
+      dataIndex: 'pointDiff',
+      key: 'pointDiff',
+      sorter: (a: PairWinRate, b: PairWinRate) => a.pointDiff - b.pointDiff,
+      render: (text: number) => {
+        const value = text;
+        return (
+          <span style={{ color: value > 0 ? 'green' : value < 0 ? 'red' : 'inherit' }}>
+            {value > 0 ? `+${value}` : value}
+          </span>
+        );
+      },
     },
   ];
 
@@ -312,6 +440,8 @@ const DataManagement: React.FC = () => {
               dataSource={groupRankings}
               columns={groupRankingsColumns}
               rowKey="id"
+              pagination={false}
+              showSorterTooltip={{ title: '点击可以切换升序/降序' }}
             />
           </Card>
           <Card title="选手胜率">
@@ -319,6 +449,8 @@ const DataManagement: React.FC = () => {
               dataSource={playerWinRates}
               columns={playerWinRatesColumns}
               rowKey="id"
+              pagination={{ pageSize: 10 }}
+              showSorterTooltip={{ title: '点击可以切换升序/降序' }}
             />
           </Card>
           <Card title="组合胜率">
@@ -326,6 +458,8 @@ const DataManagement: React.FC = () => {
               dataSource={pairWinRates}
               columns={pairWinRatesColumns}
               rowKey="id"
+              pagination={{ pageSize: 10 }}
+              showSorterTooltip={{ title: '点击可以切换升序/降序' }}
             />
           </Card>
         </Space>
