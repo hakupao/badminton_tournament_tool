@@ -314,12 +314,12 @@ const MatchList: React.FC = () => {
 
     try {
       // 获取选手的姓名
-      const teamA_PlayerNames = selectedTeamAPlayers.map(playerId => {
+      const teamA_PlayerNames = selectedTeamAPlayers.map((playerId: string) => {
         const player = allPlayers.find(p => p.code === playerId);
         return player ? player.name || playerId : playerId;
       });
 
-      const teamB_PlayerNames = selectedTeamBPlayers.map(playerId => {
+      const teamB_PlayerNames = selectedTeamBPlayers.map((playerId: string) => {
         const player = allPlayers.find(p => p.code === playerId);
         return player ? player.name || playerId : playerId;
       });
@@ -692,36 +692,56 @@ const MatchList: React.FC = () => {
             
             // 处理队员信息
             let teamAPlayersStr = '';
+            let teamAPlayersNames = '';
             let teamBPlayersStr = '';
+            let teamBPlayersNames = '';
             
             if (match.teamA_Players && match.teamA_Players.length > 0) {
               teamAPlayersStr = match.teamA_Players.join('+');
+              
+              // 获取A队队员姓名
+              teamAPlayersNames = match.teamA_Players.map((playerId: string) => {
+                const player = allPlayers.find(p => p.code === playerId);
+                return player && player.name ? player.name : `队员${playerId}`;
+              }).join('+');
             } else {
               // 如果没有指定队员，则根据比赛类型推断
               if (match.matchType.includes('1+2') || match.matchType === 'MD1' || match.matchType === 'MD2') {
                 teamAPlayersStr = `${teamACode}1+${teamACode}2`;
+                teamAPlayersNames = `队员${teamACode}1+队员${teamACode}2`;
               } else if (match.matchType.includes('3+5') || match.matchType === 'XD1') {
                 teamAPlayersStr = `${teamACode}3+${teamACode}5`;
+                teamAPlayersNames = `队员${teamACode}3+队员${teamACode}5`;
               } else {
                 teamAPlayersStr = `${teamACode}?+${teamACode}?`;
+                teamAPlayersNames = `队员${teamACode}?+队员${teamACode}?`;
               }
             }
             
             if (match.teamB_Players && match.teamB_Players.length > 0) {
               teamBPlayersStr = match.teamB_Players.join('+');
+              
+              // 获取B队队员姓名
+              teamBPlayersNames = match.teamB_Players.map((playerId: string) => {
+                const player = allPlayers.find(p => p.code === playerId);
+                return player && player.name ? player.name : `队员${playerId}`;
+              }).join('+');
             } else {
               // 如果没有指定队员，则根据比赛类型推断
               if (match.matchType.includes('1+2') || match.matchType === 'MD1' || match.matchType === 'MD2') {
                 teamBPlayersStr = `${teamBCode}1+${teamBCode}2`;
+                teamBPlayersNames = `队员${teamBCode}1+队员${teamBCode}2`;
               } else if (match.matchType.includes('3+5') || match.matchType === 'XD1') {
                 teamBPlayersStr = `${teamBCode}3+${teamBCode}5`;
+                teamBPlayersNames = `队员${teamBCode}3+队员${teamBCode}5`;
               } else {
                 teamBPlayersStr = `${teamBCode}?+${teamBCode}?`;
+                teamBPlayersNames = `队员${teamBCode}?+队员${teamBCode}?`;
               }
             }
             
-            // 新的比赛信息格式
-            const matchInfo = `${teamAPlayersStr}:${teamBPlayersStr}`;
+            // 新的比赛信息格式（第一行显示编码，第二行显示姓名）
+            const matchInfo = `${teamAPlayersStr}:${teamBPlayersStr}\n${teamAPlayersNames}:${teamBPlayersNames}`;
             dataRow.push(matchInfo);
           } else {
             dataRow.push('未安排比赛');
@@ -731,12 +751,33 @@ const MatchList: React.FC = () => {
         XLSX.utils.sheet_add_aoa(simpleWorksheet, [dataRow], { origin: { r: rowIndex + 2, c: 0 } });
       });
       
-      // 设置列宽
+      // 设置列宽和行高
       const wscols = [
         { wch: 10 }, // 时间段列宽
-        ...Array(courts.length).fill({ wch: 30 }) // 场地列宽增加到30
+        ...Array(courts.length).fill({ wch: 40 }) // 场地列宽增加到40以容纳更多文本
       ];
       simpleWorksheet['!cols'] = wscols;
+      
+      // 设置单元格文本自动换行
+      for (let r = 2; r < matrixData.length + 2; r++) {
+        for (let c = 1; c <= courts.length; c++) {
+          const cellRef = XLSX.utils.encode_cell({r: r, c: c});
+          if (!simpleWorksheet[cellRef]) continue;
+          
+          // 确保单元格有样式属性
+          if (!simpleWorksheet[cellRef].s) simpleWorksheet[cellRef].s = {};
+          
+          // 启用自动换行
+          simpleWorksheet[cellRef].s.alignment = {
+            wrapText: true,
+            vertical: 'top'
+          };
+        }
+      }
+      
+      // 设置行高
+      const wsrows = Array(matrixData.length + 2).fill({ hpt: 40 }); // 增加行高以容纳两行文本
+      simpleWorksheet['!rows'] = wsrows;
       
       // 添加简单矩阵视图工作表
       XLSX.utils.book_append_sheet(workbook, simpleWorksheet, '比赛矩阵');
@@ -749,6 +790,7 @@ const MatchList: React.FC = () => {
         '时间段', 
         '场地', 
         '对阵队员编码',
+        '队员姓名',
         '比赛状态', 
         '比分'
       ]);
@@ -766,36 +808,57 @@ const MatchList: React.FC = () => {
         
         // 处理A队队员字符串
         let teamAPlayersStr = '';
+        let teamAPlayersNames = '';
         if (match.teamA_Players && match.teamA_Players.length > 0) {
           teamAPlayersStr = match.teamA_Players.join('+');
+          
+          // 获取A队队员姓名
+          teamAPlayersNames = match.teamA_Players.map((playerId: string) => {
+            const player = allPlayers.find(p => p.code === playerId);
+            return player && player.name ? player.name : `队员${playerId}`;
+          }).join('+');
         } else {
           // 如果没有指定队员，则根据比赛类型推断
           if (match.matchType.includes('1+2') || match.matchType === 'MD1' || match.matchType === 'MD2') {
             teamAPlayersStr = `${teamACode}1+${teamACode}2`;
+            teamAPlayersNames = `队员${teamACode}1+队员${teamACode}2`;
           } else if (match.matchType.includes('3+5') || match.matchType === 'XD1') {
             teamAPlayersStr = `${teamACode}3+${teamACode}5`;
+            teamAPlayersNames = `队员${teamACode}3+队员${teamACode}5`;
           } else {
             teamAPlayersStr = `${teamACode}?+${teamACode}?`;
+            teamAPlayersNames = `队员${teamACode}?+队员${teamACode}?`;
           }
         }
         
         // 处理B队队员字符串
         let teamBPlayersStr = '';
+        let teamBPlayersNames = '';
         if (match.teamB_Players && match.teamB_Players.length > 0) {
           teamBPlayersStr = match.teamB_Players.join('+');
+          
+          // 获取B队队员姓名
+          teamBPlayersNames = match.teamB_Players.map((playerId: string) => {
+            const player = allPlayers.find(p => p.code === playerId);
+            return player && player.name ? player.name : `队员${playerId}`;
+          }).join('+');
         } else {
           // 如果没有指定队员，则根据比赛类型推断
           if (match.matchType.includes('1+2') || match.matchType === 'MD1' || match.matchType === 'MD2') {
             teamBPlayersStr = `${teamBCode}1+${teamBCode}2`;
+            teamBPlayersNames = `队员${teamBCode}1+队员${teamBCode}2`;
           } else if (match.matchType.includes('3+5') || match.matchType === 'XD1') {
             teamBPlayersStr = `${teamBCode}3+${teamBCode}5`;
+            teamBPlayersNames = `队员${teamBCode}3+队员${teamBCode}5`;
           } else {
             teamBPlayersStr = `${teamBCode}?+${teamBCode}?`;
+            teamBPlayersNames = `队员${teamBCode}?+队员${teamBCode}?`;
           }
         }
         
         // 合并的队员格式，用于显示
         const playersFormatStr = `${teamAPlayersStr}:${teamBPlayersStr}`;
+        const playersNamesStr = `${teamAPlayersNames}:${teamBPlayersNames}`;
         
         // 处理比赛状态
         let statusStr = '';
@@ -816,6 +879,7 @@ const MatchList: React.FC = () => {
           `第${match.timeSlot + 1}时段`,
           `${match.court}号场`,
           playersFormatStr,
+          playersNamesStr,
           statusStr,
           scoreStr
         ]);
@@ -829,6 +893,7 @@ const MatchList: React.FC = () => {
         { wch: 10 }, // 时间段
         { wch: 8 },  // 场地
         { wch: 20 }, // 对阵队员编码
+        { wch: 30 }, // 队员姓名
         { wch: 10 }, // 比赛状态
         { wch: 10 }  // 比分
       ];
@@ -1097,8 +1162,8 @@ const MatchList: React.FC = () => {
           message="Excel文件将包含两个表格："
           description={
             <ul style={{ margin: '8px 0 0 0', paddingLeft: 16 }}>
-              <li>比赛矩阵：按时间段和场地排列，只显示"A1+A2:B1+B2"格式的队员编码</li>
-              <li>比赛详细信息：包含时间段、场地、队员编码、比赛状态和比分</li>
+              <li>比赛矩阵：按时间段和场地排列，第一行显示"A1+A2:B1+B2"格式的队员编码，第二行显示对应的队员姓名</li>
+              <li>比赛详细信息：包含时间段、场地、队员编码、队员姓名、比赛状态和比分</li>
             </ul>
           }
           type="info"
