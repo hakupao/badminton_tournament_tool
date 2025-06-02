@@ -1,0 +1,4231 @@
+{
+  "matches": [
+    {
+      "id": "local_0",
+      "round": 1,
+      "timeSlot": 0,
+      "court": 1,
+      "matchType": "1+2",
+      "teamA_Id": "A",
+      "teamB_Id": "B",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍B",
+      "teamA_Players": [
+        "A1",
+        "A2"
+      ],
+      "teamB_Players": [
+        "B1",
+        "B2"
+      ],
+      "teamA_PlayerNames": [
+        "A1",
+        "A2"
+      ],
+      "teamB_PlayerNames": [
+        "B1",
+        "B2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_1",
+      "round": 1,
+      "timeSlot": 0,
+      "court": 2,
+      "matchType": "3+5",
+      "teamA_Id": "A",
+      "teamB_Id": "B",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍B",
+      "teamA_Players": [
+        "A3",
+        "A5"
+      ],
+      "teamB_Players": [
+        "B3",
+        "B5"
+      ],
+      "teamA_PlayerNames": [
+        "A3",
+        "A5"
+      ],
+      "teamB_PlayerNames": [
+        "B3",
+        "B5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_2",
+      "round": 1,
+      "timeSlot": 0,
+      "court": 3,
+      "matchType": "1+2",
+      "teamA_Id": "C",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "C1",
+        "C2"
+      ],
+      "teamB_Players": [
+        "D1",
+        "D2"
+      ],
+      "teamA_PlayerNames": [
+        "C1",
+        "C2"
+      ],
+      "teamB_PlayerNames": [
+        "D1",
+        "D2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_3",
+      "round": 1,
+      "timeSlot": 0,
+      "court": 4,
+      "matchType": "3+5",
+      "teamA_Id": "C",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "C3",
+        "C5"
+      ],
+      "teamB_Players": [
+        "D3",
+        "D5"
+      ],
+      "teamA_PlayerNames": [
+        "C3",
+        "C5"
+      ],
+      "teamB_PlayerNames": [
+        "D3",
+        "D5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_4",
+      "round": 1,
+      "timeSlot": 0,
+      "court": 5,
+      "matchType": "1+2",
+      "teamA_Id": "E",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "E1",
+        "E2"
+      ],
+      "teamB_Players": [
+        "F1",
+        "F2"
+      ],
+      "teamA_PlayerNames": [
+        "E1",
+        "E2"
+      ],
+      "teamB_PlayerNames": [
+        "F1",
+        "F2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_5",
+      "round": 1,
+      "timeSlot": 0,
+      "court": 6,
+      "matchType": "3+5",
+      "teamA_Id": "E",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "E3",
+        "E5"
+      ],
+      "teamB_Players": [
+        "F3",
+        "F5"
+      ],
+      "teamA_PlayerNames": [
+        "E3",
+        "E5"
+      ],
+      "teamB_PlayerNames": [
+        "F3",
+        "F5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_6",
+      "round": 1,
+      "timeSlot": 1,
+      "court": 1,
+      "matchType": "1+2",
+      "teamA_Id": "G",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍G",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "G1",
+        "G2"
+      ],
+      "teamB_Players": [
+        "H1",
+        "H2"
+      ],
+      "teamA_PlayerNames": [
+        "G1",
+        "G2"
+      ],
+      "teamB_PlayerNames": [
+        "H1",
+        "H2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_7",
+      "round": 1,
+      "timeSlot": 1,
+      "court": 2,
+      "matchType": "3+5",
+      "teamA_Id": "G",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍G",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "G3",
+        "G5"
+      ],
+      "teamB_Players": [
+        "H3",
+        "H5"
+      ],
+      "teamA_PlayerNames": [
+        "G3",
+        "G5"
+      ],
+      "teamB_PlayerNames": [
+        "H3",
+        "H5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_8",
+      "round": 1,
+      "timeSlot": 1,
+      "court": 3,
+      "matchType": "1+4",
+      "teamA_Id": "A",
+      "teamB_Id": "B",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍B",
+      "teamA_Players": [
+        "A1",
+        "A4"
+      ],
+      "teamB_Players": [
+        "B1",
+        "B4"
+      ],
+      "teamA_PlayerNames": [
+        "A1",
+        "A4"
+      ],
+      "teamB_PlayerNames": [
+        "B1",
+        "B4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_9",
+      "round": 1,
+      "timeSlot": 1,
+      "court": 4,
+      "matchType": "1+4",
+      "teamA_Id": "C",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "C1",
+        "C4"
+      ],
+      "teamB_Players": [
+        "D1",
+        "D4"
+      ],
+      "teamA_PlayerNames": [
+        "C1",
+        "C4"
+      ],
+      "teamB_PlayerNames": [
+        "D1",
+        "D4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_10",
+      "round": 1,
+      "timeSlot": 1,
+      "court": 5,
+      "matchType": "1+4",
+      "teamA_Id": "E",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "E1",
+        "E4"
+      ],
+      "teamB_Players": [
+        "F1",
+        "F4"
+      ],
+      "teamA_PlayerNames": [
+        "E1",
+        "E4"
+      ],
+      "teamB_PlayerNames": [
+        "F1",
+        "F4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_11",
+      "round": 1,
+      "timeSlot": 1,
+      "court": 6,
+      "matchType": "2+3",
+      "teamA_Id": "A",
+      "teamB_Id": "B",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍B",
+      "teamA_Players": [
+        "A2",
+        "A3"
+      ],
+      "teamB_Players": [
+        "B2",
+        "B3"
+      ],
+      "teamA_PlayerNames": [
+        "A2",
+        "A3"
+      ],
+      "teamB_PlayerNames": [
+        "B2",
+        "B3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_12",
+      "round": 2,
+      "timeSlot": 2,
+      "court": 1,
+      "matchType": "2+3",
+      "teamA_Id": "C",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "C2",
+        "C3"
+      ],
+      "teamB_Players": [
+        "D2",
+        "D3"
+      ],
+      "teamA_PlayerNames": [
+        "C2",
+        "C3"
+      ],
+      "teamB_PlayerNames": [
+        "D2",
+        "D3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_13",
+      "round": 2,
+      "timeSlot": 2,
+      "court": 2,
+      "matchType": "2+3",
+      "teamA_Id": "E",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "E2",
+        "E3"
+      ],
+      "teamB_Players": [
+        "F2",
+        "F3"
+      ],
+      "teamA_PlayerNames": [
+        "E2",
+        "E3"
+      ],
+      "teamB_PlayerNames": [
+        "F2",
+        "F3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_14",
+      "round": 2,
+      "timeSlot": 2,
+      "court": 3,
+      "matchType": "1+4",
+      "teamA_Id": "G",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍G",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "G1",
+        "G4"
+      ],
+      "teamB_Players": [
+        "H1",
+        "H4"
+      ],
+      "teamA_PlayerNames": [
+        "G1",
+        "G4"
+      ],
+      "teamB_PlayerNames": [
+        "H1",
+        "H4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_15",
+      "round": 2,
+      "timeSlot": 2,
+      "court": 4,
+      "matchType": "4+5",
+      "teamA_Id": "A",
+      "teamB_Id": "B",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍B",
+      "teamA_Players": [
+        "A4",
+        "A5"
+      ],
+      "teamB_Players": [
+        "B4",
+        "B5"
+      ],
+      "teamA_PlayerNames": [
+        "A4",
+        "A5"
+      ],
+      "teamB_PlayerNames": [
+        "B4",
+        "B5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_16",
+      "round": 2,
+      "timeSlot": 2,
+      "court": 5,
+      "matchType": "4+5",
+      "teamA_Id": "C",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "C4",
+        "C5"
+      ],
+      "teamB_Players": [
+        "D4",
+        "D5"
+      ],
+      "teamA_PlayerNames": [
+        "C4",
+        "C5"
+      ],
+      "teamB_PlayerNames": [
+        "D4",
+        "D5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_17",
+      "round": 2,
+      "timeSlot": 2,
+      "court": 6,
+      "matchType": "4+5",
+      "teamA_Id": "E",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "E4",
+        "E5"
+      ],
+      "teamB_Players": [
+        "F4",
+        "F5"
+      ],
+      "teamA_PlayerNames": [
+        "E4",
+        "E5"
+      ],
+      "teamB_PlayerNames": [
+        "F4",
+        "F5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_18",
+      "round": 2,
+      "timeSlot": 3,
+      "court": 1,
+      "matchType": "2+3",
+      "teamA_Id": "A",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "A2",
+        "A3"
+      ],
+      "teamB_Players": [
+        "G2",
+        "G3"
+      ],
+      "teamA_PlayerNames": [
+        "A2",
+        "A3"
+      ],
+      "teamB_PlayerNames": [
+        "G2",
+        "G3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_19",
+      "round": 2,
+      "timeSlot": 3,
+      "court": 2,
+      "matchType": "2+3",
+      "teamA_Id": "B",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "B2",
+        "B3"
+      ],
+      "teamB_Players": [
+        "H2",
+        "H3"
+      ],
+      "teamA_PlayerNames": [
+        "B2",
+        "B3"
+      ],
+      "teamB_PlayerNames": [
+        "H2",
+        "H3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_20",
+      "round": 2,
+      "timeSlot": 3,
+      "court": 3,
+      "matchType": "1+2",
+      "teamA_Id": "C",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "C1",
+        "C2"
+      ],
+      "teamB_Players": [
+        "E1",
+        "E2"
+      ],
+      "teamA_PlayerNames": [
+        "C1",
+        "C2"
+      ],
+      "teamB_PlayerNames": [
+        "E1",
+        "E2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_21",
+      "round": 2,
+      "timeSlot": 3,
+      "court": 4,
+      "matchType": "1+2",
+      "teamA_Id": "D",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "D1",
+        "D2"
+      ],
+      "teamB_Players": [
+        "F1",
+        "F2"
+      ],
+      "teamA_PlayerNames": [
+        "D1",
+        "D2"
+      ],
+      "teamB_PlayerNames": [
+        "F1",
+        "F2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_22",
+      "round": 2,
+      "timeSlot": 3,
+      "court": 5,
+      "matchType": "4+5",
+      "teamA_Id": "G",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍G",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "G4",
+        "G5"
+      ],
+      "teamB_Players": [
+        "H4",
+        "H5"
+      ],
+      "teamA_PlayerNames": [
+        "G4",
+        "G5"
+      ],
+      "teamB_PlayerNames": [
+        "H4",
+        "H5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_23",
+      "round": 2,
+      "timeSlot": 3,
+      "court": 6,
+      "matchType": "3+5",
+      "teamA_Id": "C",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "C3",
+        "C5"
+      ],
+      "teamB_Players": [
+        "E3",
+        "E5"
+      ],
+      "teamA_PlayerNames": [
+        "C3",
+        "C5"
+      ],
+      "teamB_PlayerNames": [
+        "E3",
+        "E5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_24",
+      "round": 3,
+      "timeSlot": 4,
+      "court": 1,
+      "matchType": "4+5",
+      "teamA_Id": "A",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "A4",
+        "A5"
+      ],
+      "teamB_Players": [
+        "D4",
+        "D5"
+      ],
+      "teamA_PlayerNames": [
+        "A4",
+        "A5"
+      ],
+      "teamB_PlayerNames": [
+        "D4",
+        "D5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_25",
+      "round": 3,
+      "timeSlot": 4,
+      "court": 2,
+      "matchType": "4+5",
+      "teamA_Id": "B",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "B4",
+        "B5"
+      ],
+      "teamB_Players": [
+        "F4",
+        "F5"
+      ],
+      "teamA_PlayerNames": [
+        "B4",
+        "B5"
+      ],
+      "teamB_PlayerNames": [
+        "F4",
+        "F5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_26",
+      "round": 3,
+      "timeSlot": 4,
+      "court": 3,
+      "matchType": "1+2",
+      "teamA_Id": "A",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "A1",
+        "A2"
+      ],
+      "teamB_Players": [
+        "G1",
+        "G2"
+      ],
+      "teamA_PlayerNames": [
+        "A1",
+        "A2"
+      ],
+      "teamB_PlayerNames": [
+        "G1",
+        "G2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_27",
+      "round": 3,
+      "timeSlot": 4,
+      "court": 4,
+      "matchType": "1+2",
+      "teamA_Id": "B",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "B1",
+        "B2"
+      ],
+      "teamB_Players": [
+        "H1",
+        "H2"
+      ],
+      "teamA_PlayerNames": [
+        "B1",
+        "B2"
+      ],
+      "teamB_PlayerNames": [
+        "H1",
+        "H2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_28",
+      "round": 3,
+      "timeSlot": 4,
+      "court": 5,
+      "matchType": "1+4",
+      "teamA_Id": "C",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "C1",
+        "C4"
+      ],
+      "teamB_Players": [
+        "E1",
+        "E4"
+      ],
+      "teamA_PlayerNames": [
+        "C1",
+        "C4"
+      ],
+      "teamB_PlayerNames": [
+        "E1",
+        "E4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_29",
+      "round": 3,
+      "timeSlot": 4,
+      "court": 6,
+      "matchType": "2+3",
+      "teamA_Id": "D",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "D2",
+        "D3"
+      ],
+      "teamB_Players": [
+        "F2",
+        "F3"
+      ],
+      "teamA_PlayerNames": [
+        "D2",
+        "D3"
+      ],
+      "teamB_PlayerNames": [
+        "F2",
+        "F3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_30",
+      "round": 3,
+      "timeSlot": 5,
+      "court": 1,
+      "matchType": "2+3",
+      "teamA_Id": "C",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "C2",
+        "C3"
+      ],
+      "teamB_Players": [
+        "E2",
+        "E3"
+      ],
+      "teamA_PlayerNames": [
+        "C2",
+        "C3"
+      ],
+      "teamB_PlayerNames": [
+        "E2",
+        "E3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_31",
+      "round": 3,
+      "timeSlot": 5,
+      "court": 2,
+      "matchType": "3+5",
+      "teamA_Id": "A",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "A3",
+        "A5"
+      ],
+      "teamB_Players": [
+        "G3",
+        "G5"
+      ],
+      "teamA_PlayerNames": [
+        "A3",
+        "A5"
+      ],
+      "teamB_PlayerNames": [
+        "G3",
+        "G5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_32",
+      "round": 3,
+      "timeSlot": 5,
+      "court": 3,
+      "matchType": "3+5",
+      "teamA_Id": "B",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "B3",
+        "B5"
+      ],
+      "teamB_Players": [
+        "H3",
+        "H5"
+      ],
+      "teamA_PlayerNames": [
+        "B3",
+        "B5"
+      ],
+      "teamB_PlayerNames": [
+        "H3",
+        "H5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_33",
+      "round": 3,
+      "timeSlot": 5,
+      "court": 4,
+      "matchType": "4+5",
+      "teamA_Id": "C",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "C4",
+        "C5"
+      ],
+      "teamB_Players": [
+        "E4",
+        "E5"
+      ],
+      "teamA_PlayerNames": [
+        "C4",
+        "C5"
+      ],
+      "teamB_PlayerNames": [
+        "E4",
+        "E5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_34",
+      "round": 3,
+      "timeSlot": 5,
+      "court": 5,
+      "matchType": "1+4",
+      "teamA_Id": "D",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "D1",
+        "D4"
+      ],
+      "teamB_Players": [
+        "F1",
+        "F4"
+      ],
+      "teamA_PlayerNames": [
+        "D1",
+        "D4"
+      ],
+      "teamB_PlayerNames": [
+        "F1",
+        "F4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_35",
+      "round": 3,
+      "timeSlot": 5,
+      "court": 6,
+      "matchType": "1+4",
+      "teamA_Id": "A",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "A1",
+        "A4"
+      ],
+      "teamB_Players": [
+        "G1",
+        "G4"
+      ],
+      "teamA_PlayerNames": [
+        "A1",
+        "A4"
+      ],
+      "teamB_PlayerNames": [
+        "G1",
+        "G4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_36",
+      "round": 4,
+      "timeSlot": 6,
+      "court": 1,
+      "matchType": "1+4",
+      "teamA_Id": "B",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "B1",
+        "B4"
+      ],
+      "teamB_Players": [
+        "H1",
+        "H4"
+      ],
+      "teamA_PlayerNames": [
+        "B1",
+        "B4"
+      ],
+      "teamB_PlayerNames": [
+        "H1",
+        "H4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_37",
+      "round": 4,
+      "timeSlot": 6,
+      "court": 2,
+      "matchType": "3+5",
+      "teamA_Id": "D",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "D3",
+        "D5"
+      ],
+      "teamB_Players": [
+        "F3",
+        "F5"
+      ],
+      "teamA_PlayerNames": [
+        "D3",
+        "D5"
+      ],
+      "teamB_PlayerNames": [
+        "F3",
+        "F5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_38",
+      "round": 4,
+      "timeSlot": 6,
+      "court": 3,
+      "matchType": "2+3",
+      "teamA_Id": "A",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "A2",
+        "A3"
+      ],
+      "teamB_Players": [
+        "H2",
+        "H3"
+      ],
+      "teamA_PlayerNames": [
+        "A2",
+        "A3"
+      ],
+      "teamB_PlayerNames": [
+        "H2",
+        "H3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_39",
+      "round": 4,
+      "timeSlot": 6,
+      "court": 4,
+      "matchType": "2+3",
+      "teamA_Id": "B",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "B2",
+        "B3"
+      ],
+      "teamB_Players": [
+        "G2",
+        "G3"
+      ],
+      "teamA_PlayerNames": [
+        "B2",
+        "B3"
+      ],
+      "teamB_PlayerNames": [
+        "G2",
+        "G3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_40",
+      "round": 4,
+      "timeSlot": 6,
+      "court": 5,
+      "matchType": "1+2",
+      "teamA_Id": "C",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "C1",
+        "C2"
+      ],
+      "teamB_Players": [
+        "F1",
+        "F2"
+      ],
+      "teamA_PlayerNames": [
+        "C1",
+        "C2"
+      ],
+      "teamB_PlayerNames": [
+        "F1",
+        "F2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_41",
+      "round": 4,
+      "timeSlot": 6,
+      "court": 6,
+      "matchType": "1+2",
+      "teamA_Id": "D",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "D1",
+        "D2"
+      ],
+      "teamB_Players": [
+        "E1",
+        "E2"
+      ],
+      "teamA_PlayerNames": [
+        "D1",
+        "D2"
+      ],
+      "teamB_PlayerNames": [
+        "E1",
+        "E2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_42",
+      "round": 4,
+      "timeSlot": 7,
+      "court": 1,
+      "matchType": "4+5",
+      "teamA_Id": "A",
+      "teamB_Id": "C",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍C",
+      "teamA_Players": [
+        "A4",
+        "A5"
+      ],
+      "teamB_Players": [
+        "C4",
+        "C5"
+      ],
+      "teamA_PlayerNames": [
+        "A4",
+        "A5"
+      ],
+      "teamB_PlayerNames": [
+        "C4",
+        "C5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_43",
+      "round": 4,
+      "timeSlot": 7,
+      "court": 2,
+      "matchType": "4+5",
+      "teamA_Id": "E",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "E4",
+        "E5"
+      ],
+      "teamB_Players": [
+        "G4",
+        "G5"
+      ],
+      "teamA_PlayerNames": [
+        "E4",
+        "E5"
+      ],
+      "teamB_PlayerNames": [
+        "G4",
+        "G5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_44",
+      "round": 4,
+      "timeSlot": 7,
+      "court": 3,
+      "matchType": "4+5",
+      "teamA_Id": "B",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "B4",
+        "B5"
+      ],
+      "teamB_Players": [
+        "D4",
+        "D5"
+      ],
+      "teamA_PlayerNames": [
+        "B4",
+        "B5"
+      ],
+      "teamB_PlayerNames": [
+        "D4",
+        "D5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_45",
+      "round": 4,
+      "timeSlot": 7,
+      "court": 4,
+      "matchType": "4+5",
+      "teamA_Id": "F",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍F",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "F4",
+        "F5"
+      ],
+      "teamB_Players": [
+        "H4",
+        "H5"
+      ],
+      "teamA_PlayerNames": [
+        "F4",
+        "F5"
+      ],
+      "teamB_PlayerNames": [
+        "H4",
+        "H5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_46",
+      "round": 4,
+      "timeSlot": 7,
+      "court": 5,
+      "matchType": "1+2",
+      "teamA_Id": "A",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "A1",
+        "A2"
+      ],
+      "teamB_Players": [
+        "H1",
+        "H2"
+      ],
+      "teamA_PlayerNames": [
+        "A1",
+        "A2"
+      ],
+      "teamB_PlayerNames": [
+        "H1",
+        "H2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_47",
+      "round": 4,
+      "timeSlot": 7,
+      "court": 6,
+      "matchType": "1+2",
+      "teamA_Id": "B",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "B1",
+        "B2"
+      ],
+      "teamB_Players": [
+        "G1",
+        "G2"
+      ],
+      "teamA_PlayerNames": [
+        "B1",
+        "B2"
+      ],
+      "teamB_PlayerNames": [
+        "G1",
+        "G2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_48",
+      "round": 5,
+      "timeSlot": 8,
+      "court": 1,
+      "matchType": "2+3",
+      "teamA_Id": "C",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "C2",
+        "C3"
+      ],
+      "teamB_Players": [
+        "F2",
+        "F3"
+      ],
+      "teamA_PlayerNames": [
+        "C2",
+        "C3"
+      ],
+      "teamB_PlayerNames": [
+        "F2",
+        "F3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_49",
+      "round": 5,
+      "timeSlot": 8,
+      "court": 2,
+      "matchType": "2+3",
+      "teamA_Id": "D",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "D2",
+        "D3"
+      ],
+      "teamB_Players": [
+        "E2",
+        "E3"
+      ],
+      "teamA_PlayerNames": [
+        "D2",
+        "D3"
+      ],
+      "teamB_PlayerNames": [
+        "E2",
+        "E3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_50",
+      "round": 5,
+      "timeSlot": 8,
+      "court": 3,
+      "matchType": "3+5",
+      "teamA_Id": "A",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "A3",
+        "A5"
+      ],
+      "teamB_Players": [
+        "H3",
+        "H5"
+      ],
+      "teamA_PlayerNames": [
+        "A3",
+        "A5"
+      ],
+      "teamB_PlayerNames": [
+        "H3",
+        "H5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_51",
+      "round": 5,
+      "timeSlot": 8,
+      "court": 4,
+      "matchType": "3+5",
+      "teamA_Id": "B",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "B3",
+        "B5"
+      ],
+      "teamB_Players": [
+        "G3",
+        "G5"
+      ],
+      "teamA_PlayerNames": [
+        "B3",
+        "B5"
+      ],
+      "teamB_PlayerNames": [
+        "G3",
+        "G5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_52",
+      "round": 5,
+      "timeSlot": 8,
+      "court": 5,
+      "matchType": "1+4",
+      "teamA_Id": "C",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "C1",
+        "C4"
+      ],
+      "teamB_Players": [
+        "F1",
+        "F4"
+      ],
+      "teamA_PlayerNames": [
+        "C1",
+        "C4"
+      ],
+      "teamB_PlayerNames": [
+        "F1",
+        "F4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_53",
+      "round": 5,
+      "timeSlot": 8,
+      "court": 6,
+      "matchType": "1+4",
+      "teamA_Id": "D",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "D1",
+        "D4"
+      ],
+      "teamB_Players": [
+        "E1",
+        "E4"
+      ],
+      "teamA_PlayerNames": [
+        "D1",
+        "D4"
+      ],
+      "teamB_PlayerNames": [
+        "E1",
+        "E4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_54",
+      "round": 5,
+      "timeSlot": 9,
+      "court": 1,
+      "matchType": "1+4",
+      "teamA_Id": "A",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "A1",
+        "A4"
+      ],
+      "teamB_Players": [
+        "H1",
+        "H4"
+      ],
+      "teamA_PlayerNames": [
+        "A1",
+        "A4"
+      ],
+      "teamB_PlayerNames": [
+        "H1",
+        "H4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_55",
+      "round": 5,
+      "timeSlot": 9,
+      "court": 2,
+      "matchType": "1+4",
+      "teamA_Id": "B",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "B1",
+        "B4"
+      ],
+      "teamB_Players": [
+        "G1",
+        "G4"
+      ],
+      "teamA_PlayerNames": [
+        "B1",
+        "B4"
+      ],
+      "teamB_PlayerNames": [
+        "G1",
+        "G4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_56",
+      "round": 5,
+      "timeSlot": 9,
+      "court": 3,
+      "matchType": "3+5",
+      "teamA_Id": "C",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "C3",
+        "C5"
+      ],
+      "teamB_Players": [
+        "F3",
+        "F5"
+      ],
+      "teamA_PlayerNames": [
+        "C3",
+        "C5"
+      ],
+      "teamB_PlayerNames": [
+        "F3",
+        "F5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_57",
+      "round": 5,
+      "timeSlot": 9,
+      "court": 4,
+      "matchType": "3+5",
+      "teamA_Id": "D",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "D3",
+        "D5"
+      ],
+      "teamB_Players": [
+        "E3",
+        "E5"
+      ],
+      "teamA_PlayerNames": [
+        "D3",
+        "D5"
+      ],
+      "teamB_PlayerNames": [
+        "E3",
+        "E5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_58",
+      "round": 5,
+      "timeSlot": 9,
+      "court": 5,
+      "matchType": "2+3",
+      "teamA_Id": "G",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍G",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "G2",
+        "G3"
+      ],
+      "teamB_Players": [
+        "H2",
+        "H3"
+      ],
+      "teamA_PlayerNames": [
+        "G2",
+        "G3"
+      ],
+      "teamB_PlayerNames": [
+        "H2",
+        "H3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_59",
+      "round": 6,
+      "timeSlot": 10,
+      "court": 1,
+      "matchType": "1+2",
+      "teamA_Id": "A",
+      "teamB_Id": "C",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍C",
+      "teamA_Players": [
+        "A1",
+        "A2"
+      ],
+      "teamB_Players": [
+        "C1",
+        "C2"
+      ],
+      "teamA_PlayerNames": [
+        "A1",
+        "A2"
+      ],
+      "teamB_PlayerNames": [
+        "C1",
+        "C2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_60",
+      "round": 6,
+      "timeSlot": 10,
+      "court": 2,
+      "matchType": "1+2",
+      "teamA_Id": "B",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "B1",
+        "B2"
+      ],
+      "teamB_Players": [
+        "D1",
+        "D2"
+      ],
+      "teamA_PlayerNames": [
+        "B1",
+        "B2"
+      ],
+      "teamB_PlayerNames": [
+        "D1",
+        "D2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_61",
+      "round": 6,
+      "timeSlot": 10,
+      "court": 3,
+      "matchType": "4+5",
+      "teamA_Id": "A",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "A4",
+        "A5"
+      ],
+      "teamB_Players": [
+        "E4",
+        "E5"
+      ],
+      "teamA_PlayerNames": [
+        "A4",
+        "A5"
+      ],
+      "teamB_PlayerNames": [
+        "E4",
+        "E5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_62",
+      "round": 6,
+      "timeSlot": 10,
+      "court": 4,
+      "matchType": "4+5",
+      "teamA_Id": "B",
+      "teamB_Id": "C",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍C",
+      "teamA_Players": [
+        "B4",
+        "B5"
+      ],
+      "teamB_Players": [
+        "C4",
+        "C5"
+      ],
+      "teamA_PlayerNames": [
+        "B4",
+        "B5"
+      ],
+      "teamB_PlayerNames": [
+        "C4",
+        "C5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_63",
+      "round": 6,
+      "timeSlot": 10,
+      "court": 5,
+      "matchType": "4+5",
+      "teamA_Id": "D",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "D4",
+        "D5"
+      ],
+      "teamB_Players": [
+        "F4",
+        "F5"
+      ],
+      "teamA_PlayerNames": [
+        "D4",
+        "D5"
+      ],
+      "teamB_PlayerNames": [
+        "F4",
+        "F5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_64",
+      "round": 6,
+      "timeSlot": 10,
+      "court": 6,
+      "matchType": "1+2",
+      "teamA_Id": "E",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "E1",
+        "E2"
+      ],
+      "teamB_Players": [
+        "G1",
+        "G2"
+      ],
+      "teamA_PlayerNames": [
+        "E1",
+        "E2"
+      ],
+      "teamB_PlayerNames": [
+        "G1",
+        "G2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_65",
+      "round": 6,
+      "timeSlot": 11,
+      "court": 1,
+      "matchType": "1+2",
+      "teamA_Id": "F",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍F",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "F1",
+        "F2"
+      ],
+      "teamB_Players": [
+        "H1",
+        "H2"
+      ],
+      "teamA_PlayerNames": [
+        "F1",
+        "F2"
+      ],
+      "teamB_PlayerNames": [
+        "H1",
+        "H2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_66",
+      "round": 6,
+      "timeSlot": 11,
+      "court": 2,
+      "matchType": "2+3",
+      "teamA_Id": "A",
+      "teamB_Id": "C",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍C",
+      "teamA_Players": [
+        "A2",
+        "A3"
+      ],
+      "teamB_Players": [
+        "C2",
+        "C3"
+      ],
+      "teamA_PlayerNames": [
+        "A2",
+        "A3"
+      ],
+      "teamB_PlayerNames": [
+        "C2",
+        "C3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_67",
+      "round": 6,
+      "timeSlot": 11,
+      "court": 3,
+      "matchType": "2+3",
+      "teamA_Id": "B",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "B2",
+        "B3"
+      ],
+      "teamB_Players": [
+        "D2",
+        "D3"
+      ],
+      "teamA_PlayerNames": [
+        "B2",
+        "B3"
+      ],
+      "teamB_PlayerNames": [
+        "D2",
+        "D3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_68",
+      "round": 6,
+      "timeSlot": 11,
+      "court": 4,
+      "matchType": "3+5",
+      "teamA_Id": "E",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "E3",
+        "E5"
+      ],
+      "teamB_Players": [
+        "G3",
+        "G5"
+      ],
+      "teamA_PlayerNames": [
+        "E3",
+        "E5"
+      ],
+      "teamB_PlayerNames": [
+        "G3",
+        "G5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_69",
+      "round": 6,
+      "timeSlot": 11,
+      "court": 5,
+      "matchType": "3+5",
+      "teamA_Id": "F",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍F",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "F3",
+        "F5"
+      ],
+      "teamB_Players": [
+        "H3",
+        "H5"
+      ],
+      "teamA_PlayerNames": [
+        "F3",
+        "F5"
+      ],
+      "teamB_PlayerNames": [
+        "H3",
+        "H5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_70",
+      "round": 6,
+      "timeSlot": 11,
+      "court": 6,
+      "matchType": "1+4",
+      "teamA_Id": "C",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "C1",
+        "C4"
+      ],
+      "teamB_Players": [
+        "G1",
+        "G4"
+      ],
+      "teamA_PlayerNames": [
+        "C1",
+        "C4"
+      ],
+      "teamB_PlayerNames": [
+        "G1",
+        "G4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_71",
+      "round": 7,
+      "timeSlot": 12,
+      "court": 1,
+      "matchType": "1+4",
+      "teamA_Id": "A",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "A1",
+        "A4"
+      ],
+      "teamB_Players": [
+        "D1",
+        "D4"
+      ],
+      "teamA_PlayerNames": [
+        "A1",
+        "A4"
+      ],
+      "teamB_PlayerNames": [
+        "D1",
+        "D4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_72",
+      "round": 7,
+      "timeSlot": 12,
+      "court": 2,
+      "matchType": "1+4",
+      "teamA_Id": "B",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "B1",
+        "B4"
+      ],
+      "teamB_Players": [
+        "E1",
+        "E4"
+      ],
+      "teamA_PlayerNames": [
+        "B1",
+        "B4"
+      ],
+      "teamB_PlayerNames": [
+        "E1",
+        "E4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_73",
+      "round": 7,
+      "timeSlot": 12,
+      "court": 3,
+      "matchType": "1+4",
+      "teamA_Id": "F",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍F",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "F1",
+        "F4"
+      ],
+      "teamB_Players": [
+        "H1",
+        "H4"
+      ],
+      "teamA_PlayerNames": [
+        "F1",
+        "F4"
+      ],
+      "teamB_PlayerNames": [
+        "H1",
+        "H4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_74",
+      "round": 7,
+      "timeSlot": 12,
+      "court": 4,
+      "matchType": "3+5",
+      "teamA_Id": "A",
+      "teamB_Id": "C",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍C",
+      "teamA_Players": [
+        "A3",
+        "A5"
+      ],
+      "teamB_Players": [
+        "C3",
+        "C5"
+      ],
+      "teamA_PlayerNames": [
+        "A3",
+        "A5"
+      ],
+      "teamB_PlayerNames": [
+        "C3",
+        "C5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_75",
+      "round": 7,
+      "timeSlot": 12,
+      "court": 5,
+      "matchType": "3+5",
+      "teamA_Id": "B",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "B3",
+        "B5"
+      ],
+      "teamB_Players": [
+        "D3",
+        "D5"
+      ],
+      "teamA_PlayerNames": [
+        "B3",
+        "B5"
+      ],
+      "teamB_PlayerNames": [
+        "D3",
+        "D5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_76",
+      "round": 7,
+      "timeSlot": 12,
+      "court": 6,
+      "matchType": "2+3",
+      "teamA_Id": "E",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "E2",
+        "E3"
+      ],
+      "teamB_Players": [
+        "G2",
+        "G3"
+      ],
+      "teamA_PlayerNames": [
+        "E2",
+        "E3"
+      ],
+      "teamB_PlayerNames": [
+        "G2",
+        "G3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_77",
+      "round": 7,
+      "timeSlot": 13,
+      "court": 1,
+      "matchType": "2+3",
+      "teamA_Id": "F",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍F",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "F2",
+        "F3"
+      ],
+      "teamB_Players": [
+        "H2",
+        "H3"
+      ],
+      "teamA_PlayerNames": [
+        "F2",
+        "F3"
+      ],
+      "teamB_PlayerNames": [
+        "H2",
+        "H3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_78",
+      "round": 7,
+      "timeSlot": 13,
+      "court": 2,
+      "matchType": "1+2",
+      "teamA_Id": "B",
+      "teamB_Id": "C",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍C",
+      "teamA_Players": [
+        "B1",
+        "B2"
+      ],
+      "teamB_Players": [
+        "C1",
+        "C2"
+      ],
+      "teamA_PlayerNames": [
+        "B1",
+        "B2"
+      ],
+      "teamB_PlayerNames": [
+        "C1",
+        "C2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_79",
+      "round": 7,
+      "timeSlot": 13,
+      "court": 3,
+      "matchType": "4+5",
+      "teamA_Id": "C",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "C4",
+        "C5"
+      ],
+      "teamB_Players": [
+        "G4",
+        "G5"
+      ],
+      "teamA_PlayerNames": [
+        "C4",
+        "C5"
+      ],
+      "teamB_PlayerNames": [
+        "G4",
+        "G5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_80",
+      "round": 7,
+      "timeSlot": 13,
+      "court": 4,
+      "matchType": "1+2",
+      "teamA_Id": "A",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "A1",
+        "A2"
+      ],
+      "teamB_Players": [
+        "D1",
+        "D2"
+      ],
+      "teamA_PlayerNames": [
+        "A1",
+        "A2"
+      ],
+      "teamB_PlayerNames": [
+        "D1",
+        "D2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_81",
+      "round": 7,
+      "timeSlot": 13,
+      "court": 5,
+      "matchType": "4+5",
+      "teamA_Id": "E",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "E4",
+        "E5"
+      ],
+      "teamB_Players": [
+        "H4",
+        "H5"
+      ],
+      "teamA_PlayerNames": [
+        "E4",
+        "E5"
+      ],
+      "teamB_PlayerNames": [
+        "H4",
+        "H5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_82",
+      "round": 7,
+      "timeSlot": 13,
+      "court": 6,
+      "matchType": "4+5",
+      "teamA_Id": "A",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "A4",
+        "A5"
+      ],
+      "teamB_Players": [
+        "F4",
+        "F5"
+      ],
+      "teamA_PlayerNames": [
+        "A4",
+        "A5"
+      ],
+      "teamB_PlayerNames": [
+        "F4",
+        "F5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_83",
+      "round": 8,
+      "timeSlot": 14,
+      "court": 1,
+      "matchType": "1+2",
+      "teamA_Id": "F",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍F",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "F1",
+        "F2"
+      ],
+      "teamB_Players": [
+        "G1",
+        "G2"
+      ],
+      "teamA_PlayerNames": [
+        "F1",
+        "F2"
+      ],
+      "teamB_PlayerNames": [
+        "G1",
+        "G2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_84",
+      "round": 8,
+      "timeSlot": 14,
+      "court": 2,
+      "matchType": "2+3",
+      "teamA_Id": "A",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "A2",
+        "A3"
+      ],
+      "teamB_Players": [
+        "E2",
+        "E3"
+      ],
+      "teamA_PlayerNames": [
+        "A2",
+        "A3"
+      ],
+      "teamB_PlayerNames": [
+        "E2",
+        "E3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_85",
+      "round": 8,
+      "timeSlot": 14,
+      "court": 3,
+      "matchType": "3+5",
+      "teamA_Id": "D",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "D3",
+        "D5"
+      ],
+      "teamB_Players": [
+        "G3",
+        "G5"
+      ],
+      "teamA_PlayerNames": [
+        "D3",
+        "D5"
+      ],
+      "teamB_PlayerNames": [
+        "G3",
+        "G5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_86",
+      "round": 8,
+      "timeSlot": 14,
+      "court": 4,
+      "matchType": "2+3",
+      "teamA_Id": "B",
+      "teamB_Id": "C",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍C",
+      "teamA_Players": [
+        "B2",
+        "B3"
+      ],
+      "teamB_Players": [
+        "C2",
+        "C3"
+      ],
+      "teamA_PlayerNames": [
+        "B2",
+        "B3"
+      ],
+      "teamB_PlayerNames": [
+        "C2",
+        "C3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_87",
+      "round": 8,
+      "timeSlot": 14,
+      "court": 5,
+      "matchType": "1+4",
+      "teamA_Id": "B",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "B1",
+        "B4"
+      ],
+      "teamB_Players": [
+        "D1",
+        "D4"
+      ],
+      "teamA_PlayerNames": [
+        "B1",
+        "B4"
+      ],
+      "teamB_PlayerNames": [
+        "D1",
+        "D4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_88",
+      "round": 8,
+      "timeSlot": 14,
+      "court": 6,
+      "matchType": "1+4",
+      "teamA_Id": "E",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "E1",
+        "E4"
+      ],
+      "teamB_Players": [
+        "H1",
+        "H4"
+      ],
+      "teamA_PlayerNames": [
+        "E1",
+        "E4"
+      ],
+      "teamB_PlayerNames": [
+        "H1",
+        "H4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_89",
+      "round": 8,
+      "timeSlot": 15,
+      "court": 1,
+      "matchType": "1+4",
+      "teamA_Id": "A",
+      "teamB_Id": "C",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍C",
+      "teamA_Players": [
+        "A1",
+        "A4"
+      ],
+      "teamB_Players": [
+        "C1",
+        "C4"
+      ],
+      "teamA_PlayerNames": [
+        "A1",
+        "A4"
+      ],
+      "teamB_PlayerNames": [
+        "C1",
+        "C4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_90",
+      "round": 8,
+      "timeSlot": 15,
+      "court": 2,
+      "matchType": "3+5",
+      "teamA_Id": "B",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "B3",
+        "B5"
+      ],
+      "teamB_Players": [
+        "F3",
+        "F5"
+      ],
+      "teamA_PlayerNames": [
+        "B3",
+        "B5"
+      ],
+      "teamB_PlayerNames": [
+        "F3",
+        "F5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_91",
+      "round": 8,
+      "timeSlot": 15,
+      "court": 3,
+      "matchType": "3+5",
+      "teamA_Id": "C",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "C3",
+        "C5"
+      ],
+      "teamB_Players": [
+        "H3",
+        "H5"
+      ],
+      "teamA_PlayerNames": [
+        "C3",
+        "C5"
+      ],
+      "teamB_PlayerNames": [
+        "H3",
+        "H5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_92",
+      "round": 8,
+      "timeSlot": 15,
+      "court": 4,
+      "matchType": "3+5",
+      "teamA_Id": "A",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "A3",
+        "A5"
+      ],
+      "teamB_Players": [
+        "E3",
+        "E5"
+      ],
+      "teamA_PlayerNames": [
+        "A3",
+        "A5"
+      ],
+      "teamB_PlayerNames": [
+        "E3",
+        "E5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_93",
+      "round": 8,
+      "timeSlot": 15,
+      "court": 5,
+      "matchType": "1+4",
+      "teamA_Id": "F",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍F",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "F1",
+        "F4"
+      ],
+      "teamB_Players": [
+        "G1",
+        "G4"
+      ],
+      "teamA_PlayerNames": [
+        "F1",
+        "F4"
+      ],
+      "teamB_PlayerNames": [
+        "G1",
+        "G4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_94",
+      "round": 8,
+      "timeSlot": 15,
+      "court": 6,
+      "matchType": "2+3",
+      "teamA_Id": "D",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "D2",
+        "D3"
+      ],
+      "teamB_Players": [
+        "G2",
+        "G3"
+      ],
+      "teamA_PlayerNames": [
+        "D2",
+        "D3"
+      ],
+      "teamB_PlayerNames": [
+        "G2",
+        "G3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_95",
+      "round": 9,
+      "timeSlot": 16,
+      "court": 1,
+      "matchType": "1+2",
+      "teamA_Id": "E",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "E1",
+        "E2"
+      ],
+      "teamB_Players": [
+        "H1",
+        "H2"
+      ],
+      "teamA_PlayerNames": [
+        "E1",
+        "E2"
+      ],
+      "teamB_PlayerNames": [
+        "H1",
+        "H2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_96",
+      "round": 9,
+      "timeSlot": 16,
+      "court": 2,
+      "matchType": "4+5",
+      "teamA_Id": "D",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "D4",
+        "D5"
+      ],
+      "teamB_Players": [
+        "E4",
+        "E5"
+      ],
+      "teamA_PlayerNames": [
+        "D4",
+        "D5"
+      ],
+      "teamB_PlayerNames": [
+        "E4",
+        "E5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_97",
+      "round": 9,
+      "timeSlot": 16,
+      "court": 3,
+      "matchType": "1+4",
+      "teamA_Id": "B",
+      "teamB_Id": "C",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍C",
+      "teamA_Players": [
+        "B1",
+        "B4"
+      ],
+      "teamB_Players": [
+        "C1",
+        "C4"
+      ],
+      "teamA_PlayerNames": [
+        "B1",
+        "B4"
+      ],
+      "teamB_PlayerNames": [
+        "C1",
+        "C4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_98",
+      "round": 9,
+      "timeSlot": 16,
+      "court": 4,
+      "matchType": "4+5",
+      "teamA_Id": "A",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "A4",
+        "A5"
+      ],
+      "teamB_Players": [
+        "G4",
+        "G5"
+      ],
+      "teamA_PlayerNames": [
+        "A4",
+        "A5"
+      ],
+      "teamB_PlayerNames": [
+        "G4",
+        "G5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_99",
+      "round": 9,
+      "timeSlot": 16,
+      "court": 5,
+      "matchType": "1+2",
+      "teamA_Id": "A",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "A1",
+        "A2"
+      ],
+      "teamB_Players": [
+        "F1",
+        "F2"
+      ],
+      "teamA_PlayerNames": [
+        "A1",
+        "A2"
+      ],
+      "teamB_PlayerNames": [
+        "F1",
+        "F2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_100",
+      "round": 9,
+      "timeSlot": 16,
+      "court": 6,
+      "matchType": "2+3",
+      "teamA_Id": "C",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "C2",
+        "C3"
+      ],
+      "teamB_Players": [
+        "G2",
+        "G3"
+      ],
+      "teamA_PlayerNames": [
+        "C2",
+        "C3"
+      ],
+      "teamB_PlayerNames": [
+        "G2",
+        "G3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_101",
+      "round": 9,
+      "timeSlot": 17,
+      "court": 1,
+      "matchType": "2+3",
+      "teamA_Id": "B",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "B2",
+        "B3"
+      ],
+      "teamB_Players": [
+        "E2",
+        "E3"
+      ],
+      "teamA_PlayerNames": [
+        "B2",
+        "B3"
+      ],
+      "teamB_PlayerNames": [
+        "E2",
+        "E3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_102",
+      "round": 9,
+      "timeSlot": 17,
+      "court": 2,
+      "matchType": "4+5",
+      "teamA_Id": "B",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "B4",
+        "B5"
+      ],
+      "teamB_Players": [
+        "H4",
+        "H5"
+      ],
+      "teamA_PlayerNames": [
+        "B4",
+        "B5"
+      ],
+      "teamB_PlayerNames": [
+        "H4",
+        "H5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_103",
+      "round": 9,
+      "timeSlot": 17,
+      "court": 3,
+      "matchType": "2+3",
+      "teamA_Id": "A",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "A2",
+        "A3"
+      ],
+      "teamB_Players": [
+        "D2",
+        "D3"
+      ],
+      "teamA_PlayerNames": [
+        "A2",
+        "A3"
+      ],
+      "teamB_PlayerNames": [
+        "D2",
+        "D3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_104",
+      "round": 9,
+      "timeSlot": 17,
+      "court": 4,
+      "matchType": "4+5",
+      "teamA_Id": "C",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "C4",
+        "C5"
+      ],
+      "teamB_Players": [
+        "F4",
+        "F5"
+      ],
+      "teamA_PlayerNames": [
+        "C4",
+        "C5"
+      ],
+      "teamB_PlayerNames": [
+        "F4",
+        "F5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_105",
+      "round": 9,
+      "timeSlot": 17,
+      "court": 5,
+      "matchType": "1+4",
+      "teamA_Id": "D",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "D1",
+        "D4"
+      ],
+      "teamB_Players": [
+        "G1",
+        "G4"
+      ],
+      "teamA_PlayerNames": [
+        "D1",
+        "D4"
+      ],
+      "teamB_PlayerNames": [
+        "G1",
+        "G4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_106",
+      "round": 9,
+      "timeSlot": 17,
+      "court": 6,
+      "matchType": "1+4",
+      "teamA_Id": "A",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "A1",
+        "A4"
+      ],
+      "teamB_Players": [
+        "E1",
+        "E4"
+      ],
+      "teamA_PlayerNames": [
+        "A1",
+        "A4"
+      ],
+      "teamB_PlayerNames": [
+        "E1",
+        "E4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_107",
+      "round": 10,
+      "timeSlot": 18,
+      "court": 1,
+      "matchType": "2+3",
+      "teamA_Id": "C",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "C2",
+        "C3"
+      ],
+      "teamB_Players": [
+        "H2",
+        "H3"
+      ],
+      "teamA_PlayerNames": [
+        "C2",
+        "C3"
+      ],
+      "teamB_PlayerNames": [
+        "H2",
+        "H3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_108",
+      "round": 10,
+      "timeSlot": 18,
+      "court": 2,
+      "matchType": "2+3",
+      "teamA_Id": "F",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍F",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "F2",
+        "F3"
+      ],
+      "teamB_Players": [
+        "G2",
+        "G3"
+      ],
+      "teamA_PlayerNames": [
+        "F2",
+        "F3"
+      ],
+      "teamB_PlayerNames": [
+        "G2",
+        "G3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_109",
+      "round": 10,
+      "timeSlot": 18,
+      "court": 3,
+      "matchType": "3+5",
+      "teamA_Id": "A",
+      "teamB_Id": "D",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍D",
+      "teamA_Players": [
+        "A3",
+        "A5"
+      ],
+      "teamB_Players": [
+        "D3",
+        "D5"
+      ],
+      "teamA_PlayerNames": [
+        "A3",
+        "A5"
+      ],
+      "teamB_PlayerNames": [
+        "D3",
+        "D5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_110",
+      "round": 10,
+      "timeSlot": 18,
+      "court": 4,
+      "matchType": "3+5",
+      "teamA_Id": "B",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "B3",
+        "B5"
+      ],
+      "teamB_Players": [
+        "E3",
+        "E5"
+      ],
+      "teamA_PlayerNames": [
+        "B3",
+        "B5"
+      ],
+      "teamB_PlayerNames": [
+        "E3",
+        "E5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_111",
+      "round": 10,
+      "timeSlot": 18,
+      "court": 5,
+      "matchType": "1+4",
+      "teamA_Id": "B",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "B1",
+        "B4"
+      ],
+      "teamB_Players": [
+        "F1",
+        "F4"
+      ],
+      "teamA_PlayerNames": [
+        "B1",
+        "B4"
+      ],
+      "teamB_PlayerNames": [
+        "F1",
+        "F4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_112",
+      "round": 10,
+      "timeSlot": 18,
+      "court": 6,
+      "matchType": "1+4",
+      "teamA_Id": "D",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "D1",
+        "D4"
+      ],
+      "teamB_Players": [
+        "H1",
+        "H4"
+      ],
+      "teamA_PlayerNames": [
+        "D1",
+        "D4"
+      ],
+      "teamB_PlayerNames": [
+        "H1",
+        "H4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_113",
+      "round": 10,
+      "timeSlot": 19,
+      "court": 1,
+      "matchType": "1+2",
+      "teamA_Id": "A",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "A1",
+        "A2"
+      ],
+      "teamB_Players": [
+        "E1",
+        "E2"
+      ],
+      "teamA_PlayerNames": [
+        "A1",
+        "A2"
+      ],
+      "teamB_PlayerNames": [
+        "E1",
+        "E2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_114",
+      "round": 10,
+      "timeSlot": 19,
+      "court": 2,
+      "matchType": "1+2",
+      "teamA_Id": "C",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "C1",
+        "C2"
+      ],
+      "teamB_Players": [
+        "G1",
+        "G2"
+      ],
+      "teamA_PlayerNames": [
+        "C1",
+        "C2"
+      ],
+      "teamB_PlayerNames": [
+        "G1",
+        "G2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_115",
+      "round": 10,
+      "timeSlot": 19,
+      "court": 3,
+      "matchType": "3+5",
+      "teamA_Id": "C",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "C3",
+        "C5"
+      ],
+      "teamB_Players": [
+        "G3",
+        "G5"
+      ],
+      "teamA_PlayerNames": [
+        "C3",
+        "C5"
+      ],
+      "teamB_PlayerNames": [
+        "G3",
+        "G5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_116",
+      "round": 10,
+      "timeSlot": 19,
+      "court": 4,
+      "matchType": "1+2",
+      "teamA_Id": "B",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "B1",
+        "B2"
+      ],
+      "teamB_Players": [
+        "F1",
+        "F2"
+      ],
+      "teamA_PlayerNames": [
+        "B1",
+        "B2"
+      ],
+      "teamB_PlayerNames": [
+        "F1",
+        "F2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_117",
+      "round": 10,
+      "timeSlot": 19,
+      "court": 5,
+      "matchType": "4+5",
+      "teamA_Id": "A",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "A4",
+        "A5"
+      ],
+      "teamB_Players": [
+        "H4",
+        "H5"
+      ],
+      "teamA_PlayerNames": [
+        "A4",
+        "A5"
+      ],
+      "teamB_PlayerNames": [
+        "H4",
+        "H5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_118",
+      "round": 10,
+      "timeSlot": 19,
+      "court": 6,
+      "matchType": "1+2",
+      "teamA_Id": "D",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "D1",
+        "D2"
+      ],
+      "teamB_Players": [
+        "H1",
+        "H2"
+      ],
+      "teamA_PlayerNames": [
+        "D1",
+        "D2"
+      ],
+      "teamB_PlayerNames": [
+        "H1",
+        "H2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_119",
+      "round": 11,
+      "timeSlot": 20,
+      "court": 1,
+      "matchType": "4+5",
+      "teamA_Id": "B",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "B4",
+        "B5"
+      ],
+      "teamB_Players": [
+        "E4",
+        "E5"
+      ],
+      "teamA_PlayerNames": [
+        "B4",
+        "B5"
+      ],
+      "teamB_PlayerNames": [
+        "E4",
+        "E5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_120",
+      "round": 11,
+      "timeSlot": 20,
+      "court": 2,
+      "matchType": "4+5",
+      "teamA_Id": "F",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍F",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "F4",
+        "F5"
+      ],
+      "teamB_Players": [
+        "G4",
+        "G5"
+      ],
+      "teamA_PlayerNames": [
+        "F4",
+        "F5"
+      ],
+      "teamB_PlayerNames": [
+        "G4",
+        "G5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_121",
+      "round": 11,
+      "timeSlot": 20,
+      "court": 3,
+      "matchType": "3+5",
+      "teamA_Id": "D",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "D3",
+        "D5"
+      ],
+      "teamB_Players": [
+        "H3",
+        "H5"
+      ],
+      "teamA_PlayerNames": [
+        "D3",
+        "D5"
+      ],
+      "teamB_PlayerNames": [
+        "H3",
+        "H5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_122",
+      "round": 11,
+      "timeSlot": 20,
+      "court": 4,
+      "matchType": "2+3",
+      "teamA_Id": "A",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "A2",
+        "A3"
+      ],
+      "teamB_Players": [
+        "F2",
+        "F3"
+      ],
+      "teamA_PlayerNames": [
+        "A2",
+        "A3"
+      ],
+      "teamB_PlayerNames": [
+        "F2",
+        "F3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_123",
+      "round": 11,
+      "timeSlot": 20,
+      "court": 5,
+      "matchType": "1+2",
+      "teamA_Id": "B",
+      "teamB_Id": "E",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍E",
+      "teamA_Players": [
+        "B1",
+        "B2"
+      ],
+      "teamB_Players": [
+        "E1",
+        "E2"
+      ],
+      "teamA_PlayerNames": [
+        "B1",
+        "B2"
+      ],
+      "teamB_PlayerNames": [
+        "E1",
+        "E2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_124",
+      "round": 11,
+      "timeSlot": 20,
+      "court": 6,
+      "matchType": "1+2",
+      "teamA_Id": "C",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "C1",
+        "C2"
+      ],
+      "teamB_Players": [
+        "H1",
+        "H2"
+      ],
+      "teamA_PlayerNames": [
+        "C1",
+        "C2"
+      ],
+      "teamB_PlayerNames": [
+        "H1",
+        "H2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_125",
+      "round": 11,
+      "timeSlot": 21,
+      "court": 1,
+      "matchType": "1+2",
+      "teamA_Id": "D",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "D1",
+        "D2"
+      ],
+      "teamB_Players": [
+        "G1",
+        "G2"
+      ],
+      "teamA_PlayerNames": [
+        "D1",
+        "D2"
+      ],
+      "teamB_PlayerNames": [
+        "G1",
+        "G2"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_126",
+      "round": 11,
+      "timeSlot": 21,
+      "court": 2,
+      "matchType": "3+5",
+      "teamA_Id": "B",
+      "teamB_Id": "C",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍C",
+      "teamA_Players": [
+        "B3",
+        "B5"
+      ],
+      "teamB_Players": [
+        "C3",
+        "C5"
+      ],
+      "teamA_PlayerNames": [
+        "B3",
+        "B5"
+      ],
+      "teamB_PlayerNames": [
+        "C3",
+        "C5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_127",
+      "round": 11,
+      "timeSlot": 21,
+      "court": 3,
+      "matchType": "1+4",
+      "teamA_Id": "A",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "A1",
+        "A4"
+      ],
+      "teamB_Players": [
+        "F1",
+        "F4"
+      ],
+      "teamA_PlayerNames": [
+        "A1",
+        "A4"
+      ],
+      "teamB_PlayerNames": [
+        "F1",
+        "F4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_128",
+      "round": 11,
+      "timeSlot": 21,
+      "court": 4,
+      "matchType": "3+5",
+      "teamA_Id": "A",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍A",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "A3",
+        "A5"
+      ],
+      "teamB_Players": [
+        "F3",
+        "F5"
+      ],
+      "teamA_PlayerNames": [
+        "A3",
+        "A5"
+      ],
+      "teamB_PlayerNames": [
+        "F3",
+        "F5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_129",
+      "round": 11,
+      "timeSlot": 21,
+      "court": 5,
+      "matchType": "4+5",
+      "teamA_Id": "D",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "D4",
+        "D5"
+      ],
+      "teamB_Players": [
+        "H4",
+        "H5"
+      ],
+      "teamA_PlayerNames": [
+        "D4",
+        "D5"
+      ],
+      "teamB_PlayerNames": [
+        "H4",
+        "H5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_130",
+      "round": 12,
+      "timeSlot": 22,
+      "court": 1,
+      "matchType": "2+3",
+      "teamA_Id": "E",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "E2",
+        "E3"
+      ],
+      "teamB_Players": [
+        "H2",
+        "H3"
+      ],
+      "teamA_PlayerNames": [
+        "E2",
+        "E3"
+      ],
+      "teamB_PlayerNames": [
+        "H2",
+        "H3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_131",
+      "round": 12,
+      "timeSlot": 22,
+      "court": 2,
+      "matchType": "1+4",
+      "teamA_Id": "C",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "C1",
+        "C4"
+      ],
+      "teamB_Players": [
+        "H1",
+        "H4"
+      ],
+      "teamA_PlayerNames": [
+        "C1",
+        "C4"
+      ],
+      "teamB_PlayerNames": [
+        "H1",
+        "H4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_132",
+      "round": 12,
+      "timeSlot": 22,
+      "court": 3,
+      "matchType": "1+4",
+      "teamA_Id": "E",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "E1",
+        "E4"
+      ],
+      "teamB_Players": [
+        "G1",
+        "G4"
+      ],
+      "teamA_PlayerNames": [
+        "E1",
+        "E4"
+      ],
+      "teamB_PlayerNames": [
+        "G1",
+        "G4"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_133",
+      "round": 12,
+      "timeSlot": 22,
+      "court": 4,
+      "matchType": "3+5",
+      "teamA_Id": "F",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍F",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "F3",
+        "F5"
+      ],
+      "teamB_Players": [
+        "G3",
+        "G5"
+      ],
+      "teamA_PlayerNames": [
+        "F3",
+        "F5"
+      ],
+      "teamB_PlayerNames": [
+        "G3",
+        "G5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_134",
+      "round": 12,
+      "timeSlot": 23,
+      "court": 1,
+      "matchType": "4+5",
+      "teamA_Id": "B",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "B4",
+        "B5"
+      ],
+      "teamB_Players": [
+        "G4",
+        "G5"
+      ],
+      "teamA_PlayerNames": [
+        "B4",
+        "B5"
+      ],
+      "teamB_PlayerNames": [
+        "G4",
+        "G5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_135",
+      "round": 12,
+      "timeSlot": 23,
+      "court": 2,
+      "matchType": "2+3",
+      "teamA_Id": "D",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "D2",
+        "D3"
+      ],
+      "teamB_Players": [
+        "H2",
+        "H3"
+      ],
+      "teamA_PlayerNames": [
+        "D2",
+        "D3"
+      ],
+      "teamB_PlayerNames": [
+        "H2",
+        "H3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_136",
+      "round": 12,
+      "timeSlot": 23,
+      "court": 3,
+      "matchType": "4+5",
+      "teamA_Id": "C",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍C",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "C4",
+        "C5"
+      ],
+      "teamB_Players": [
+        "H4",
+        "H5"
+      ],
+      "teamA_PlayerNames": [
+        "C4",
+        "C5"
+      ],
+      "teamB_PlayerNames": [
+        "H4",
+        "H5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_137",
+      "round": 13,
+      "timeSlot": 24,
+      "court": 1,
+      "matchType": "2+3",
+      "teamA_Id": "B",
+      "teamB_Id": "F",
+      "teamA_Name": "队伍B",
+      "teamB_Name": "队伍F",
+      "teamA_Players": [
+        "B2",
+        "B3"
+      ],
+      "teamB_Players": [
+        "F2",
+        "F3"
+      ],
+      "teamA_PlayerNames": [
+        "B2",
+        "B3"
+      ],
+      "teamB_PlayerNames": [
+        "F2",
+        "F3"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_138",
+      "round": 13,
+      "timeSlot": 24,
+      "court": 2,
+      "matchType": "4+5",
+      "teamA_Id": "D",
+      "teamB_Id": "G",
+      "teamA_Name": "队伍D",
+      "teamB_Name": "队伍G",
+      "teamA_Players": [
+        "D4",
+        "D5"
+      ],
+      "teamB_Players": [
+        "G4",
+        "G5"
+      ],
+      "teamA_PlayerNames": [
+        "D4",
+        "D5"
+      ],
+      "teamB_PlayerNames": [
+        "G4",
+        "G5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    },
+    {
+      "id": "local_139",
+      "round": 13,
+      "timeSlot": 24,
+      "court": 3,
+      "matchType": "3+5",
+      "teamA_Id": "E",
+      "teamB_Id": "H",
+      "teamA_Name": "队伍E",
+      "teamB_Name": "队伍H",
+      "teamA_Players": [
+        "E3",
+        "E5"
+      ],
+      "teamB_Players": [
+        "H3",
+        "H5"
+      ],
+      "teamA_PlayerNames": [
+        "E3",
+        "E5"
+      ],
+      "teamB_PlayerNames": [
+        "H3",
+        "H5"
+      ],
+      "status": "pending",
+      "scores": [],
+      "createdAt": "2025-05-30T07:55:38.621Z"
+    }
+  ],
+  "timeSlots": [
+    "第10时段",
+    "第11时段",
+    "第12时段",
+    "第13时段",
+    "第14时段",
+    "第15时段",
+    "第16时段",
+    "第17时段",
+    "第18时段",
+    "第19时段",
+    "第1时段",
+    "第20时段",
+    "第21时段",
+    "第22时段",
+    "第23时段",
+    "第24时段",
+    "第25时段",
+    "第2时段",
+    "第3时段",
+    "第4时段",
+    "第5时段",
+    "第6时段",
+    "第7时段",
+    "第8时段",
+    "第9时段"
+  ]
+}

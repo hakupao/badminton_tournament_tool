@@ -14,6 +14,7 @@ import {
   get_player_consecutive_matches_three,
   get_player_consecutive_matches_four
 } from '../data-utils.ts';
+import DataTransfer from '../components/DataTransfer';
 
 const { Title } = Typography;
 
@@ -111,6 +112,7 @@ const DataManagement: React.FC = () => {
     return (
       <div style={{ padding: '24px' }}>
         <Title level={2}>数据管理</Title>
+        <DataTransfer />
         <Empty
           description="暂无比赛数据"
           image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -387,6 +389,11 @@ const DataManagement: React.FC = () => {
   ];
 
   const items: TabsProps['items'] = [
+    {
+      key: 'data-transfer',
+      label: '数据迁移',
+      children: <DataTransfer />,
+    },
     {
       key: '1',
       label: '赛程数据查看',
