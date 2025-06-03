@@ -4227,5 +4227,247 @@
     "第7时段",
     "第8时段",
     "第9时段"
+  ],
+  "players": [
+    {
+      "code": "B1",
+      "name": "西区小赵",
+      "teamCode": "B",
+      "playerNumber": 1
+    },
+    {
+      "code": "B2",
+      "name": "小可",
+      "teamCode": "B",
+      "playerNumber": 2
+    },
+    {
+      "code": "B3",
+      "name": "小杜",
+      "teamCode": "B",
+      "playerNumber": 3
+    },
+    {
+      "code": "B4",
+      "name": "芋圆",
+      "teamCode": "B",
+      "playerNumber": 4
+    },
+    {
+      "code": "B5",
+      "name": "香香/allen",
+      "teamCode": "B",
+      "playerNumber": 5
+    },
+    {
+      "code": "C1",
+      "name": "漓江",
+      "teamCode": "C",
+      "playerNumber": 1
+    },
+    {
+      "code": "C2",
+      "name": "偶尔锋利的剑",
+      "teamCode": "C",
+      "playerNumber": 2
+    },
+    {
+      "code": "C3",
+      "name": "小魏/老张",
+      "teamCode": "C",
+      "playerNumber": 3
+    },
+    {
+      "code": "C4",
+      "name": "vicky",
+      "teamCode": "C",
+      "playerNumber": 4
+    },
+    {
+      "code": "C5",
+      "name": "甘",
+      "teamCode": "C",
+      "playerNumber": 5
+    },
+    {
+      "code": "D1",
+      "name": "小吴",
+      "teamCode": "D",
+      "playerNumber": 1
+    },
+    {
+      "code": "D2",
+      "name": "大人",
+      "teamCode": "D",
+      "playerNumber": 2
+    },
+    {
+      "code": "D3",
+      "name": "杨恒/漓江爸爸",
+      "teamCode": "D",
+      "playerNumber": 3
+    },
+    {
+      "code": "D4",
+      "name": "leona",
+      "teamCode": "D",
+      "playerNumber": 4
+    },
+    {
+      "code": "D5",
+      "name": "姜",
+      "teamCode": "D",
+      "playerNumber": 5
+    },
+    {
+      "code": "E1",
+      "name": "项羽",
+      "teamCode": "E",
+      "playerNumber": 1
+    },
+    {
+      "code": "E2",
+      "name": "soda",
+      "teamCode": "E",
+      "playerNumber": 2
+    },
+    {
+      "code": "E3",
+      "name": "宋",
+      "teamCode": "E",
+      "playerNumber": 3
+    },
+    {
+      "code": "E4",
+      "name": "梅姐",
+      "teamCode": "E",
+      "playerNumber": 4
+    },
+    {
+      "code": "E5",
+      "name": "jingjie",
+      "teamCode": "E",
+      "playerNumber": 5
+    },
+    {
+      "code": "F1",
+      "name": "关哥",
+      "teamCode": "F",
+      "playerNumber": 1
+    },
+    {
+      "code": "F2",
+      "name": "卷毛",
+      "teamCode": "F",
+      "playerNumber": 2
+    },
+    {
+      "code": "F3",
+      "name": "小黑/DC",
+      "teamCode": "F",
+      "playerNumber": 3
+    },
+    {
+      "code": "F4",
+      "name": "席姐姐",
+      "teamCode": "F",
+      "playerNumber": 4
+    },
+    {
+      "code": "F5",
+      "name": "jessica",
+      "teamCode": "F",
+      "playerNumber": 5
+    },
+    {
+      "code": "G1",
+      "name": "萝卜",
+      "teamCode": "G",
+      "playerNumber": 1
+    },
+    {
+      "code": "G2",
+      "name": "邓乔",
+      "teamCode": "G",
+      "playerNumber": 2
+    },
+    {
+      "code": "G3",
+      "name": "小沉沉",
+      "teamCode": "G",
+      "playerNumber": 3
+    },
+    {
+      "code": "G4",
+      "name": "秀秀",
+      "teamCode": "G",
+      "playerNumber": 4
+    },
+    {
+      "code": "G5",
+      "name": "筝",
+      "teamCode": "G",
+      "playerNumber": 5
+    },
+    {
+      "code": "H1",
+      "name": "小克",
+      "teamCode": "H",
+      "playerNumber": 1
+    },
+    {
+      "code": "H2",
+      "name": "老曹",
+      "teamCode": "H",
+      "playerNumber": 2
+    },
+    {
+      "code": "H3",
+      "name": "子强",
+      "teamCode": "H",
+      "playerNumber": 3
+    },
+    {
+      "code": "H4",
+      "name": "红红",
+      "teamCode": "H",
+      "playerNumber": 4
+    },
+    {
+      "code": "H5",
+      "name": "liling",
+      "teamCode": "H",
+      "playerNumber": 5
+    },
+    {
+      "code": "A1",
+      "name": "阿卡",
+      "teamCode": "A",
+      "playerNumber": 1
+    },
+    {
+      "code": "A2",
+      "name": "珂珂",
+      "teamCode": "A",
+      "playerNumber": 2
+    },
+    {
+      "code": "A3",
+      "name": "大白菜/Jimmy",
+      "teamCode": "A",
+      "playerNumber": 3
+    },
+    {
+      "code": "A4",
+      "name": "关姐",
+      "teamCode": "A",
+      "playerNumber": 4
+    },
+    {
+      "code": "A5",
+      "name": "天翼",
+      "teamCode": "A",
+      "playerNumber": 5
+    }
   ]
 }
