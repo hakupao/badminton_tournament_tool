@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Tag, Button, Modal, InputNumber, Space, message, Empty, Select, Alert, Card, Input } from 'antd';
+import { Table, Tag, Button, Modal, Space, message, Empty, Select, Alert, Card, Input } from 'antd';
 import { EditOutlined, TrophyOutlined, UserSwitchOutlined, TableOutlined, AppstoreOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Match } from '../types';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +21,41 @@ interface MatrixRowData {
   timeSlot: number;
   [key: string]: any;
 }
+
+// 使用React.memo优化比分选择组件
+const ScoreInput = React.memo(({ value, onChange }: { value: number, onChange: (value: number | null) => void }) => {
+  // 生成0-21的分数选项
+  const scoreOptions = Array.from({ length: 22 }, (_, i) => i);
+  
+  return (
+    <div style={{ 
+      display: 'grid',
+      gridTemplateColumns: 'repeat(11, 1fr)',
+      gap: '8px',
+      width: '100%'
+    }}>
+      {scoreOptions.map(score => (
+        <Button
+          key={score}
+          size="large"
+          type={value === score ? 'primary' : 'default'}
+          style={{ 
+            width: '100%',
+            height: '50px',
+            padding: 0,
+            fontSize: score > 9 ? '18px' : '20px',
+            fontWeight: value === score ? 'bold' : 'normal',
+            borderColor: value === score ? '#1890ff' : '#d9d9d9',
+            boxShadow: value === score ? '0 2px 0 rgba(24, 144, 255, 0.2)' : 'none'
+          }}
+          onClick={() => onChange(score)}
+        >
+          {score}
+        </Button>
+      ))}
+    </div>
+  );
+});
 
 const MatchList: React.FC = () => {
   const { matches: globalMatches, setMatches: setGlobalMatches } = useAppState();
@@ -47,6 +82,25 @@ const MatchList: React.FC = () => {
   const [viewMode, setViewMode] = useState<'list' | 'matrix'>('matrix'); // 默认使用矩阵视图
   const [exportFileName, setExportFileName] = useState('羽毛球比赛列表');
   const navigate = useNavigate();
+
+  // 使用useCallback优化设置比分函数，避免不必要的重新创建
+  const handleTeamAScoreChange = React.useCallback((value: number | null) => {
+    setScores(prev => ({ ...prev, teamAScore: value || 0 }));
+  }, []);
+  
+  const handleTeamBScoreChange = React.useCallback((value: number | null) => {
+    setScores(prev => ({ ...prev, teamBScore: value || 0 }));
+  }, []);
+
+  // 使用useCallback优化模态框取消函数
+  const handleScoreModalCancel = React.useCallback(() => {
+    setScoreModalVisible(false);
+  }, []);
+  
+  // 使用useCallback优化模态框确认函数
+  const handlePlayersModalCancel = React.useCallback(() => {
+    setPlayersModalVisible(false);
+  }, []);
 
   useEffect(() => {
     // 如果全局状态中有数据，直接使用全局状态
@@ -175,35 +229,9 @@ const MatchList: React.FC = () => {
     }
   };
 
-  const handleSaveScore = () => {
-    if (!selectedMatch) return;
-
-    const matchScores = [
-      { set: 1, teamAScore: scores.teamAScore, teamBScore: scores.teamBScore },
-    ];
-
-    try {
-      // 根据比分确定获胜者
-      const winner_TeamId = scores.teamAScore > scores.teamBScore ? 
-        selectedMatch.teamA_Id : 
-        scores.teamBScore > scores.teamAScore ? 
-          selectedMatch.teamB_Id : 
-          undefined;
-      
-      // 更新本地存储和状态
-      saveScoreToLocalStorage(selectedMatch.id, matchScores, winner_TeamId);
-      
-      message.success('比分更新成功');
-      setScoreModalVisible(false);
-      // 不需要重新加载，因为状态已经更新
-    } catch (error) {
-      message.error('更新比分失败');
-      console.error('更新比分错误:', error);
-    }
-  };
-
   // 使用localStorage保存比分，同时更新全局状态
-  const saveScoreToLocalStorage = (matchId: string, newScores: any, winner_TeamId?: string) => {
+  const saveScoreToLocalStorage = React.useCallback((matchId: string, newScores: any, winner_TeamId?: string) => {
+    // 使用深拷贝避免对原始数据的直接修改，减少不必要的渲染
     const updatedMatches = matches.map(match => {
       if (match.id === matchId) {
         return {
@@ -216,12 +244,126 @@ const MatchList: React.FC = () => {
       return match;
     }) as Match[];
     
-    setMatches(updatedMatches);
-    // 更新全局状态
-    setGlobalMatches(updatedMatches);
-    localStorage.setItem('tournamentMatches', JSON.stringify(updatedMatches));
-    
-  };
+    // 直接保存到localStorage，简化实现
+    try {
+      localStorage.setItem('tournamentMatches', JSON.stringify(updatedMatches));
+      
+      // 立即更新状态以提高响应速度
+      setMatches(updatedMatches);
+      setGlobalMatches(updatedMatches);
+    } catch (error) {
+      console.error('保存数据失败:', error);
+      message.error('保存数据失败');
+    }
+  }, [matches]);
+
+  const handleEditScore = React.useCallback((match: Match) => {
+    // 简化实现，移除可能导致问题的代码
+    try {
+      // 设置选中的比赛
+      setSelectedMatch(match);
+      
+      // 设置初始比分
+      if (match.scores && match.scores.length > 0) {
+        setScores({
+          teamAScore: match.scores[0]?.teamAScore || 0,
+          teamBScore: match.scores[0]?.teamBScore || 0,
+        });
+      } else {
+        setScores({ teamAScore: 0, teamBScore: 0 });
+      }
+      
+      // 显示对话框
+      setScoreModalVisible(true);
+    } catch (error) {
+      console.error('打开比分对话框失败:', error);
+      message.error('打开比分对话框失败');
+    }
+  }, []);
+
+  const handleEditPlayers = React.useCallback((match: Match) => {
+    try {
+      // 设置选中的比赛
+      setSelectedMatch(match);
+      
+      // 提取队伍代码
+      const teamACode = match.teamA_Id?.charAt?.(match.teamA_Id.length - 1) || 'A';
+      const teamBCode = match.teamB_Id?.charAt?.(match.teamB_Id.length - 1) || 'B';
+      
+      // 如果已有队员数据，使用已有的；否则初始化空数组
+      let teamAPlayers = match.teamA_Players || [];
+      let teamBPlayers = match.teamB_Players || [];
+      
+      // 根据比赛类型和比赛统筹配置设置默认队员
+      const formations = tournamentConfig?.formations || ['1+2', '3+5'];
+      
+      // 找到对应的阵型
+      if (teamAPlayers.length === 0 && teamBPlayers.length === 0) {
+        // 如果是混双比赛(3+5)，默认选择第三和第五号队员
+        if (match.matchType.includes('3+5') || match.matchType === 'XD1') {
+          const formation = formations.find(f => f.includes('3') && f.includes('5')) || '3+5';
+          const [pos1, pos2] = formation.split('+').map(Number);
+          
+          teamAPlayers = [`${teamACode}${pos1}`, `${teamACode}${pos2}`];
+          teamBPlayers = [`${teamBCode}${pos1}`, `${teamBCode}${pos2}`];
+        }
+        // 男双比赛一般用1号和2号队员
+        else if (match.matchType.includes('1+2') || match.matchType === 'MD1' || match.matchType === 'MD2') {
+          const formation = formations.find(f => f.includes('1') && f.includes('2')) || '1+2';
+          const [pos1, pos2] = formation.split('+').map(Number);
+          
+          teamAPlayers = [`${teamACode}${pos1}`, `${teamACode}${pos2}`];
+          teamBPlayers = [`${teamBCode}${pos1}`, `${teamBCode}${pos2}`];
+        }
+        // 如果还有其他类型，就用配置的第一个阵型
+        else if (formations.length > 0) {
+          const [pos1, pos2] = formations[0].split('+').map(Number);
+          
+          teamAPlayers = [`${teamACode}${pos1}`, `${teamACode}${pos2}`];
+          teamBPlayers = [`${teamBCode}${pos1}`, `${teamBCode}${pos2}`];
+        }
+      }
+      
+      setSelectedTeamAPlayers(teamAPlayers);
+      setSelectedTeamBPlayers(teamBPlayers);
+      
+      // 显示对话框
+      setPlayersModalVisible(true);
+    } catch (error) {
+      console.error('打开队员选择对话框失败:', error);
+      message.error('打开队员选择对话框失败');
+    }
+  }, [tournamentConfig]);
+
+  // 使用useCallback优化保存比分函数
+  const handleSaveScore = React.useCallback(() => {
+    if (!selectedMatch) return;
+
+    try {
+      const matchScores = [
+        { set: 1, teamAScore: scores.teamAScore, teamBScore: scores.teamBScore },
+      ];
+
+      // 根据比分确定获胜者
+      const winner_TeamId = scores.teamAScore > scores.teamBScore ? 
+        selectedMatch.teamA_Id : 
+        scores.teamBScore > scores.teamAScore ? 
+          selectedMatch.teamB_Id : 
+          undefined;
+      
+      // 先关闭对话框
+      setScoreModalVisible(false);
+      
+      // 更新本地存储和状态
+      saveScoreToLocalStorage(selectedMatch.id, matchScores, winner_TeamId);
+      
+      // 显示成功消息
+      message.success('比分更新成功');
+    } catch (error) {
+      message.error('更新比分失败');
+      console.error('更新比分错误:', error);
+    }
+  }, [selectedMatch, scores, saveScoreToLocalStorage]);
 
   const getMatchTypeName = (type: string) => {
     switch (type) {
@@ -245,71 +387,8 @@ const MatchList: React.FC = () => {
     }
   };
 
-  const handleEditScore = (match: Match) => {
-    setSelectedMatch(match);
-    if (match.scores && match.scores.length > 0) {
-      setScores({
-        teamAScore: match.scores[0]?.teamAScore || 0,
-        teamBScore: match.scores[0]?.teamBScore || 0,
-      });
-    } else {
-      setScores({ teamAScore: 0, teamBScore: 0 });
-    }
-    setScoreModalVisible(true);
-  };
-
-  const handleEditPlayers = (match: Match) => {
-    console.log('选择的比赛:', match);
-    setSelectedMatch(match);
-    
-    // 提取队伍代码
-    const teamACode = match.teamA_Id?.charAt?.(match.teamA_Id.length - 1) || 'A';
-    const teamBCode = match.teamB_Id?.charAt?.(match.teamB_Id.length - 1) || 'B';
-    
-    console.log('队伍代码:', teamACode, teamBCode);
-    console.log('比赛类型:', match.matchType);
-    console.log('比赛统筹配置:', tournamentConfig);
-    
-    // 如果已有队员数据，使用已有的；否则初始化空数组
-    let teamAPlayers = match.teamA_Players || [];
-    let teamBPlayers = match.teamB_Players || [];
-    
-    // 根据比赛类型和比赛统筹配置设置默认队员
-    const formations = tournamentConfig?.formations || ['1+2', '3+5'];
-    
-    // 找到对应的阵型
-    if (teamAPlayers.length === 0 && teamBPlayers.length === 0) {
-      // 如果是混双比赛(3+5)，默认选择第三和第五号队员
-      if (match.matchType.includes('3+5') || match.matchType === 'XD1') {
-        const formation = formations.find(f => f.includes('3') && f.includes('5')) || '3+5';
-        const [pos1, pos2] = formation.split('+').map(Number);
-        
-        teamAPlayers = [`${teamACode}${pos1}`, `${teamACode}${pos2}`];
-        teamBPlayers = [`${teamBCode}${pos1}`, `${teamBCode}${pos2}`];
-      }
-      // 男双比赛一般用1号和2号队员
-      else if (match.matchType.includes('1+2') || match.matchType === 'MD1' || match.matchType === 'MD2') {
-        const formation = formations.find(f => f.includes('1') && f.includes('2')) || '1+2';
-        const [pos1, pos2] = formation.split('+').map(Number);
-        
-        teamAPlayers = [`${teamACode}${pos1}`, `${teamACode}${pos2}`];
-        teamBPlayers = [`${teamBCode}${pos1}`, `${teamBCode}${pos2}`];
-      }
-      // 如果还有其他类型，就用配置的第一个阵型
-      else if (formations.length > 0) {
-        const [pos1, pos2] = formations[0].split('+').map(Number);
-        
-        teamAPlayers = [`${teamACode}${pos1}`, `${teamACode}${pos2}`];
-        teamBPlayers = [`${teamBCode}${pos1}`, `${teamBCode}${pos2}`];
-      }
-    }
-    
-    setSelectedTeamAPlayers(teamAPlayers);
-    setSelectedTeamBPlayers(teamBPlayers);
-    setPlayersModalVisible(true);
-  };
-
-  const handleSavePlayers = () => {
+  // 使用useCallback优化保存队员函数
+  const handleSavePlayers = React.useCallback(() => {
     if (!selectedMatch) return;
 
     try {
@@ -338,29 +417,40 @@ const MatchList: React.FC = () => {
         return match;
       });
 
-      setMatches(updatedMatches);
-      setGlobalMatches(updatedMatches);
-      localStorage.setItem('tournamentMatches', JSON.stringify(updatedMatches));
-      
-      message.success('参赛选手已更新');
+      // 先关闭对话框
       setPlayersModalVisible(false);
+      
+      // 保存数据到localStorage
+      try {
+        localStorage.setItem('tournamentMatches', JSON.stringify(updatedMatches));
+        
+        // 更新状态
+        setMatches(updatedMatches);
+        setGlobalMatches(updatedMatches);
+        
+        // 显示成功消息
+        message.success('参赛选手已更新');
+      } catch (storageError) {
+        console.error('保存队员数据失败:', storageError);
+        message.error('保存队员数据失败');
+      }
     } catch (error) {
       message.error('更新参赛选手失败');
       console.error('更新参赛选手错误:', error);
     }
-  };
+  }, [selectedMatch, selectedTeamAPlayers, selectedTeamBPlayers, allPlayers, matches]);
 
-  // 获取队员显示名称
-  const getPlayerDisplayName = (playerId: string) => {
+  // 获取队员显示名称 - 使用React.useMemo优化
+  const getPlayerDisplayName = React.useCallback((playerId: string) => {
     const player = allPlayers.find(p => p.code === playerId);
     if (player && player.name) {
       return `${playerId} - ${player.name}`;
     }
     return playerId;
-  };
+  }, [allPlayers]);
 
-  // 生成对阵双方队员名单的显示
-  const renderPlayerNames = (match: Match) => {
+  // 生成对阵双方队员名单的显示 - 优化使用React.memo
+  const renderPlayerNames = React.useCallback((match: Match) => {
     return (
       <div style={{ textAlign: 'center' }}>
         <div style={{ marginBottom: 8 }}>
@@ -379,7 +469,7 @@ const MatchList: React.FC = () => {
         </div>
       </div>
     );
-  };
+  }, [getPlayerDisplayName]);
 
   const columns = [
     {
@@ -505,6 +595,7 @@ const MatchList: React.FC = () => {
 
   // 矩阵视图组件
   const MatrixView: React.FC<{ matches: Match[] }> = ({ matches }) => {
+    // 计算矩阵数据和场地
     const matrixData = generateMatrixData(matches);
     const courts = [...new Set(matches.map(match => match.court))].sort((a, b) => a - b);
     
@@ -534,48 +625,16 @@ const MatchList: React.FC = () => {
         overflowX: 'auto' as const,
         padding: '4px 0 8px 0'
       },
-      matchCard: {
-        width: '100%',
-        height: '100%',
-        minHeight: '200px',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-      },
-      matchCardTitle: {
-        textAlign: 'center' as const,
-        fontWeight: 'bold' as const,
-        fontSize: '14px',
-        backgroundColor: '#fafafa'
-      },
-      matchContent: {
-        display: 'flex',
-        flexDirection: 'column' as const,
-        justifyContent: 'space-between' as const,
-        height: '100%',
-        padding: '4px 0'
+      matchContainer: {
+        flex: '1 0 0',
+        minWidth: '160px',
+        padding: '0 4px'
       },
       courtTitle: {
         fontWeight: 'bold' as const,
         textAlign: 'center' as const,
         marginBottom: '8px',
         color: '#1890ff'
-      },
-      teams: {
-        display: 'flex',
-        justifyContent: 'center' as const,
-        alignItems: 'center' as const,
-        gap: '8px',
-        marginBottom: '8px'
-      },
-      buttonGroup: {
-        display: 'flex',
-        justifyContent: 'center' as const,
-        marginTop: '10px',
-        gap: '5px'
-      },
-      actionButton: {
-        padding: '0 8px',
-        height: '28px',
-        fontSize: '12px'
       },
       emptyMatch: {
         height: '200px',
@@ -587,11 +646,6 @@ const MatchList: React.FC = () => {
         borderRadius: '4px',
         color: '#999',
         fontSize: '14px'
-      },
-      matchContainer: {
-        flex: '1 0 0',
-        minWidth: '160px',
-        padding: '0 4px'
       }
     };
     
@@ -611,44 +665,7 @@ const MatchList: React.FC = () => {
                 <div key={court} style={styles.matchContainer}>
                   <div style={styles.courtTitle}>{court}号场地</div>
                   {row[`court${court}`] ? 
-                    <Card 
-                      size="small" 
-                      style={styles.matchCard} 
-                      title={getMatchTypeName(row[`court${court}`].matchType)}
-                      headStyle={styles.matchCardTitle}
-                    >
-                      <div style={styles.matchContent}>
-                        <div>
-                          <div style={styles.teams}>
-                            <Tag color="blue">{row[`court${court}`].teamA_Name}</Tag>
-                            <span>VS</span>
-                            <Tag color="red">{row[`court${court}`].teamB_Name}</Tag>
-                          </div>
-                          <div>{renderPlayerNames(row[`court${court}`])}</div>
-                          <div style={{textAlign: 'center'}}>{getStatusTag(row[`court${court}`].status)}</div>
-                        </div>
-                        <div style={styles.buttonGroup}>
-                          <Button
-                            size="small"
-                            type="primary"
-                            icon={<EditOutlined />}
-                            onClick={() => handleEditScore(row[`court${court}`])}
-                            style={styles.actionButton}
-                          >
-                            记录比分
-                          </Button>
-                          <Button
-                            size="small"
-                            type="default"
-                            icon={<UserSwitchOutlined />}
-                            onClick={() => handleEditPlayers(row[`court${court}`])}
-                            style={styles.actionButton}
-                          >
-                            更换队员
-                          </Button>
-                        </div>
-                      </div>
-                    </Card>
+                    <MatchCard match={row[`court${court}`]} />
                     : <div style={styles.emptyMatch}>未安排比赛</div>
                   }
                 </div>
@@ -659,6 +676,105 @@ const MatchList: React.FC = () => {
       </div>
     );
   };
+
+  // 使用React.memo优化比赛卡片组件
+  const MatchCard = React.memo(({ match }: { match: Match }) => {
+    const styles = {
+      matchCard: {
+        width: '100%',
+        height: '100%',
+        minHeight: '200px',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      },
+      matchCardTitle: {
+        textAlign: 'center' as const,
+        fontWeight: 'bold' as const,
+        fontSize: '14px',
+        backgroundColor: '#fafafa'
+      },
+      matchContent: {
+        display: 'flex',
+        flexDirection: 'column' as const,
+        justifyContent: 'space-between' as const,
+        height: '100%',
+        padding: '4px 0'
+      },
+      teams: {
+        display: 'flex',
+        justifyContent: 'center' as const,
+        alignItems: 'center' as const,
+        gap: '8px',
+        marginBottom: '8px'
+      },
+      buttonGroup: {
+        display: 'flex',
+        justifyContent: 'center' as const,
+        marginTop: '10px',
+        gap: '5px'
+      },
+      actionButton: {
+        padding: '0 8px',
+        height: '28px',
+        fontSize: '12px'
+      }
+    };
+    
+    return (
+      <Card 
+        size="small" 
+        style={styles.matchCard} 
+        title={getMatchTypeName(match.matchType)}
+        headStyle={styles.matchCardTitle}
+      >
+        <div style={styles.matchContent}>
+          <div>
+            <div style={styles.teams}>
+              <Tag color="blue">{match.teamA_Name}</Tag>
+              <span>VS</span>
+              <Tag color="red">{match.teamB_Name}</Tag>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ marginBottom: 8 }}>
+                {match.teamA_Players.map((playerId, index) => (
+                  <Tag color="blue" key={`a-${index}`} style={{ margin: '2px' }}>
+                    {getPlayerDisplayName(playerId)}
+                  </Tag>
+                ))}
+              </div>
+              <div>
+                {match.teamB_Players.map((playerId, index) => (
+                  <Tag color="red" key={`b-${index}`} style={{ margin: '2px' }}>
+                    {getPlayerDisplayName(playerId)}
+                  </Tag>
+                ))}
+              </div>
+            </div>
+            <div style={{textAlign: 'center'}}>{getStatusTag(match.status)}</div>
+          </div>
+          <div style={styles.buttonGroup}>
+            <Button
+              size="small"
+              type="primary"
+              icon={<EditOutlined />}
+              onClick={() => handleEditScore(match)}
+              style={styles.actionButton}
+            >
+              记录比分
+            </Button>
+            <Button
+              size="small"
+              type="default"
+              icon={<UserSwitchOutlined />}
+              onClick={() => handleEditPlayers(match)}
+              style={styles.actionButton}
+            >
+              更换队员
+            </Button>
+          </div>
+        </div>
+      </Card>
+    );
+  });
 
   // 导出矩阵视图为Excel
   const exportToExcel = () => {
@@ -990,31 +1106,88 @@ const MatchList: React.FC = () => {
       )}
       
       <Modal
-        title="记录比分"
+        title={<div style={{ fontSize: '20px', fontWeight: 'bold' }}>记录比分</div>}
         open={scoreModalVisible}
         onOk={handleSaveScore}
-        onCancel={() => setScoreModalVisible(false)}
-        okText="保存"
+        onCancel={handleScoreModalCancel}
+        okText="保存比分"
         cancelText="取消"
+        destroyOnClose={true}
+        width={760}
+        bodyStyle={{ padding: '24px' }}
+        okButtonProps={{ 
+          size: 'large',
+          style: { 
+            height: '48px', 
+            fontSize: '16px', 
+            padding: '0 25px',
+            fontWeight: 'bold'
+          } 
+        }}
+        cancelButtonProps={{ 
+          size: 'large',
+          style: { 
+            height: '48px', 
+            fontSize: '16px',
+            padding: '0 25px'
+          } 
+        }}
       >
         {selectedMatch && (
           <Space direction="vertical" style={{ width: '100%' }}>
-            <div>
-              <Tag color="blue">{selectedMatch.teamA_Name}</Tag>
-              <InputNumber
-                min={0}
-                max={30}
-                value={scores.teamAScore}
-                onChange={(value) => setScores(prev => ({ ...prev, teamAScore: value || 0 }))}
+            <div style={{ 
+              textAlign: 'center', 
+              margin: '0 0 30px 0', 
+              padding: '15px', 
+              backgroundColor: '#f9f9f9', 
+              borderRadius: '8px',
+              fontSize: '24px',
+              fontWeight: 'bold'
+            }}>
+              比分预览: <span style={{ color: '#1890ff' }}>{scores.teamAScore}</span> : <span style={{ color: '#f5222d' }}>{scores.teamBScore}</span>
+            </div>
+            
+            <div style={{ marginBottom: '30px' }}>
+              <div style={{ 
+                fontWeight: 'bold', 
+                marginBottom: '15px', 
+                display: 'flex', 
+                alignItems: 'center',
+                fontSize: '18px'
+              }}>
+                <Tag color="blue" style={{ marginRight: '10px', fontSize: '16px', padding: '4px 10px' }}>
+                  {selectedMatch.teamA_Name}
+                </Tag>
+                <span>得分：</span>
+                <span style={{ color: '#1890ff', fontWeight: 'bold', marginLeft: '10px', fontSize: '20px' }}>
+                  {scores.teamAScore}
+                </span>
+              </div>
+              <ScoreInput 
+                value={scores.teamAScore} 
+                onChange={handleTeamAScoreChange}
               />
             </div>
-            <div>
-              <Tag color="red">{selectedMatch.teamB_Name}</Tag>
-              <InputNumber
-                min={0}
-                max={30}
-                value={scores.teamBScore}
-                onChange={(value) => setScores(prev => ({ ...prev, teamBScore: value || 0 }))}
+            
+            <div style={{ marginBottom: '20px' }}>
+              <div style={{ 
+                fontWeight: 'bold', 
+                marginBottom: '15px', 
+                display: 'flex', 
+                alignItems: 'center',
+                fontSize: '18px'
+              }}>
+                <Tag color="red" style={{ marginRight: '10px', fontSize: '16px', padding: '4px 10px' }}>
+                  {selectedMatch.teamB_Name}
+                </Tag>
+                <span>得分：</span>
+                <span style={{ color: '#f5222d', fontWeight: 'bold', marginLeft: '10px', fontSize: '20px' }}>
+                  {scores.teamBScore}
+                </span>
+              </div>
+              <ScoreInput 
+                value={scores.teamBScore} 
+                onChange={handleTeamBScoreChange}
               />
             </div>
           </Space>
@@ -1025,10 +1198,11 @@ const MatchList: React.FC = () => {
         title="更换参赛队员"
         open={playersModalVisible}
         onOk={handleSavePlayers}
-        onCancel={() => setPlayersModalVisible(false)}
+        onCancel={handlePlayersModalCancel}
         okText="保存"
         cancelText="取消"
         width={600}
+        destroyOnClose={true}
       >
         {selectedMatch && (
           <Space direction="vertical" style={{ width: '100%' }}>
