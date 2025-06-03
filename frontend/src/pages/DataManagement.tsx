@@ -39,6 +39,7 @@ interface PlayerWinRate {
   pointsWon: number;
   pointsLost: number;
   pointDiff: number;
+  realName?: string;
 }
 
 interface PairWinRate {
@@ -50,6 +51,7 @@ interface PairWinRate {
   pointsWon: number;
   pointsLost: number;
   pointDiff: number;
+  realName?: string;
 }
 
 const DataManagement: React.FC = () => {
@@ -286,6 +288,12 @@ const DataManagement: React.FC = () => {
       sorter: (a: PlayerWinRate, b: PlayerWinRate) => a.player.localeCompare(b.player),
     },
     {
+      title: '姓名',
+      dataIndex: 'realName',
+      key: 'realName',
+      sorter: (a: PlayerWinRate, b: PlayerWinRate) => (a.realName || '').localeCompare(b.realName || ''),
+    },
+    {
       title: '胜场',
       dataIndex: 'wins',
       key: 'wins',
@@ -339,6 +347,12 @@ const DataManagement: React.FC = () => {
       dataIndex: 'pair',
       key: 'pair',
       sorter: (a: PairWinRate, b: PairWinRate) => a.pair.localeCompare(b.pair),
+    },
+    {
+      title: '姓名',
+      dataIndex: 'realName',
+      key: 'realName',
+      sorter: (a: PairWinRate, b: PairWinRate) => (a.realName || '').localeCompare(b.realName || ''),
     },
     {
       title: '胜场',

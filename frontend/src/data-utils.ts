@@ -633,9 +633,20 @@ export function get_group_point_difference(matches: Match[]): { id: string; grou
   return result;
 }
 
-export function get_player_point_difference(matches: Match[]): { id: string; player: string; wins: number; total: number; winRate: number; pointsWon: number; pointsLost: number; pointDiff: number }[] {
+export function get_player_point_difference(matches: Match[]): { id: string; player: string; realName: string; wins: number; total: number; winRate: number; pointsWon: number; pointsLost: number; pointDiff: number }[] {
   // 统计每个选手的胜负场次和净胜球
   const player_stats: { [key: string]: { wins: number, total: number, pointsWon: number, pointsLost: number } } = {};
+  
+  // 加载所有队员信息
+  let allPlayers: any[] = [];
+  try {
+    const savedPlayers = localStorage.getItem('tournamentPlayers');
+    if (savedPlayers) {
+      allPlayers = JSON.parse(savedPlayers);
+    }
+  } catch (error) {
+    console.error('加载队员数据失败:', error);
+  }
   
   for (const match of matches) {
     if (match.status === 'finished') {
@@ -695,9 +706,14 @@ export function get_player_point_difference(matches: Match[]): { id: string; pla
     const win_rate = stats.total > 0 ? stats.wins / stats.total : 0;
     const pointDiff = stats.pointsWon - stats.pointsLost;
     
+    // 获取选手真实姓名
+    const playerInfo = allPlayers.find(p => p.code === player);
+    const realName = playerInfo?.name || '';
+    
     result.push({
       id: player,
       player: player,
+      realName: realName,
       wins: stats.wins,
       total: stats.total,
       winRate: win_rate,
@@ -718,9 +734,20 @@ export function get_player_point_difference(matches: Match[]): { id: string; pla
   return result;
 }
 
-export function get_pair_point_difference(matches: Match[]): { id: string; pair: string; wins: number; total: number; winRate: number; pointsWon: number; pointsLost: number; pointDiff: number }[] {
+export function get_pair_point_difference(matches: Match[]): { id: string; pair: string; realName: string; wins: number; total: number; winRate: number; pointsWon: number; pointsLost: number; pointDiff: number }[] {
   // 统计每个组合的胜负场次和净胜球
   const pair_stats: { [key: string]: { wins: number, total: number, pointsWon: number, pointsLost: number } } = {};
+  
+  // 加载所有队员信息
+  let allPlayers: any[] = [];
+  try {
+    const savedPlayers = localStorage.getItem('tournamentPlayers');
+    if (savedPlayers) {
+      allPlayers = JSON.parse(savedPlayers);
+    }
+  } catch (error) {
+    console.error('加载队员数据失败:', error);
+  }
   
   for (const match of matches) {
     if (match.status === 'finished' && match.winner_TeamId) {
@@ -751,7 +778,7 @@ export function get_pair_point_difference(matches: Match[]): { id: string; pair:
         }
       }
       
-      // 处理负队组合
+      // 处理负队的组合
       if (losingTeamPlayers && losingTeamPlayers.length === 2) {
         const pairKey = losingTeamPlayers.sort().join('-');
         if (!pair_stats[pairKey]) {
@@ -773,16 +800,29 @@ export function get_pair_point_difference(matches: Match[]): { id: string; pair:
     }
   }
   
-  // 计算胜率和净胜球
+  // 计算胜率和净胜球并准备结果
   const result = [];
   for (const pair in pair_stats) {
     const stats = pair_stats[pair];
     const win_rate = stats.total > 0 ? stats.wins / stats.total : 0;
     const pointDiff = stats.pointsWon - stats.pointsLost;
     
+    // 获取组合中的两个选手ID
+    const [player1Id, player2Id] = pair.split('-');
+    
+    // 获取两个选手的真实姓名
+    const player1 = allPlayers.find(p => p.code === player1Id);
+    const player2 = allPlayers.find(p => p.code === player2Id);
+    const player1Name = player1?.name || player1Id;
+    const player2Name = player2?.name || player2Id;
+    
+    // 组合的真实姓名
+    const realName = `${player1Name} & ${player2Name}`;
+    
     result.push({
       id: pair,
       pair: pair.replace('-', ' & '),
+      realName: realName,
       wins: stats.wins,
       total: stats.total,
       winRate: win_rate,

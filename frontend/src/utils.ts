@@ -57,6 +57,7 @@ export const exportData = () => {
     const dataToExport = {
       matches: JSON.parse(localStorage.getItem('badminton_matches') || '[]'),
       timeSlots: JSON.parse(localStorage.getItem('badminton_timeSlots') || '[]'),
+      players: JSON.parse(localStorage.getItem('tournamentPlayers') || '[]'),
       // 可以根据需要添加其他需要导出的数据
     };
     
@@ -112,7 +113,11 @@ export const importData = (file: File): Promise<{ success: boolean; message: str
         localStorage.setItem('badminton_matches', JSON.stringify(importedData.matches));
         localStorage.setItem('badminton_timeSlots', JSON.stringify(importedData.timeSlots));
         
-        // 可以在这里添加导入其他数据的逻辑
+        // 导入队员数据
+        if (importedData.players && Array.isArray(importedData.players)) {
+          localStorage.setItem('tournamentPlayers', JSON.stringify(importedData.players));
+          console.log('导入队员数据成功, 共导入', importedData.players.length, '名队员');
+        }
         
         resolve({ success: true, message: '数据导入成功，请刷新页面以加载新数据' });
       } catch (error) {
