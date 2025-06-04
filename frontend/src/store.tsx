@@ -1,5 +1,6 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { Match } from './types';
+import { matchApi } from './api';
 
 // 定义状态类型
 interface AppState {
@@ -13,39 +14,31 @@ interface AppState {
 // 创建Context
 export const AppContext = createContext<AppState | undefined>(undefined);
 
-// 从localStorage获取初始数据
-const getInitialMatches = (): Match[] => {
-  try {
-    const storedMatches = localStorage.getItem('badminton_matches');
-    return storedMatches ? JSON.parse(storedMatches) : [];
-  } catch (error) {
-    console.error('Error loading matches from localStorage:', error);
-    return [];
-  }
-};
-
-const getInitialTimeSlots = (): string[] => {
-  try {
-    const storedTimeSlots = localStorage.getItem('badminton_timeSlots');
-    return storedTimeSlots ? JSON.parse(storedTimeSlots) : [];
-  } catch (error) {
-    console.error('Error loading timeSlots from localStorage:', error);
-    return [];
-  }
-};
+const getInitialMatches = (): Match[] => [];
+const getInitialTimeSlots = (): string[] => [];
 
 // Context Provider组件
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [matches, setMatchesState] = useState<Match[]>(getInitialMatches);
   const [timeSlots, setTimeSlotsState] = useState<string[]>(getInitialTimeSlots);
 
-  // 更新matches并保存到localStorage
+  useEffect(() => {
+    matchApi.list().then(res => {
+      if (Array.isArray(res.data)) {
+        setMatchesState(res.data);
+      }
+    }).catch(err => console.error('load matches failed', err));
+  }, []);
+
+  // 更新matches并保存到数据库
   const setMatches = (newMatches: Match[]) => {
     setMatchesState(newMatches);
-    localStorage.setItem('badminton_matches', JSON.stringify(newMatches));
+    newMatches.forEach(m => {
+      matchApi.add(m).catch(err => console.error('save match failed', err));
+    });
   };
 
-  // 更新timeSlots并保存到localStorage
+  // 更新timeSlots（仍使用localStorage）
   const setTimeSlots = (newTimeSlots: string[]) => {
     setTimeSlotsState(newTimeSlots);
     localStorage.setItem('badminton_timeSlots', JSON.stringify(newTimeSlots));

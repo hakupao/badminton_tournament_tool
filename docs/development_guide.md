@@ -154,9 +154,24 @@ badminton_tournament_tool/
 
 ## 数据管理
 
-### 本地存储
+### 数据库存储
 
-本项目当前主要使用浏览器的localStorage进行数据存储:
+项目已引入SQLite数据库进行数据持久化，后端使用Flask-SQLAlchemy管理数据模型。默认数据库文件为`badminton.db`。之前依赖的浏览器localStorage已逐步移除。
+
+基本的表结构包括：
+
+```text
+Player(id, code, name)
+Match(id, data(JSON))
+```
+
+后端在首次启动时会自动创建数据库文件。
+
+前端通过Axios调用后端API读取和写入数据。
+
+### 本地存储（旧实现）
+
+早期版本主要使用浏览器的localStorage进行数据存储:
 
 1. **存储键设计**:
    - `tournamentConfig`: 比赛统筹配置
