@@ -28,6 +28,7 @@ interface GroupRanking {
   pointsWon: number;
   pointsLost: number;
   pointDiff: number;
+  points: number;
 }
 
 interface PlayerWinRate {
@@ -233,6 +234,13 @@ const DataManagement: React.FC = () => {
       sorter: (a: GroupRanking, b: GroupRanking) => a.group.localeCompare(b.group),
     },
     {
+      title: '积分',
+      dataIndex: 'points',
+      key: 'points',
+      sorter: (a: GroupRanking, b: GroupRanking) => a.points - b.points,
+      defaultSortOrder: 'descend' as SortOrder,
+    },
+    {
       title: '胜场',
       dataIndex: 'wins',
       key: 'wins',
@@ -249,7 +257,6 @@ const DataManagement: React.FC = () => {
       dataIndex: 'winRate',
       key: 'winRate',
       sorter: (a: GroupRanking, b: GroupRanking) => a.winRate - b.winRate,
-      defaultSortOrder: 'descend' as SortOrder,
       render: (text: number) => `${(text * 100).toFixed(1)}%`,
     },
     {

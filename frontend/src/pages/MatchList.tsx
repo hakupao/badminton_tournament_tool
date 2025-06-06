@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Tag, Button, Modal, Space, message, Empty, Select, Alert, Card, Input } from 'antd';
+import type { Key } from 'antd/es/table/interface';
 import { EditOutlined, TrophyOutlined, UserSwitchOutlined, TableOutlined, AppstoreOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Match } from '../types';
 import { useNavigate } from 'react-router-dom';
@@ -175,15 +176,48 @@ const MatchList: React.FC = () => {
     }
   };
 
+  // 修改loadMatches函数，确保所有比赛都有正确的序号
   const loadMatches = () => {
     setLoading(true);
     try {
       // 从localStorage加载比赛数据
       const savedMatches = localStorage.getItem('tournamentMatches');
       if (savedMatches) {
-        const parsedMatches = JSON.parse(savedMatches);
+        let parsedMatches = JSON.parse(savedMatches);
+        
+        // 确保所有比赛都有matchNumber
+        let hasUpdates = false;
+        let maxNum = 0;
+        
+        // 先找出当前最大序号
+        parsedMatches.forEach((match: Match) => {
+          if (match.matchNumber) {
+            const num = parseInt(match.matchNumber.replace(/\D/g, ''));
+            if (!isNaN(num) && num > maxNum) {
+              maxNum = num;
+            }
+          }
+        });
+        
+        // 为没有序号的比赛分配序号
+        parsedMatches = parsedMatches.map((match: Match) => {
+          if (!match.matchNumber) {
+            hasUpdates = true;
+            maxNum++;
+            return { 
+              ...match, 
+              matchNumber: `00${maxNum}`.slice(-3)
+            };
+          }
+          return match;
+        });
+        
+        // 只有在有更新时才保存
+        if (hasUpdates) {
+          localStorage.setItem('tournamentMatches', JSON.stringify(parsedMatches));
+        }
+        
         setMatches(parsedMatches);
-        // 同时更新全局状态
         setGlobalMatches(parsedMatches);
       } else {
         // 如果没有预先准备的比赛数据，尝试从赛程数据转换
@@ -194,6 +228,7 @@ const MatchList: React.FC = () => {
           // 将赛程数据转换为匹配Match接口的格式
           const localMatches: Match[] = scheduleData.map((item: any, index: number) => ({
             id: `local_${index}`,
+            matchNumber: `00${index + 1}`.slice(-3), // 添加序号
             round: Math.ceil(item.timeSlot / 2),
             timeSlot: item.timeSlot - 1, // 适配显示的格式
             court: item.court,
@@ -374,13 +409,17 @@ const MatchList: React.FC = () => {
     }
   };
 
-  const getStatusTag = (status: string) => {
+  const getStatusTag = (status: string, winner_TeamId?: string) => {
     switch (status) {
       case 'pending':
         return <Tag color="default">未开始</Tag>;
       case 'ongoing':
         return <Tag color="processing">进行中</Tag>;
       case 'finished':
+        if (winner_TeamId) {
+          const teamCode = winner_TeamId.charAt(winner_TeamId.length - 1);
+          return <Tag color="success">{`${teamCode}队获胜`}</Tag>;
+        }
         return <Tag color="success">已结束</Tag>;
       default:
         return <Tag>{status}</Tag>;
@@ -473,6 +512,14 @@ const MatchList: React.FC = () => {
 
   const columns = [
     {
+      title: '序号',
+      dataIndex: 'matchNumber',
+      key: 'matchNumber',
+      width: 80,
+      sorter: (a: Match, b: Match) => parseInt(a.matchNumber || '0') - parseInt(b.matchNumber || '0'),
+      render: (_: any, record: Match, index: number) => record.matchNumber || `00${index + 1}`.slice(-3),
+    },
+    {
       title: '时间段',
       dataIndex: 'timeSlot',
       key: 'timeSlot',
@@ -494,6 +541,21 @@ const MatchList: React.FC = () => {
     {
       title: '对阵',
       key: 'teams',
+      filters: matches.reduce((acc: { text: string; value: string }[], match) => {
+        const teamA = match.teamA_Name || '';
+        const teamB = match.teamB_Name || '';
+        if (!acc.find(item => item.value === teamA) && teamA) {
+          acc.push({ text: teamA, value: teamA });
+        }
+        if (!acc.find(item => item.value === teamB) && teamB) {
+          acc.push({ text: teamB, value: teamB });
+        }
+        return acc;
+      }, []),
+      onFilter: (value: boolean | Key, record: Match) => {
+        const teamValue = String(value);
+        return record.teamA_Name === teamValue || record.teamB_Name === teamValue;
+      },
       render: (record: Match) => (
         <Space>
           <Tag color="blue">{record.teamA_Name}</Tag>
@@ -505,13 +567,29 @@ const MatchList: React.FC = () => {
     {
       title: '参赛队员',
       key: 'players',
+      filters: matches.reduce((acc: { text: string; value: string }[], match) => {
+        const allPlayers = [...(match.teamA_Players || []), ...(match.teamB_Players || [])];
+        allPlayers.forEach(playerId => {
+          const player = allPlayers.find(p => p === playerId);
+          const displayName = getPlayerDisplayName(playerId);
+          if (!acc.find(item => item.value === playerId)) {
+            acc.push({ text: displayName, value: playerId });
+          }
+        });
+        return acc;
+      }, []),
+      onFilter: (value: boolean | Key, record: Match) => {
+        const playerValue = String(value);
+        return (record.teamA_Players || []).includes(playerValue) || 
+               (record.teamB_Players || []).includes(playerValue);
+      },
       render: (record: Match) => renderPlayerNames(record),
     },
     {
       title: '状态',
       dataIndex: 'status',
       key: 'status',
-      render: (status: string) => getStatusTag(status),
+      render: (status: string, record: Match) => getStatusTag(status, record.winner_TeamId),
     },
     {
       title: '操作',
@@ -749,7 +827,7 @@ const MatchList: React.FC = () => {
                 ))}
               </div>
             </div>
-            <div style={{textAlign: 'center'}}>{getStatusTag(match.status)}</div>
+            <div style={{textAlign: 'center'}}>{getStatusTag(match.status, match.winner_TeamId)}</div>
           </div>
           <div style={styles.buttonGroup}>
             <Button
@@ -776,14 +854,32 @@ const MatchList: React.FC = () => {
     );
   });
 
-  // 导出矩阵视图为Excel
+  // 修改导出Excel函数，确保使用最新数据
   const exportToExcel = () => {
     try {
+      // 确保所有比赛都有序号
+      const matchesWithNumbers = matches.map((match, index) => {
+        if (!match.matchNumber) {
+          return {
+            ...match,
+            matchNumber: `00${index + 1}`.slice(-3)
+          };
+        }
+        return match;
+      });
+      
+      // 如果有更新，同步到状态
+      if (JSON.stringify(matchesWithNumbers) !== JSON.stringify(matches)) {
+        setMatches(matchesWithNumbers);
+        setGlobalMatches(matchesWithNumbers);
+        localStorage.setItem('tournamentMatches', JSON.stringify(matchesWithNumbers));
+      }
+      
       // 获取矩阵数据
-      const matrixData = generateMatrixData(matches);
+      const matrixData = generateMatrixData(matchesWithNumbers);
       
       // 获取所有场地
-      const courts = [...new Set(matches.map(match => match.court))].sort((a, b) => a - b);
+      const courts = [...new Set(matchesWithNumbers.map(match => match.court))].sort((a, b) => a - b);
       
       // 创建工作簿
       const workbook = XLSX.utils.book_new();
@@ -903,6 +999,7 @@ const MatchList: React.FC = () => {
       
       // 添加表头
       detailsData.push([
+        '序号',
         '时间段', 
         '场地', 
         '对阵队员编码',
@@ -911,9 +1008,14 @@ const MatchList: React.FC = () => {
         '比分'
       ]);
       
-      // 添加比赛数据
-      matches.sort((a, b) => {
-        // 先按时间段排序
+      // 添加比赛数据 - 按照序号排序
+      matchesWithNumbers.sort((a, b) => {
+        // 首先按照序号排序
+        const numA = parseInt((a.matchNumber || '0').replace(/\D/g, ''));
+        const numB = parseInt((b.matchNumber || '0').replace(/\D/g, ''));
+        if (numA !== numB) return numA - numB;
+        
+        // 序号相同则按时间段
         if (a.timeSlot !== b.timeSlot) return a.timeSlot - b.timeSlot;
         // 再按场地排序
         return a.court - b.court;
@@ -992,6 +1094,7 @@ const MatchList: React.FC = () => {
         }
         
         detailsData.push([
+          match.matchNumber || `---`, // 使用比赛的序号，没有显示为---
           `第${match.timeSlot + 1}时段`,
           `${match.court}号场`,
           playersFormatStr,
@@ -1006,6 +1109,7 @@ const MatchList: React.FC = () => {
       
       // 设置详细信息工作表的列宽
       const detailsCols = [
+        { wch: 8 },  // 序号
         { wch: 10 }, // 时间段
         { wch: 8 },  // 场地
         { wch: 20 }, // 对阵队员编码
@@ -1017,6 +1121,249 @@ const MatchList: React.FC = () => {
       
       // 添加详细信息工作表
       XLSX.utils.book_append_sheet(workbook, detailsWorksheet, '比赛详细信息');
+      
+      // 3. 每个场地生成一个独立的比赛安排表
+      const courtsSet = new Set(matchesWithNumbers.map(match => match.court));
+      const courtsArr = Array.from(courtsSet).sort((a, b) => a - b);
+      courtsArr.forEach((court) => {
+        // 过滤出该场地的所有比赛，并按时间段排序
+        const courtMatches = matchesWithNumbers.filter(match => match.court === court)
+          .sort((a, b) => a.timeSlot - b.timeSlot);
+        // 生成表头
+        const courtSheetData = [
+          ['时间段', 'No.', '比赛详情']
+        ];
+        // 生成每一行
+        courtMatches.forEach(match => {
+          // 队伍代码
+          const teamACode = match.teamA_Id?.charAt?.(match.teamA_Id.length - 1) || 'A';
+          const teamBCode = match.teamB_Id?.charAt?.(match.teamB_Id.length - 1) || 'B';
+          // 队员编码
+          let teamAPlayersStr = '';
+          let teamAPlayersNames = '';
+          if (match.teamA_Players && match.teamA_Players.length > 0) {
+            teamAPlayersStr = match.teamA_Players.join('+');
+            teamAPlayersNames = match.teamA_Players.map((playerId: string) => {
+              const player = allPlayers.find(p => p.code === playerId);
+              return player && player.name ? player.name : `队员${playerId}`;
+            }).join('+');
+          } else {
+            if (match.matchType.includes('1+2') || match.matchType === 'MD1' || match.matchType === 'MD2') {
+              teamAPlayersStr = `${teamACode}1+${teamACode}2`;
+              teamAPlayersNames = `队员${teamACode}1+队员${teamACode}2`;
+            } else if (match.matchType.includes('3+5') || match.matchType === 'XD1') {
+              teamAPlayersStr = `${teamACode}3+${teamACode}5`;
+              teamAPlayersNames = `队员${teamACode}3+队员${teamACode}5`;
+            } else {
+              teamAPlayersStr = `${teamACode}?+${teamACode}?`;
+              teamAPlayersNames = `队员${teamACode}?+队员${teamACode}?`;
+            }
+          }
+          let teamBPlayersStr = '';
+          let teamBPlayersNames = '';
+          if (match.teamB_Players && match.teamB_Players.length > 0) {
+            teamBPlayersStr = match.teamB_Players.join('+');
+            teamBPlayersNames = match.teamB_Players.map((playerId: string) => {
+              const player = allPlayers.find(p => p.code === playerId);
+              return player && player.name ? player.name : `队员${playerId}`;
+            }).join('+');
+          } else {
+            if (match.matchType.includes('1+2') || match.matchType === 'MD1' || match.matchType === 'MD2') {
+              teamBPlayersStr = `${teamBCode}1+${teamBCode}2`;
+              teamBPlayersNames = `队员${teamBCode}1+队员${teamBCode}2`;
+            } else if (match.matchType.includes('3+5') || match.matchType === 'XD1') {
+              teamBPlayersStr = `${teamBCode}3+${teamBCode}5`;
+              teamBPlayersNames = `队员${teamBCode}3+队员${teamBCode}5`;
+            } else {
+              teamBPlayersStr = `${teamBCode}?+${teamBCode}?`;
+              teamBPlayersNames = `队员${teamBCode}?+队员${teamBCode}?`;
+            }
+          }
+          // 比赛详情两行
+          const matchDetail = `${teamAPlayersStr}:${teamBPlayersStr}\n${teamAPlayersNames}:${teamBPlayersNames}`;
+          courtSheetData.push([
+            `第${match.timeSlot + 1}时段`,
+            match.matchNumber || `---`, // 没有序号显示为---
+            matchDetail
+          ]);
+        });
+        // 创建工作表
+        const courtSheet = XLSX.utils.aoa_to_sheet(courtSheetData);
+        // 设置列宽
+        courtSheet['!cols'] = [
+          { wch: 10 }, // 时间段
+          { wch: 8 },  // No.
+          { wch: 40 }  // 比赛详情
+        ];
+        // 设置行高
+        courtSheet['!rows'] = Array(courtSheetData.length).fill({ hpt: 40 });
+        // 设置自动换行
+        for (let r = 1; r < courtSheetData.length; r++) {
+          const cellRef = XLSX.utils.encode_cell({ r, c: 2 });
+          if (courtSheet[cellRef]) {
+            if (!courtSheet[cellRef].s) courtSheet[cellRef].s = {};
+            courtSheet[cellRef].s.alignment = { wrapText: true, vertical: 'top' };
+          }
+        }
+        // 添加到工作簿
+        XLSX.utils.book_append_sheet(workbook, courtSheet, `${court}号场地`);
+      });
+      
+      // 4. 添加计分表 - 用于打印（所有比赛在一个表中）
+      // 首先按比赛序号排序
+      const sortedMatches = [...matchesWithNumbers].sort((a, b) => {
+        const numA = parseInt((a.matchNumber || '0').replace(/\D/g, ''));
+        const numB = parseInt((b.matchNumber || '0').replace(/\D/g, ''));
+        return numA - numB;
+      });
+      
+      // 创建单一计分表数据
+      const allScoreSheetData: (string | number | null)[][] = [];
+      
+      // 处理每场比赛
+      sortedMatches.forEach((match, matchIndex) => {
+        // 如果不是第一场比赛，添加一个空行作为分隔
+        if (matchIndex > 0) {
+          allScoreSheetData.push(['', '', '']);
+        }
+        
+        // 获取队伍代码和队员信息
+        const teamACode = match.teamA_Id?.charAt?.(match.teamA_Id.length - 1) || 'A';
+        const teamBCode = match.teamB_Id?.charAt?.(match.teamB_Id.length - 1) || 'B';
+        
+        // 处理A队队员
+        let teamAPlayersStr = '';
+        let teamAPlayersNames = '';
+        if (match.teamA_Players && match.teamA_Players.length > 0) {
+          teamAPlayersStr = match.teamA_Players.join('+');
+          teamAPlayersNames = match.teamA_Players.map((playerId: string) => {
+            const player = allPlayers.find(p => p.code === playerId);
+            return player && player.name ? player.name : `队员${playerId}`;
+          }).join('+');
+        } else {
+          if (match.matchType.includes('1+2') || match.matchType === 'MD1' || match.matchType === 'MD2') {
+            teamAPlayersStr = `${teamACode}1+${teamACode}2`;
+            teamAPlayersNames = `队员${teamACode}1+队员${teamACode}2`;
+          } else if (match.matchType.includes('3+5') || match.matchType === 'XD1') {
+            teamAPlayersStr = `${teamACode}3+${teamACode}5`;
+            teamAPlayersNames = `队员${teamACode}3+队员${teamACode}5`;
+          } else {
+            teamAPlayersStr = `${teamACode}?+${teamACode}?`;
+            teamAPlayersNames = `队员${teamACode}?+队员${teamACode}?`;
+          }
+        }
+        
+        // 处理B队队员
+        let teamBPlayersStr = '';
+        let teamBPlayersNames = '';
+        if (match.teamB_Players && match.teamB_Players.length > 0) {
+          teamBPlayersStr = match.teamB_Players.join('+');
+          teamBPlayersNames = match.teamB_Players.map((playerId: string) => {
+            const player = allPlayers.find(p => p.code === playerId);
+            return player && player.name ? player.name : `队员${playerId}`;
+          }).join('+');
+        } else {
+          if (match.matchType.includes('1+2') || match.matchType === 'MD1' || match.matchType === 'MD2') {
+            teamBPlayersStr = `${teamBCode}1+${teamBCode}2`;
+            teamBPlayersNames = `队员${teamBCode}1+队员${teamBCode}2`;
+          } else if (match.matchType.includes('3+5') || match.matchType === 'XD1') {
+            teamBPlayersStr = `${teamBCode}3+${teamBCode}5`;
+            teamBPlayersNames = `队员${teamBCode}3+队员${teamBCode}5`;
+          } else {
+            teamBPlayersStr = `${teamBCode}?+${teamBCode}?`;
+            teamBPlayersNames = `队员${teamBCode}?+队员${teamBCode}?`;
+          }
+        }
+        
+        // 表头 - 比赛信息
+        allScoreSheetData.push([
+          match.matchNumber || `---`, 
+          teamACode, 
+          teamBCode
+        ]);
+        
+        // 第一行 - 比赛编号和队伍信息
+        allScoreSheetData.push([
+          `${match.court}号场\n第${match.timeSlot + 1}时段`,
+          `${teamAPlayersStr}\n${teamAPlayersNames}`,
+          `${teamBPlayersStr}\n${teamBPlayersNames}`
+        ]);
+        
+        // 添加1-21的空行，用于记录比分
+        for (let i = 1; i <= 21; i++) {
+          allScoreSheetData.push([
+            i.toString(),
+            '',
+            ''
+          ]);
+        }
+      });
+      
+      // 创建单一计分表工作表
+      const allScoreSheet = XLSX.utils.aoa_to_sheet(allScoreSheetData as any[][]);
+      
+      // 设置列宽
+      allScoreSheet['!cols'] = [
+        { wch: 10 },  // matchnumber列
+        { wch: 25 }, // 第一队列
+        { wch: 25 }  // 第二队列
+      ];
+      
+      // 设置所有单元格自动换行
+      for (let r = 0; r < allScoreSheetData.length; r++) {
+        for (let c = 0; c < 3; c++) {
+          const cellRef = XLSX.utils.encode_cell({ r, c });
+          if (allScoreSheet[cellRef]) {
+            if (!allScoreSheet[cellRef].s) allScoreSheet[cellRef].s = {};
+            // 设置所有单元格自动换行
+            allScoreSheet[cellRef].s.alignment = { 
+              wrapText: true, 
+              vertical: 'top',
+              horizontal: c === 0 ? 'center' : 'left' // 第一列居中，其他左对齐
+            };
+            // 设置边框
+            allScoreSheet[cellRef].s.border = {
+              top: { style: 'thin' },
+              left: { style: 'thin' },
+              bottom: { style: 'thin' },
+              right: { style: 'thin' }
+            };
+          }
+        }
+      }
+      
+      // 为队伍信息行设置更大的行高
+      const rowHeights = [];
+      let currentMatchIndex = 0;
+      
+      for (let r = 0; r < allScoreSheetData.length; r++) {
+        // 空行
+        if (r > 0 && (allScoreSheetData[r][0] as string) === '') {
+          rowHeights.push({ hpt: 10 }); // 空行高度较小
+          continue;
+        }
+        
+        // 队伍信息行 (表头的下一行)
+        if ((allScoreSheetData[r][0] as string) === 'matchnumber') {
+          rowHeights.push({ hpt: 20 }); // 表头高度
+          currentMatchIndex = r;
+          continue;
+        }
+        
+        // 队伍信息行
+        if (r === currentMatchIndex + 1) {
+          rowHeights.push({ hpt: 40 }); // 队伍信息行高度加大
+          continue;
+        }
+        
+        // 其他行 (比分行)
+        rowHeights.push({ hpt: 20 });
+      }
+      
+      allScoreSheet['!rows'] = rowHeights;
+      
+      // 添加到工作簿
+      XLSX.utils.book_append_sheet(workbook, allScoreSheet, '计分表');
       
       // 导出Excel文件
       const fileName = `${exportFileName}.xlsx`;

@@ -1,7 +1,7 @@
 ﻿import json
 import random
 
-with open(r'C:\Local\test\badminton_tournament_tool\tournament_data_2025-06-02.json', 'r', encoding='utf-8') as f:
+with open(r'C:\Local\test\badminton_tournament_tool\badminton_data_2025-06-06.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 for match in data['matches']:
@@ -25,7 +25,7 @@ for match in data['matches']:
         match['winner_TeamId'] = match['teamB_Id']
     match['status'] = 'finished'
 
-with open(r'C:\Local\test\badminton_tournament_tool\tournament_data_2025-06-02.json', 'w', encoding='utf-8') as f:
+with open(r'C:\Local\test\badminton_tournament_tool\badminton_data_2025-06-06.json', 'w', encoding='utf-8') as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
 
 print("已为所有未完成比赛生成随机比分！")

@@ -1,5 +1,6 @@
 export interface Match {
   id: string;
+  matchNumber?: string;
   round: number;
   timeSlot: number;
   court: number;
