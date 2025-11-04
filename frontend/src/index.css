@@ -14,4 +14,48 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-} 
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 24px;
+}
+
+.app-header-title {
+  color: #fff;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.app-menu-button {
+  color: #fff;
+  font-size: 20px;
+  padding: 0;
+}
+
+.app-menu-button:hover,
+.app-menu-button:focus {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.app-content {
+  transition: padding 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0 16px;
+  }
+
+  .app-header-title {
+    font-size: 18px;
+  }
+
+  .app-menu-button {
+    margin-right: 4px;
+  }
+}

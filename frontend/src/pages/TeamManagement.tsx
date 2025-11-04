@@ -271,6 +271,7 @@ const TeamManagement: React.FC = () => {
           pagination={false}
           rowKey="code"
           size="small"
+          scroll={{ x: 'max-content' }}
         />
       </Card>
 

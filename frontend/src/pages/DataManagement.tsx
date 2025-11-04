@@ -427,6 +427,7 @@ const DataManagement: React.FC = () => {
               dataSource={consecutiveMatches}
               columns={consecutiveMatchesColumns}
               rowKey="id"
+              scroll={{ x: 'max-content' }}
             />
           </Card>
           <Card title="连续三个时间段都比赛的选手">
@@ -434,6 +435,7 @@ const DataManagement: React.FC = () => {
               dataSource={playerConsecutiveThree}
               columns={consecutiveThreeMatchesColumns}
               rowKey="id"
+              scroll={{ x: 'max-content' }}
             />
           </Card>
           <Card title="连续四个时间段都比赛的选手">
@@ -441,6 +443,7 @@ const DataManagement: React.FC = () => {
               dataSource={playerConsecutiveFour}
               columns={consecutiveFourMatchesColumns}
               rowKey="id"
+              scroll={{ x: 'max-content' }}
             />
           </Card>
           <Card title="连续三个时间段未参赛的选手">
@@ -448,6 +451,7 @@ const DataManagement: React.FC = () => {
               dataSource={inactivePlayers}
               columns={inactivePlayersColumns}
               rowKey="id"
+              scroll={{ x: 'max-content' }}
             />
           </Card>
           <Card title="选手连续参赛统计">
@@ -455,6 +459,7 @@ const DataManagement: React.FC = () => {
               dataSource={playerConsecutiveCount}
               columns={playerConsecutiveCountColumns}
               rowKey="id"
+              scroll={{ x: 'max-content' }}
             />
           </Card>
         </Space>
@@ -472,6 +477,7 @@ const DataManagement: React.FC = () => {
               rowKey="id"
               pagination={false}
               showSorterTooltip={{ title: '点击可以切换升序/降序' }}
+              scroll={{ x: 'max-content' }}
             />
           </Card>
           <Card title="选手胜率">
@@ -481,6 +487,7 @@ const DataManagement: React.FC = () => {
               rowKey="id"
               pagination={{ pageSize: 10 }}
               showSorterTooltip={{ title: '点击可以切换升序/降序' }}
+              scroll={{ x: 'max-content' }}
             />
           </Card>
           <Card title="组合胜率">
@@ -490,6 +497,7 @@ const DataManagement: React.FC = () => {
               rowKey="id"
               pagination={{ pageSize: 10 }}
               showSorterTooltip={{ title: '点击可以切换升序/降序' }}
+              scroll={{ x: 'max-content' }}
             />
           </Card>
         </Space>

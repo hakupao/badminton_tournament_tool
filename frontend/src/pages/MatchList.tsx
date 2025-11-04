@@ -1446,6 +1446,7 @@ const MatchList: React.FC = () => {
             pageSize: 20,
             showTotal: (total) => `共 ${total} 场比赛`,
           }}
+          scroll={{ x: 'max-content' }}
         />
       ) : (
         <MatrixView matches={matches} />

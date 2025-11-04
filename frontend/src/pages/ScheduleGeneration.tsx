@@ -598,6 +598,7 @@ const ScheduleGeneration: React.FC = () => {
               columns={columns}
               dataSource={schedule}
               pagination={{ pageSize: 20 }}
+              scroll={{ x: 'max-content' }}
               rowKey={(record) => `${record.timeSlot}-${record.court}-${record.teamA}-${record.teamB}`}
             />
           </Card>

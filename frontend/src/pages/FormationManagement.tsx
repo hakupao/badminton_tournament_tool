@@ -283,6 +283,7 @@ const FormationManagement: React.FC = () => {
             }))}
             pagination={false}
             rowKey="formation"
+            scroll={{ x: 'max-content' }}
           >
             <Table.Column
               title="比赛项目"
