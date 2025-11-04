@@ -570,7 +570,6 @@ const MatchList: React.FC = () => {
       filters: matches.reduce((acc: { text: string; value: string }[], match) => {
         const allPlayers = [...(match.teamA_Players || []), ...(match.teamB_Players || [])];
         allPlayers.forEach(playerId => {
-          const player = allPlayers.find(p => p === playerId);
           const displayName = getPlayerDisplayName(playerId);
           if (!acc.find(item => item.value === playerId)) {
             acc.push({ text: displayName, value: playerId });

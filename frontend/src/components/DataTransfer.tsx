@@ -103,7 +103,7 @@ const DataTransfer: React.FC = () => {
         <p>导出的数据包含所有比赛信息、时间段设置以及队员姓名信息。</p>
       </div>
       
-      <style jsx>{`
+      <style>{`
         .data-transfer-container {
           padding: 15px;
           border: 1px solid #eaeaea;
