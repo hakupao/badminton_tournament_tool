@@ -4,6 +4,8 @@ import type { TabsProps } from 'antd';
 import type { SortOrder } from 'antd/es/table/interface';
 import { useAppState } from '../store';
 import { useNavigate } from 'react-router-dom';
+import { DownloadOutlined } from '@ant-design/icons';
+import * as XLSX from 'xlsx';
 import { 
   get_consecutive_matches, 
   get_inactive_players, 
@@ -495,9 +497,102 @@ const DataManagement: React.FC = () => {
     },
   ];
 
+  const exportToExcel = () => {
+    // 创建工作簿
+    const workbook = XLSX.utils.book_new();
+
+    // 1. 导出团体实时排名
+    const groupRankingsData: (string | number)[][] = [
+      ['团体', '积分', '胜场', '负场', '胜率', '得分', '失分', '净胜球']
+    ];
+    groupRankings.forEach(item => {
+      groupRankingsData.push([
+        item.group,
+        item.points.toString(),
+        item.wins.toString(),
+        item.losses.toString(),
+        `${(item.winRate * 100).toFixed(1)}%`,
+        item.pointsWon.toString(),
+        item.pointsLost.toString(),
+        item.pointDiff.toString()
+      ]);
+    });
+    const groupRankingsSheet = XLSX.utils.aoa_to_sheet(groupRankingsData);
+    XLSX.utils.book_append_sheet(workbook, groupRankingsSheet, '团体实时排名');
+
+    // 2. 导出选手胜率
+    const playerWinRatesData: (string | number)[][] = [
+      ['选手', '姓名', '胜场', '总场次', '胜率', '得分', '失分', '净胜球']
+    ];
+    playerWinRates.forEach(item => {
+      playerWinRatesData.push([
+        item.player,
+        item.realName || '',
+        item.wins.toString(),
+        item.total.toString(),
+        `${(item.winRate * 100).toFixed(1)}%`,
+        item.pointsWon.toString(),
+        item.pointsLost.toString(),
+        item.pointDiff.toString()
+      ]);
+    });
+    const playerWinRatesSheet = XLSX.utils.aoa_to_sheet(playerWinRatesData);
+    XLSX.utils.book_append_sheet(workbook, playerWinRatesSheet, '选手胜率');
+
+    // 3. 导出组合胜率
+    const pairWinRatesData: (string | number)[][] = [
+      ['组合', '姓名', '胜场', '总场次', '胜率', '得分', '失分', '净胜球']
+    ];
+    pairWinRates.forEach(item => {
+      pairWinRatesData.push([
+        item.pair,
+        item.realName || '',
+        item.wins.toString(),
+        item.total.toString(),
+        `${(item.winRate * 100).toFixed(1)}%`,
+        item.pointsWon.toString(),
+        item.pointsLost.toString(),
+        item.pointDiff.toString()
+      ]);
+    });
+    const pairWinRatesSheet = XLSX.utils.aoa_to_sheet(pairWinRatesData);
+    XLSX.utils.book_append_sheet(workbook, pairWinRatesSheet, '组合胜率');
+
+    // 设置列宽
+    const setColumnWidths = (sheet: XLSX.WorkSheet) => {
+      const colWidths = [
+        { wch: 15 }, // 团体/选手/组合
+        { wch: 15 }, // 姓名
+        { wch: 10 }, // 胜场
+        { wch: 10 }, // 总场次
+        { wch: 10 }, // 胜率
+        { wch: 10 }, // 得分
+        { wch: 10 }, // 失分
+        { wch: 10 }  // 净胜球
+      ];
+      sheet['!cols'] = colWidths;
+    };
+
+    setColumnWidths(groupRankingsSheet);
+    setColumnWidths(playerWinRatesSheet);
+    setColumnWidths(pairWinRatesSheet);
+
+    // 导出文件
+    XLSX.writeFile(workbook, '比赛结果统计.xlsx');
+  };
+
   return (
     <div style={{ padding: '24px' }}>
-      <Title level={2}>数据管理</Title>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <Title level={2}>数据管理</Title>
+        <Button 
+          type="primary" 
+          icon={<DownloadOutlined />}
+          onClick={exportToExcel}
+        >
+          导出Excel
+        </Button>
+      </div>
       <Tabs defaultActiveKey="1" items={items} />
     </div>
   );
