@@ -6,7 +6,7 @@
   "outputDirectory": "frontend/dist",
   "functions": {
     "api/**/*.py": {
-      "runtime": "python3.11"
+      "runtime": "@vercel/python@4.0.0"
     }
   },
   "rewrites": [
