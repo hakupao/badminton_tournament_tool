@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { Match } from './types';
+import { seedDefaultDataIfNeeded } from './data/defaultDataLoader';
 
 // 定义状态类型
 interface AppState {
@@ -16,6 +17,10 @@ export const AppContext = createContext<AppState | undefined>(undefined);
 // 从localStorage获取初始数据
 const getInitialMatches = (): Match[] => {
   try {
+    if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') {
+      return [];
+    }
+    seedDefaultDataIfNeeded();
     const storedMatches = localStorage.getItem('badminton_matches');
     return storedMatches ? JSON.parse(storedMatches) : [];
   } catch (error) {
@@ -26,6 +31,9 @@ const getInitialMatches = (): Match[] => {
 
 const getInitialTimeSlots = (): string[] => {
   try {
+    if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') {
+      return [];
+    }
     const storedTimeSlots = localStorage.getItem('badminton_timeSlots');
     return storedTimeSlots ? JSON.parse(storedTimeSlots) : [];
   } catch (error) {
