@@ -13,11 +13,52 @@ interface DefaultDataBundle {
   tournamentFormations?: unknown[];
 }
 
-const REQUIRED_KEYS = ['badminton_matches', 'tournamentConfig', 'tournamentPlayers'] as const;
+const STORAGE_KEYS = {
+  matches: 'badminton_matches',
+  backupMatches: 'tournamentMatches',
+  timeSlots: 'badminton_timeSlots',
+  players: 'tournamentPlayers',
+  schedule: 'tournamentSchedule',
+  formations: 'tournamentFormations',
+  config: 'tournamentConfig',
+  marker: 'badminton_default_seed_version',
+} as const;
 
-const setIfMissing = (key: string, value: unknown) => {
-  if (localStorage.getItem(key) === null) {
+const parseArray = (raw: string | null) => {
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+};
+
+const parseObject = (raw: string | null) => {
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw);
+    return typeof parsed === 'object' && parsed !== null ? parsed : null;
+  } catch {
+    return null;
+  }
+};
+
+const setIfMissingOrEmptyArray = (key: string, value: unknown[]) => {
+  const existing = parseArray(localStorage.getItem(key));
+  if (!existing || existing.length === 0) {
     localStorage.setItem(key, JSON.stringify(value));
+  }
+};
+
+const setIfMissingOrEmptyObject = (key: string, value: Record<string, unknown> | null | undefined) => {
+  const existing = parseObject(localStorage.getItem(key));
+  if (!existing || Object.keys(existing).length === 0) {
+    if (value === null || value === undefined) {
+      localStorage.removeItem(key);
+    } else {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
   }
 };
 
@@ -27,40 +68,52 @@ export const seedDefaultDataIfNeeded = () => {
   }
 
   try {
-    const isFreshInstall = REQUIRED_KEYS.every((key) => localStorage.getItem(key) === null);
-    if (!isFreshInstall) {
+    if (localStorage.getItem(STORAGE_KEYS.marker)) {
       return;
     }
 
     const bundle = defaultData as DefaultDataBundle;
 
+    const matches = parseArray(localStorage.getItem(STORAGE_KEYS.matches));
+    const config = parseObject(localStorage.getItem(STORAGE_KEYS.config));
+    const players = parseArray(localStorage.getItem(STORAGE_KEYS.players));
+
+    const needsSeeding =
+      (!matches || matches.length === 0) ||
+      !config ||
+      (!players || players.length === 0);
+
+    if (!needsSeeding) {
+      // Mark as checked to avoid repeated parsing next time.
+      localStorage.setItem(STORAGE_KEYS.marker, 'skipped');
+      return;
+    }
+
     if (Array.isArray(bundle.matches)) {
-      setIfMissing('badminton_matches', bundle.matches);
-      setIfMissing('tournamentMatches', bundle.matches);
+      setIfMissingOrEmptyArray(STORAGE_KEYS.matches, bundle.matches);
+      setIfMissingOrEmptyArray(STORAGE_KEYS.backupMatches, bundle.matches);
     }
 
     if (Array.isArray(bundle.timeSlots)) {
-      setIfMissing('badminton_timeSlots', bundle.timeSlots);
+      setIfMissingOrEmptyArray(STORAGE_KEYS.timeSlots, bundle.timeSlots);
     }
 
     if (Array.isArray(bundle.players)) {
-      setIfMissing('tournamentPlayers', bundle.players);
+      setIfMissingOrEmptyArray(STORAGE_KEYS.players, bundle.players);
     }
 
     if (Array.isArray(bundle.tournamentSchedule)) {
-      setIfMissing('tournamentSchedule', bundle.tournamentSchedule);
+      setIfMissingOrEmptyArray(STORAGE_KEYS.schedule, bundle.tournamentSchedule);
     }
 
     if (Array.isArray(bundle.tournamentFormations)) {
-      setIfMissing('tournamentFormations', bundle.tournamentFormations);
+      setIfMissingOrEmptyArray(STORAGE_KEYS.formations, bundle.tournamentFormations);
     }
 
-    if (bundle.tournamentConfig && typeof bundle.tournamentConfig === 'object') {
-      setIfMissing('tournamentConfig', bundle.tournamentConfig);
-    }
+    setIfMissingOrEmptyObject(STORAGE_KEYS.config, bundle.tournamentConfig ?? undefined);
 
     const seedMarker = bundle.exportedAt ?? 'seeded';
-    localStorage.setItem('badminton_default_seed_version', seedMarker);
+    localStorage.setItem(STORAGE_KEYS.marker, seedMarker);
   } catch (error) {
     console.error('Failed to seed default badminton data', error);
   }
