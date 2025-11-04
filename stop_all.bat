@@ -5,20 +5,11 @@ echo ====================================
 :: 设置编码为UTF-8
 chcp 65001 > nul
 
-:: 停止Python进程
-echo 停止后端服务...
-taskkill /f /im python.exe /t 2>nul
-if %errorlevel% equ 0 (
-    echo 后端服务已停止
-) else (
-    echo 未检测到运行中的后端服务
-)
-
 :: 停止Node进程
-echo 停止前端服务...
+echo 停止前端开发服务...
 taskkill /f /im node.exe /t 2>nul
 if %errorlevel% equ 0 (
-    echo 前端服务已停止
+    echo 前端开发服务已停止
 ) else (
     echo 未检测到运行中的前端服务
 )

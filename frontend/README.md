@@ -14,13 +14,14 @@
 
 ```
 src/
-├── components/     # 可复用组件
-├── pages/          # 页面组件
-├── types/          # TypeScript类型定义
-├── store/          # 全局状态管理
-├── hooks/          # 自定义钩子
-├── utils/          # 工具函数
-└── App.tsx         # 应用入口
+├── components/      # 可复用 UI 组件
+├── pages/           # 页面组件（统筹、队伍、赛程、数据管理等）
+├── types/           # TypeScript 类型定义
+├── App.tsx          # 路由及页面骨架
+├── main.tsx         # React 入口
+├── store.tsx        # Context + localStorage 持久化
+├── data-utils.ts    # 赛程生成 / 导入导出逻辑
+└── utils.ts         # 通用工具函数
 ```
 
 ## 主要功能模块

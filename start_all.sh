@@ -3,14 +3,6 @@
 # 进入脚本所在目录
 cd "$(dirname "$0")"
 
-# 启动后端
-echo "启动后端..."
-cd backend
-source venv/bin/activate
-python app.py > ../backend.log 2>&1 &
-BACKEND_PID=$!
-cd ..
-
 # 启动前端
 echo "启动前端..."
 cd frontend
@@ -28,5 +20,5 @@ done
 # 打开浏览器
 open http://localhost:3000
 
-echo "前后端已启动，日志分别保存在 backend.log 和 frontend.log"
-echo "如需停止服务，可运行：kill $BACKEND_PID $FRONTEND_PID"
+echo "前端已启动，日志保存在 frontend.log"
+echo "如需停止服务，可运行：kill $FRONTEND_PID"

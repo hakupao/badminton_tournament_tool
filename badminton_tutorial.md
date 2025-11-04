@@ -1,358 +1,107 @@
 # 羽毛球比赛管理工具项目教程
 
-## 1. 项目概述
+本文档面向希望快速了解与二次开发本工具的同学，涵盖整体架构、核心代码位置、数据流以及常见开发流程。2025 年 11 月起，项目已经完全转向 **纯前端架构**，所有业务逻辑与数据持久化都运行在浏览器端，只有当你需要扩展云端能力时才会接入 Vercel Serverless Functions。
 
-这个羽毛球比赛管理工具是一个用于管理羽毛球团体赛的轻量级应用，主要功能包括比赛安排、队伍管理、比分记录等。项目采用前后端分离架构，前端使用React和TypeScript开发，后端使用Flask提供API支持。
+## 1. 架构与技术栈
 
-## 2. 技术栈
+| 层级 | 说明 |
+| --- | --- |
+| 前端 | React 18 + TypeScript + Ant Design + Vite |
+| 状态 | React Context (`src/store.tsx`) + `localStorage` 持久化 |
+| 数据处理 | `src/data-utils.ts` / `src/utils.ts` 负责赛程生成、导入导出 |
+| 可选云函数 | `api/health.js`（Node.js 22）示例，可按需扩展 |
 
-### 前端技术栈
-- **React 18**：用于构建用户界面的JavaScript库
-- **TypeScript**：JavaScript的超集，提供类型检查
-- **Ant Design**：UI组件库，提供丰富的界面组件
-- **React Router**：处理前端路由
-- **Context API**：用于状态管理
-- **localStorage**：用于本地数据存储
+项目默认 **不依赖任何本地/远程后端服务**。这意味着：
 
-### 后端技术栈
-- **Flask**：Python的轻量级Web框架
-- **Flask-CORS**：处理跨域请求
+- 安装 Node.js 与 npm 即可本地开发；
+- 所有比赛配置、队伍、比分等数据保存在浏览器 `localStorage`；
+- 若需要和外部系统同步，可在 `api/` 目录增加 Serverless Function，再在前端调用 `/api/*` 路径。
 
-## 3. 项目结构
+## 2. 目录速览
 
 ```
 badminton_tournament_tool/
-├── frontend/                # 前端代码
+├── api/                 # 可选的 Vercel Serverless Functions（默认只有 /api/health）
+├── docs/                # 用户手册、开发指南、数据导出导入说明等
+├── frontend/            # Vite + React 应用
 │   ├── src/
-│   │   ├── pages/           # 页面组件
-│   │   ├── App.tsx          # 应用入口组件
-│   │   ├── main.tsx         # React挂载点
-│   │   ├── store.tsx        # 状态管理
-│   │   ├── types.ts         # 类型定义
-│   │   ├── api.ts           # API调用
-│   │   ├── utils.ts         # 工具函数
-│   │   └── data-utils.ts    # 数据处理工具
-│   ├── package.json         # 依赖配置
-│   └── vite.config.ts       # Vite配置
-├── backend/                 # 后端代码
-│   ├── app.py               # Flask应用
-│   ├── config.py            # 配置文件
-│   └── requirements.txt     # Python依赖
-├── docs/                    # 文档目录
-└── README.md                # 项目说明
+│   │   ├── components/  # 可复用 UI 组件
+│   │   ├── pages/       # 页面级组件（统筹、队伍管理、数据管理等）
+│   │   ├── types/       # 结构化类型声明
+│   │   ├── App.tsx      # 路由与页面骨架
+│   │   ├── data-utils.ts# 赛程生成、Excel/JSON 导入导出
+│   │   ├── store.tsx    # Context + localStorage 状态管理
+│   │   └── utils.ts     # 共用工具函数
+├── start_browser.bat    # Windows 一键启动脚本（仅启动前端）
+├── start_all.sh         # macOS/Linux 示例脚本
+└── stop_all.bat         # Windows 停止脚本（结束 node 进程）
 ```
 
-## 4. 前端详解
+## 3. 核心模块说明
 
-### 4.1 React和TypeScript基础
+| 模块 | 文件 | 说明 |
+| --- | --- | --- |
+| 全局状态 | `src/store.tsx` | 使用 React Context 保存 `matches`、`timeSlots`，任何更新自动同步到 `localStorage` |
+| 比赛统筹 | `src/pages/TournamentSetup.tsx` 等 | 设置队伍数量、场地、时间段等基础参数 |
+| 队伍/阵容管理 | `src/pages/TeamManagement.tsx`、`src/pages/FormationManagement.tsx` | 录入队伍与出场阵容 |
+| 赛程与比分 | `src/pages/ScheduleGeneration.tsx`、`src/pages/MatchList.tsx` | 自动排赛、记录比分、切换列表/矩阵视图 |
+| 数据迁移 | `src/pages/DataManagement.tsx` | 通过 `data-utils.ts` 导入/导出 JSON |
+| 工具函数 | `src/data-utils.ts` | 处理表格导出、Excel 解析、随机比分生成等 |
 
-React是一个用于构建用户界面的JavaScript库，TypeScript则是JavaScript的超集，增加了静态类型系统。
+## 4. 数据流与存储策略
 
-基本的React组件结构如下：
+1. 页面操作通过 Context 修改内存状态；
+2. `store.tsx` 在 `setMatches` / `setTimeSlots` 中同步写入 `localStorage`；
+3. 页面刷新时，通过 `getInitialMatches` / `getInitialTimeSlots` 重新加载持久化数据；
+4. 导入导出功能直接读写 JSON/Excel 文件，不依赖服务器；
+5. 如需云端同步，在 `api/` 下新增函数，并在前端通过 `fetch('/api/xxx')` 与之通信。
 
-```tsx
-import React from 'react';
+## 5. 开发与运行
 
-// 函数式组件
-const MyComponent: React.FC<Props> = (props) => {
-  return (
-    <div>
-      {/* JSX内容 */}
-    </div>
-  );
-};
+### 5.1 快速启动
 
-export default MyComponent;
-```
+- **Windows**：双击 `start_browser.bat`，脚本会执行 `npm install`、`npm run dev` 并在浏览器打开 `http://localhost:3000`。
+- **macOS/Linux**：执行 `./start_all.sh`（或手动 `cd frontend && npm install && npm run dev`）。
 
-TypeScript类型定义示例：
-
-```tsx
-// 定义接口
-interface PlayerInfo {
-  code: string;
-  name: string;
-  teamCode: string;
-  playerNumber: number;
-}
-
-// 使用类型
-const [players, setPlayers] = useState<PlayerInfo[]>([]);
-```
-
-### 4.2 核心功能模块
-
-#### 4.2.1 状态管理 (store.tsx)
-
-项目使用React的Context API进行状态管理，主要包括：
-- 创建Context
-- Provider组件包装应用
-- 使用localStorage持久化数据
-- 自定义hook方便组件使用Context
-
-```tsx
-// 自定义Hook示例
-export const useAppState = () => {
-  const context = useContext(AppContext);
-  if (context === undefined) {
-    throw new Error('useAppState must be used within an AppProvider');
-  }
-  return context;
-};
-```
-
-#### 4.2.2 路由结构 (App.tsx)
-
-应用使用React Router管理路由，主要页面包括：
-- 比赛统筹 (TournamentSetup)
-- 队伍管理 (TeamManagement)
-- 阵容配置 (FormationManagement)
-- 赛程生成 (ScheduleGeneration)
-- 比赛管理 (MatchList)
-- 数据管理 (DataManagement)
-
-```tsx
-<Routes>
-  <Route path="/" element={<TournamentSetup />} />
-  <Route path="/tournament-setup" element={<TournamentSetup />} />
-  <Route path="/teams" element={<TeamManagement />} />
-  <Route path="/formations" element={<FormationManagement />} />
-  <Route path="/schedule" element={<ScheduleGeneration />} />
-  <Route path="/matches" element={<MatchList />} />
-  <Route path="/data" element={<DataManagement />} />
-</Routes>
-```
-
-#### 4.2.3 队伍管理 (TeamManagement.tsx)
-
-这个组件负责管理队伍和队员信息：
-- 显示队伍列表
-- 添加/编辑/删除队员
-- 调整队伍人数
-- 数据持久化到localStorage
-
-```tsx
-// 保存队员信息
-const handleSave = () => {
-  localStorage.setItem('tournamentPlayers', JSON.stringify(players));
-  message.success('队员信息保存成功！');
-  setEditingKey('');
-};
-```
-
-## 5. 后端详解
-
-后端使用Flask提供轻量级API支持：
-
-```python
-from flask import Flask, jsonify
-from flask_cors import CORS
-from config import Config
-
-app = Flask(__name__)
-CORS(app)  # 允许跨域请求
-
-@app.route('/api/health', methods=['GET'])
-def health_check():
-    """健康检查"""
-    return jsonify({'status': 'ok', 'message': '羽毛球赛事管理系统 MVP 版本'})
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=Config.PORT, debug=True)
-```
-
-## 6. React和TypeScript实战教程
-
-### 6.1 使用函数式组件和Hooks
-
-```tsx
-import React, { useState, useEffect } from 'react';
-
-const MyComponent: React.FC = () => {
-  // 状态管理
-  const [count, setCount] = useState<number>(0);
-  
-  // 副作用处理
-  useEffect(() => {
-    document.title = `计数: ${count}`;
-    
-    // 清理函数
-    return () => {
-      document.title = '应用';
-    };
-  }, [count]); // 依赖数组
-  
-  return (
-    <div>
-      <p>当前计数: {count}</p>
-      <button onClick={() => setCount(count + 1)}>增加</button>
-    </div>
-  );
-};
-```
-
-### 6.2 使用TypeScript定义类型
-
-```tsx
-// 定义接口
-interface User {
-  id: string;
-  name: string;
-  age: number;
-}
-
-// 组件属性类型
-interface Props {
-  user: User;
-  onUpdate: (user: User) => void;
-}
-
-// 使用泛型组件
-const UserCard: React.FC<Props> = ({ user, onUpdate }) => {
-  // 组件实现
-};
-```
-
-### 6.3 使用Ant Design组件
-
-```tsx
-import { Table, Button, Input, Card, message } from 'antd';
-
-const MyComponent: React.FC = () => {
-  return (
-    <Card title="用户列表">
-      <Input placeholder="搜索" style={{ marginBottom: 16 }} />
-      
-      <Table
-        columns={[
-          { title: '姓名', dataIndex: 'name' },
-          { title: '年龄', dataIndex: 'age' },
-          {
-            title: '操作',
-            render: (_, record) => (
-              <Button onClick={() => handleEdit(record)}>编辑</Button>
-            ),
-          },
-        ]}
-        dataSource={data}
-      />
-      
-      <Button type="primary" onClick={handleSave}>
-        保存
-      </Button>
-    </Card>
-  );
-};
-```
-
-### 6.4 使用React Router
-
-```tsx
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-
-const App: React.FC = () => {
-  return (
-    <BrowserRouter>
-      <nav>
-        <Link to="/">首页</Link>
-        <Link to="/about">关于</Link>
-      </nav>
-      
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
-```
-
-### 6.5 使用Context API进行状态管理
-
-```tsx
-// 创建Context
-const MyContext = createContext<ContextType | undefined>(undefined);
-
-// Provider组件
-export const MyProvider: React.FC = ({ children }) => {
-  const [state, setState] = useState(initialState);
-  
-  return (
-    <MyContext.Provider value={{ state, setState }}>
-      {children}
-    </MyContext.Provider>
-  );
-};
-
-// 使用Context
-const MyComponent: React.FC = () => {
-  const { state, setState } = useContext(MyContext);
-  
-  return (
-    <div>
-      <p>{state.value}</p>
-      <button onClick={() => setState({ ...state, value: state.value + 1 })}>
-        更新
-      </button>
-    </div>
-  );
-};
-```
-
-## 7. 项目功能详解
-
-### 7.1 比赛统筹
-
-负责设置比赛的基本参数，如队伍数量、每队人数、比赛时间等。
-
-### 7.2 队伍管理
-
-管理参赛队伍及队员信息，包括添加、编辑和删除队员。
-
-### 7.3 阵容配置
-
-为每场比赛配置出场队员，设置单打、双打阵容。
-
-### 7.4 赛程生成
-
-根据队伍和场地信息自动生成比赛时间表。
-
-### 7.5 比赛管理
-
-记录比赛过程和结果，包括比分、胜负等信息。
-
-### 7.6 数据管理
-
-统计分析比赛数据，导出报表等功能。
-
-## 8. 启动项目
-
-### 8.1 前端启动
+### 5.2 常用命令
 
 ```bash
 cd frontend
-npm install
-npm run dev
+npm install          # 安装依赖
+npm run dev          # 启动本地开发
+npm run build        # 生成生产构建（frontend/dist）
+npm run preview      # 预览构建结果
 ```
 
-### 8.2 后端启动
+### 5.3 停止服务
 
-```bash
-cd backend
-python -m venv venv
-venv\Scripts\activate  # Windows
-source venv/bin/activate  # Linux/Mac
-pip install -r requirements.txt
-python app.py
-```
+在 Windows 上可运行 `stop_all.bat`，其会尝试结束 `node.exe` 进程并清理由 `start_browser.bat` 产生的临时文件。
 
-### 8.3 使用快速启动脚本
+## 6. 扩展 Serverless Function（可选）
 
-```bash
-# Windows
-start_browser.bat
-```
+1. 在 `api/` 目录创建 `foo.js`：
+   ```js
+   export default function handler(req, res) {
+     res.status(200).json({ status: 'ok', message: 'Hello from foo' })
+   }
+   ```
+2. 本地调试时使用 `vercel dev`；部署时 `vercel deploy` 即可托管静态站点 + Functions。
+3. 前端通过 `fetch('/api/foo')` 调用即可，无需配置 Vite 代理。
 
-## 9. 总结
+## 7. 调试与排障建议
 
-通过本教程，您应该能够了解这个羽毛球比赛管理工具的技术栈、架构和功能，以及如何使用React和TypeScript进行前端开发。项目采用了现代前端技术栈，提供了良好的用户体验和功能实现。 
+- **数据清理**：如遇错误数据，可在“数据管理 → 数据清理”中清空 `localStorage`，或在浏览器开发者工具中手动删除相关键值。
+- **依赖问题**：若脚本启动失败，可删除 `frontend/node_modules` 再次执行 `npm install`。
+- **端口占用**：开发服务器默认使用 3000 端口，可在 `frontend/vite.config.ts` 中调整。
+- **构建体积提示**：Vite 在 `npm run build` 时可能提示 chunk 过大，可根据需要拆分页面或引入懒加载。
+
+## 8. 资源与文档
+
+- `README.md`：项目概述、部署方式
+- `docs/user_guide.md`：面向普通管理员的使用手册
+- `docs/development_guide.md`：开发环境、代码规范与可选 Serverless 扩展
+- `docs/数据导入导出指南.md`：数据迁移步骤
+- `docs/changelog.md`：版本变更
+- `docs/contributing.md`：贡献与提交流程
+
+欢迎在 GitHub Issues 提交问题或改进建议，共同打造更好用的羽毛球比赛管理工具。 

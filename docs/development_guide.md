@@ -5,7 +5,7 @@
 - [开发环境配置](#开发环境配置)
 - [项目架构](#项目架构)
 - [前端开发](#前端开发)
-- [后端开发](#后端开发)
+- [可选 Serverless 扩展](#可选-serverless-扩展)
 - [数据管理](#数据管理)
 - [数据流](#数据流)
 - [代码规范](#代码规范)
@@ -18,10 +18,9 @@
 
 - **Node.js**: v16.0.0 或更高版本
 - **npm**: v8.0.0 或更高版本
-- **Python**: v3.8.0 或更高版本
-- **pip**: 最新版本
 - **Git**: 版本控制
 - **VSCode** (推荐): 代码编辑器
+- （可选）**Python 3.8+**：仅在需要运行 `generate_scores.py` 等脚本时使用
 
 ### 环境设置
 
@@ -37,24 +36,18 @@
    npm install
    ```
 
-3. **后端设置**:
-   ```bash
-   cd backend
-   python -m venv venv
-   venv\Scripts\activate  # Windows
-   source venv/bin/activate  # Linux/macOS
-   pip install -r requirements.txt
-   ```
+3. **（可选）Serverless 函数设置**:
+   - 如需扩展 API，可在 `api/` 目录新增 Vercel Function，并按照 Vercel 文档启动 `vercel dev`
 
 ## 项目架构
 
 ### 整体架构
 
-本项目采用前后端分离的架构:
+本项目采用“纯前端 + 可选 Serverless”的架构：
 
-- **前端**: React + TypeScript 的单页应用
-- **后端**: Python Flask RESTful API
-- **通信**: 使用HTTP/JSON进行前后端通信
+- **前端**: React + TypeScript 单页应用，所有业务逻辑与数据持久化均运行在浏览器（`localStorage`）
+- **Serverless（可选）**: Vercel Node.js Functions（目前仅示例 `/api/health`），按需扩展
+- **通信**: 默认无需 HTTP 通信；如扩展 Function，可通过 `fetch/axios` 与 `/api/*` 交互
 
 ### 目录结构
 
@@ -66,11 +59,8 @@ badminton_tournament_tool/
 │   │   ├── components/ # 可复用组件
 │   │   └── ...
 │   └── ...
-├── backend/            # 后端Flask应用
-│   ├── app.py          # 主应用入口
-│   ├── data_management.py # 数据处理逻辑
-│   └── ...
-└── docs/               # 项目文档
+├── api/               # Vercel Serverless Functions（可选）
+└── docs/              # 项目文档
 ```
 
 ## 前端开发
@@ -82,7 +72,6 @@ badminton_tournament_tool/
 - **Ant Design**: UI组件库
 - **React Router**: 客户端路由
 - **Vite**: 构建工具
-- **Axios**: HTTP客户端
 - **localStorage**: 本地数据存储
 
 ### 开发工作流
@@ -120,37 +109,26 @@ badminton_tournament_tool/
 - 避免不必要的状态提升，尽量保持状态在需要的组件中
 - 利用localStorage持久化关键数据
 
-## 后端开发
+## 可选 Serverless 扩展
 
-### 技术栈
+### 适用场景
 
-- **Python**: 编程语言
-- **Flask**: Web框架
-- **Flask-CORS**: 处理跨域请求
+- 与外部系统同步（如共享比分、推送Webhook）
+- 提供健康检查或系统版本信息
+- 访问需要保护的机密（如第三方 API 密钥）
 
-### 架构说明
+### 推荐方式
 
-当前版本采用"前端为主"的架构:
-- 后端仅提供基础API支持(如健康检查)
-- 大部分业务逻辑在前端实现
-- 数据存储在浏览器的localStorage中
+1. 在 `api/` 目录创建新的 Function 文件，例如 `api/sync.js`。
+2. 导出 `handler(req, res)` 并返回 JSON。
+3. 使用 `vercel dev` 进行本地调试，或直接 `vercel deploy`。
 
-### 开发工作流
+### 开发建议
 
-1. **启动开发服务器**:
-   ```bash
-   cd backend
-   venv\Scripts\activate  # Windows
-   source venv/bin/activate  # Linux/macOS
-   python app.py
-   ```
-
-### API开发
-
-- 所有新API路由应添加到`app.py`中
-- 复杂的业务逻辑应拆分到单独的模块中
-- 所有API应返回JSON格式的响应
-- 确保API文档保持最新
+- 轻量逻辑放在 Serverless，复杂数据仍在前端存储
+- 明确区分 GET/POST 等 HTTP 动词
+- 使用环境变量存储敏感配置
+- 更新 `docs/api` 相关文档，保持接口契约清晰
 
 ## 数据管理
 
@@ -234,7 +212,7 @@ badminton_tournament_tool/
 
 随着项目发展，可能考虑以下数据管理升级:
 
-1. **后端数据库**: 替换localStorage为后端数据库存储
+1. **云端数据库**: 替换localStorage为云端数据库存储
    - SQLite/MySQL: 关系型数据库存储结构化数据
    - MongoDB: 适用于更灵活的数据结构
 
@@ -248,19 +226,18 @@ badminton_tournament_tool/
 
 ## 数据流
 
-1. **前端到后端**:
-   - 前端通过Axios发送HTTP请求到后端API
-   - 请求中包含必要的参数和数据
+1. **前端本地流程**:
+   - 页面操作通过 Context 更新 React 状态
+   - 同步写入 `localStorage`（键见“数据管理”章节）
+   - 重新渲染 UI，保持单页面响应
 
-2. **后端处理**:
-   - 后端API接收请求并验证数据
-   - 执行业务逻辑处理
-   - 返回处理结果
+2. **（可选）调用 Serverless**:
+   - 若实现了 `/api/*`，通过 `fetch`/`axios` 调用
+   - 收到响应后更新前端状态或提示用户
 
-3. **前端更新**:
-   - 前端接收API响应
-   - 更新React状态
-   - 重新渲染UI展示新数据
+3. **数据导入导出**:
+   - `data-utils.ts` 负责读取/写入 Excel、JSON
+   - 通过下载/上传文件实现跨设备迁移
 
 ## 代码规范
 
@@ -279,11 +256,6 @@ badminton_tournament_tool/
 - 组件名使用PascalCase，如TournamentSetup
 - 非组件函数使用camelCase，如getPlayerData
 
-### Python规范
-
-- 遵循PEP 8风格指南
-- 使用蛇形命名法(snake_case)
-- 函数和方法应包含文档字符串
 
 ## 测试
 
@@ -293,10 +265,10 @@ badminton_tournament_tool/
 - 使用React Testing Library进行组件测试
 - 运行测试: `npm test`
 
-### 后端测试
+### 可选 Serverless 测试
 
-- 使用pytest进行单元测试
-- 运行测试: `pytest`
+- 若实现 Node.js Function，可用 `vitest` / `jest` 编写单元测试
+- 也可通过 `vercel dev` + `curl` 验证接口行为
 
 ## 部署
 
@@ -308,12 +280,11 @@ badminton_tournament_tool/
    npm run build
    ```
 
-2. 后端准备:
-   - 确保requirements.txt包含所有依赖
-   - 配置生产环境的config.py
+2. （可选）Serverless 函数:
+   - 确保 `api/` 中的函数通过本地 `vercel dev` 验证
+   - 将所需环境变量配置在 Vercel 项目中
 
 ### 部署选项
 
-- **服务器部署**: 使用Nginx+Gunicorn部署
-- **容器化部署**: 使用Docker和Docker Compose
-- **PaaS部署**: 部署到Heroku、Vercel等平台 
+- **静态托管**: 上传 `frontend/dist` 到任意静态站点（Vercel、Netlify、GitHub Pages）
+- **Vercel 一体化**: 直接 `vercel deploy`，自动构建前端并托管 `api/` Functions

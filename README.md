@@ -2,6 +2,8 @@
 
 一个用于管理羽毛球团体赛的轻量级工具，提供比赛安排、队伍管理、比分记录等功能。
 
+> 提示：当前版本已经完全转向 **纯前端架构**，所有数据都保存在浏览器 `localStorage` 中。原本的 Flask 后端与 axios API 已移除，只保留 `api/health` 这个 Vercel Serverless Function 作为部署示例。
+
 ## 功能特点
 
 - 🏆 比赛编排：自动生成合理的比赛时间表和场地分配
@@ -20,16 +22,15 @@
 - React Router (路由管理)
 - 本地存储 (localStorage)
 
-### 后端 (轻量级)
-- Flask (Python)
-- 提供基础API支持，主要业务逻辑在前端实现
+### 可选云函数
+- Vercel Serverless Functions (Node.js 22)
+- 仅提供 `/api/health` 健康检查，可根据需要自行扩展
 
 ## 项目结构一览
 
 ```
 badminton_tournament_tool
 ├── frontend/        # Vite + React 前端应用，包含所有业务页面与状态管理
-├── backend/         # 轻量级 Flask 服务，便于本地调试和未来扩展 API
 ├── api/             # Vercel Serverless Functions（当前提供 /api/health，Node/Edge 处理）
 ├── docs/            # 用户与开发文档
 ├── vercel.json      # Vercel 部署配置（静态站点 + Serverless）
@@ -38,7 +39,7 @@ badminton_tournament_tool
 
 ### 数据流说明
 - **端到端**：页面通过 `src/store.tsx` 与 `localStorage` 持久化比赛、时间段等核心数据。
-- **API 调用**：`src/api.ts` 统一请求 `/api/*`；生产环境由 Vercel Serverless 提供健康检查等轻量接口，本地开发则由 Flask 服务响应。
+- **API 调用**：默认不触发 `/api/*` 请求。如需扩展后端能力，可在 `api/` 目录新增 Serverless Function，并在前端自行封装请求代码。
 - **工具函数**：`src/data-utils.ts`、`src/utils.ts` 集中处理赛程生成、Excel 导入导出及比分计算逻辑。
 
 ## 快速开始
@@ -49,14 +50,9 @@ git clone https://github.com/yourusername/badminton_tournament_tool.git
 cd badminton_tournament_tool
 ```
 
-2. 使用快速启动脚本
-```bash
-# Windows
-start_quick.bat
-
-# Linux/Mac
-./start_quick.sh
-```
+2. 使用启动脚本
+- **Windows**：双击 `start_browser.bat`，脚本会自动安装依赖并运行 `npm run dev`
+- **macOS / Linux**：执行 `./start_all.sh`（或手动运行 `cd frontend && npm install && npm run dev`）
 
 3. 打开浏览器访问
 ```
@@ -72,19 +68,9 @@ npm install
 npm run dev
 ```
 
-### 后端开发
-```bash
-cd backend
-python -m venv venv
-venv\Scripts\activate  # Windows
-source venv/bin/activate  # Linux/Mac
-pip install -r requirements.txt
-python app.py
-```
-
 ## 部署到 Vercel
 
-项目已经包含 `vercel.json`，可以无缝构建前端并使用 Node Serverless Functions 暴露 `/api/health` 健康检查。
+项目已经包含 `vercel.json`，可以无缝构建前端并可选地使用 Node Serverless Functions 暴露 `/api/health` 健康检查。
 
 1. 安装并登录 Vercel CLI
    ```bash
@@ -104,20 +90,20 @@ python app.py
 
 Vercel 将执行以下动作：
 - `npm install --prefix frontend && npm run build --prefix frontend` 生成 `frontend/dist` 静态资源。
-- `api/health.js` 基于 Node.js 22 Serverless Function 运行，提供 `/api/health`。
+- `api/health.js` 基于 Node.js 22 Serverless Function 运行，提供 `/api/health`（可选，如无需求也可以删除）。
 - `rewrites` 规则会把除 `/api/*` 和静态资源外的请求重写到 `index.html`，确保 React Router 的多页面路由可以直接刷新访问。
 
-> 如需扩展更多后端能力，可继续在 `backend/` 中迭代 Flask 服务用于本地调试，并在 `api/` 目录新增相应的 Serverless Functions 以匹配 `/api/*` 路由。建议本地 Node.js 版本保持在 20 或 22，以与 Vercel 执行环境保持一致。
+> 如需扩展更多后端能力，可直接在 `api/` 目录新增 Serverless Functions，以匹配 `/api/*` 路由；建议本地 Node.js 版本保持在 20 或 22，与 Vercel 执行环境保持一致。
 
 ## 文档
 
 详细文档请查看 `docs` 目录：
 - [用户指南](docs/user_guide.md)
 - [开发指南](docs/development_guide.md)
-- [API文档](docs/api_docs.md)
 - [贡献指南](docs/contributing.md)
 - [更新日志](docs/changelog.md)
 - [数据导入导出指南](docs/数据导入导出指南.md)
+- [项目教程（长期版）](badminton_tutorial.md)
 
 ## 许可证
 
