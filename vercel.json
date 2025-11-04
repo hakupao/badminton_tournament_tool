@@ -5,9 +5,8 @@
   "devCommand": "npm run dev --prefix frontend",
   "outputDirectory": "frontend/dist",
   "functions": {
-    "api/**/*.py": {
-      "runtime": "@vercel/python@4.0.0",
-      "pythonVersion": "3.11"
+    "api/**/*.ts": {
+      "runtime": "nodejs20.x"
     }
   },
   "rewrites": [
