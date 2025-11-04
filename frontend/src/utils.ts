@@ -48,17 +48,59 @@ export function generateId(): string {
   return Math.random().toString(36).substring(2) + Date.now().toString(36);
 }
 
+const safeParseLocalStorage = <T>(key: string, fallback: T): T => {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? (JSON.parse(raw) as T) : fallback;
+  } catch (error) {
+    console.warn(`无法解析 localStorage 键 ${key}，已返回默认值`, error);
+    return fallback;
+  }
+};
+
+const isPlainObject = (value: unknown): value is Record<string, unknown> => {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+};
+
+const persistJsonValue = (key: string, value: unknown) => {
+  if (value === undefined || value === null) {
+    localStorage.removeItem(key);
+  } else {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+};
+
+const ensureArrayField = (value: unknown, fieldName: string): unknown[] => {
+  if (!Array.isArray(value)) {
+    throw new Error(`导入的数据格式不正确: ${fieldName} 应该是数组`);
+  }
+  return value;
+};
+
 /**
  * 导出数据到JSON文件
  * 将localStorage中的所有羽毛球比赛相关数据导出为JSON文件
  */
 export const exportData = () => {
   try {
+    const matches = safeParseLocalStorage('badminton_matches', []);
+    const backupMatches = safeParseLocalStorage('tournamentMatches', []);
+    const timeSlots = safeParseLocalStorage('badminton_timeSlots', []);
+    const players = safeParseLocalStorage('tournamentPlayers', []);
+    const tournamentConfig = safeParseLocalStorage('tournamentConfig', null);
+    const tournamentFormations = safeParseLocalStorage('tournamentFormations', []);
+    const tournamentSchedule = safeParseLocalStorage('tournamentSchedule', []);
+
     const dataToExport = {
-      matches: JSON.parse(localStorage.getItem('badminton_matches') || '[]'),
-      timeSlots: JSON.parse(localStorage.getItem('badminton_timeSlots') || '[]'),
-      players: JSON.parse(localStorage.getItem('tournamentPlayers') || '[]'),
-      // 可以根据需要添加其他需要导出的数据
+      version: '1.1.0',
+      exportedAt: new Date().toISOString(),
+      matches,
+      timeSlots,
+      players,
+      tournamentMatches: backupMatches.length > 0 ? backupMatches : matches,
+      tournamentSchedule,
+      tournamentConfig,
+      tournamentFormations,
     };
     
     // 创建一个Blob对象
@@ -99,27 +141,69 @@ export const importData = (file: File): Promise<{ success: boolean; message: str
         }
         
         const importedData = JSON.parse(event.target.result as string);
+        if (!isPlainObject(importedData)) {
+          throw new Error('导入的数据格式不正确: 文件内容应为对象');
+        }
         
-        // 验证导入的数据
-        if (!importedData.matches || !Array.isArray(importedData.matches)) {
+        const matchesSource = importedData.matches ?? importedData.tournamentMatches;
+        if (!matchesSource) {
           throw new Error('导入的数据格式不正确: 缺少比赛数据');
         }
+        const matches = ensureArrayField(matchesSource, 'matches');
         
-        if (!importedData.timeSlots || !Array.isArray(importedData.timeSlots)) {
-          throw new Error('导入的数据格式不正确: 缺少时间段数据');
+        const timeSlotsSource =
+          importedData.timeSlots ??
+          Array.from(
+            new Set(
+              matches
+                .map((item: unknown) => {
+                  if (typeof item === 'object' && item !== null && 'timeSlot' in item) {
+                    return (item as { timeSlot?: unknown }).timeSlot;
+                  }
+                  return undefined;
+                })
+                .filter((value: unknown): value is number | string =>
+                  typeof value === 'number' || typeof value === 'string'
+                )
+            )
+          ).map((value: number | string) =>
+            typeof value === 'number' ? `第${value}时段` : value
+          );
+        const timeSlots = ensureArrayField(timeSlotsSource, 'timeSlots');
+        
+        const players = Array.isArray(importedData.players) ? importedData.players : [];
+        const tournamentMatches = ensureArrayField(
+          importedData.tournamentMatches ?? matches,
+          'tournamentMatches'
+        );
+        const tournamentSchedule = importedData.tournamentSchedule
+          ? ensureArrayField(importedData.tournamentSchedule, 'tournamentSchedule')
+          : [];
+        const tournamentFormations = importedData.tournamentFormations
+          ? ensureArrayField(importedData.tournamentFormations, 'tournamentFormations')
+          : [];
+        
+        const tournamentConfig = importedData.tournamentConfig ?? null;
+        if (
+          tournamentConfig !== null &&
+          tournamentConfig !== undefined &&
+          !isPlainObject(tournamentConfig)
+        ) {
+          throw new Error('导入的数据格式不正确: 配置数据应为对象');
         }
         
-        // 保存导入的数据到localStorage
-        localStorage.setItem('badminton_matches', JSON.stringify(importedData.matches));
-        localStorage.setItem('badminton_timeSlots', JSON.stringify(importedData.timeSlots));
+        persistJsonValue('badminton_matches', matches);
+        persistJsonValue('badminton_timeSlots', timeSlots);
+        persistJsonValue('tournamentPlayers', players);
+        persistJsonValue('tournamentMatches', tournamentMatches);
+        persistJsonValue('tournamentSchedule', tournamentSchedule);
+        persistJsonValue('tournamentFormations', tournamentFormations);
+        persistJsonValue('tournamentConfig', tournamentConfig ?? undefined);
         
-        // 导入队员数据
-        if (importedData.players && Array.isArray(importedData.players)) {
-          localStorage.setItem('tournamentPlayers', JSON.stringify(importedData.players));
-          console.log('导入队员数据成功, 共导入', importedData.players.length, '名队员');
-        }
-        
-        resolve({ success: true, message: '数据导入成功，请刷新页面以加载新数据' });
+        resolve({
+          success: true,
+          message: `数据导入成功：共${matches.length}场比赛，${timeSlots.length}个时段`,
+        });
       } catch (error) {
         console.error('导入数据失败:', error);
         reject({ success: false, message: `导入数据失败: ${error instanceof Error ? error.message : '未知错误'}` });

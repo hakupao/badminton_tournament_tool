@@ -26,10 +26,17 @@
         "B1",
         "B2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 16,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.040Z",
-      "matchNumber": "001"
+      "matchNumber": "001",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_1",
@@ -57,10 +64,17 @@
         "B3",
         "B5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 15,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "002"
+      "matchNumber": "002",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_2",
@@ -88,10 +102,17 @@
         "D1",
         "D2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 14
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "003"
+      "matchNumber": "003",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_3",
@@ -119,10 +140,17 @@
         "D3",
         "D5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 17,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "004"
+      "matchNumber": "004",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_4",
@@ -150,10 +178,17 @@
         "F1",
         "F2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 4
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "005"
+      "matchNumber": "005",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_5",
@@ -181,10 +216,17 @@
         "F3",
         "F5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 10
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "006"
+      "matchNumber": "006",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_6",
@@ -212,10 +254,17 @@
         "H1",
         "H2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 8,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "007"
+      "matchNumber": "007",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_7",
@@ -243,10 +292,17 @@
         "H3",
         "H5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 11,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "008"
+      "matchNumber": "008",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_8",
@@ -274,10 +330,17 @@
         "B1",
         "B4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 16
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "009"
+      "matchNumber": "009",
+      "winner_TeamId": "A"
     },
     {
       "id": "local_9",
@@ -305,10 +368,17 @@
         "D1",
         "D4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 18
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "010"
+      "matchNumber": "010",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_10",
@@ -336,10 +406,17 @@
         "F1",
         "F4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 13
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "011"
+      "matchNumber": "011",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_11",
@@ -367,10 +444,17 @@
         "B2",
         "B3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 20,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "012"
+      "matchNumber": "012",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_12",
@@ -398,10 +482,17 @@
         "D2",
         "D3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 13
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "013"
+      "matchNumber": "013",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_13",
@@ -429,10 +520,17 @@
         "F2",
         "F3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 10
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "014"
+      "matchNumber": "014",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_14",
@@ -460,10 +558,17 @@
         "H1",
         "H4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 6,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "015"
+      "matchNumber": "015",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_15",
@@ -491,10 +596,17 @@
         "B4",
         "B5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 16
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "016"
+      "matchNumber": "016",
+      "winner_TeamId": "A"
     },
     {
       "id": "local_16",
@@ -522,10 +634,17 @@
         "D4",
         "D5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 10
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "017"
+      "matchNumber": "017",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_17",
@@ -553,10 +672,17 @@
         "F4",
         "F5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 15
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "018"
+      "matchNumber": "018",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_18",
@@ -584,10 +710,17 @@
         "G2",
         "G3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 6,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "019"
+      "matchNumber": "019",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_19",
@@ -615,10 +748,17 @@
         "H2",
         "H3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 9
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "020"
+      "matchNumber": "020",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_20",
@@ -646,10 +786,17 @@
         "E1",
         "E2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 12
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "021"
+      "matchNumber": "021",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_21",
@@ -677,10 +824,17 @@
         "F1",
         "F2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 17,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "022"
+      "matchNumber": "022",
+      "winner_TeamId": "F"
     },
     {
       "id": "local_22",
@@ -708,10 +862,17 @@
         "H4",
         "H5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 15,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "023"
+      "matchNumber": "023",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_23",
@@ -739,10 +900,17 @@
         "E3",
         "E5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 10,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "024"
+      "matchNumber": "024",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_24",
@@ -770,10 +938,17 @@
         "D4",
         "D5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 19,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "025"
+      "matchNumber": "025",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_25",
@@ -801,10 +976,17 @@
         "F4",
         "F5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 18
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "026"
+      "matchNumber": "026",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_26",
@@ -832,10 +1014,17 @@
         "G1",
         "G2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 8
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "027"
+      "matchNumber": "027",
+      "winner_TeamId": "A"
     },
     {
       "id": "local_27",
@@ -863,10 +1052,17 @@
         "H1",
         "H2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 5
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "028"
+      "matchNumber": "028",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_28",
@@ -894,10 +1090,17 @@
         "E1",
         "E4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 13
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "029"
+      "matchNumber": "029",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_29",
@@ -925,10 +1128,17 @@
         "F2",
         "F3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 16
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "030"
+      "matchNumber": "030",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_30",
@@ -956,10 +1166,17 @@
         "E2",
         "E3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 12,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "031"
+      "matchNumber": "031",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_31",
@@ -987,10 +1204,17 @@
         "G3",
         "G5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 16
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "032"
+      "matchNumber": "032",
+      "winner_TeamId": "A"
     },
     {
       "id": "local_32",
@@ -1018,10 +1242,17 @@
         "H3",
         "H5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 20
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "033"
+      "matchNumber": "033",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_33",
@@ -1049,10 +1280,17 @@
         "E4",
         "E5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 7,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "034"
+      "matchNumber": "034",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_34",
@@ -1080,10 +1318,17 @@
         "F1",
         "F4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 15,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "035"
+      "matchNumber": "035",
+      "winner_TeamId": "F"
     },
     {
       "id": "local_35",
@@ -1111,10 +1356,17 @@
         "G1",
         "G4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 10,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "036"
+      "matchNumber": "036",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_36",
@@ -1142,10 +1394,17 @@
         "H1",
         "H4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 17,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "037"
+      "matchNumber": "037",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_37",
@@ -1173,10 +1432,17 @@
         "F3",
         "F5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 19
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "038"
+      "matchNumber": "038",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_38",
@@ -1204,10 +1470,17 @@
         "H2",
         "H3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 16,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "039"
+      "matchNumber": "039",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_39",
@@ -1235,10 +1508,17 @@
         "G2",
         "G3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 6,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "040"
+      "matchNumber": "040",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_40",
@@ -1266,10 +1546,17 @@
         "F1",
         "F2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 19
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "041"
+      "matchNumber": "041",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_41",
@@ -1297,10 +1584,17 @@
         "E1",
         "E2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 13
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "042"
+      "matchNumber": "042",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_42",
@@ -1328,10 +1622,17 @@
         "C4",
         "C5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 20,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "043"
+      "matchNumber": "043",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_43",
@@ -1359,10 +1660,17 @@
         "G4",
         "G5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 3
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "044"
+      "matchNumber": "044",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_44",
@@ -1390,10 +1698,17 @@
         "D4",
         "D5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 19,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "045"
+      "matchNumber": "045",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_45",
@@ -1421,10 +1736,17 @@
         "H4",
         "H5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 18,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "046"
+      "matchNumber": "046",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_46",
@@ -1452,10 +1774,17 @@
         "H1",
         "H2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 11
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "047"
+      "matchNumber": "047",
+      "winner_TeamId": "A"
     },
     {
       "id": "local_47",
@@ -1483,10 +1812,17 @@
         "G1",
         "G2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 9,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "048"
+      "matchNumber": "048",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_48",
@@ -1514,10 +1850,17 @@
         "F2",
         "F3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 7,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "049"
+      "matchNumber": "049",
+      "winner_TeamId": "F"
     },
     {
       "id": "local_49",
@@ -1545,10 +1888,17 @@
         "E2",
         "E3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 14
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "050"
+      "matchNumber": "050",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_50",
@@ -1576,10 +1926,17 @@
         "H3",
         "H5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 14
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "051"
+      "matchNumber": "051",
+      "winner_TeamId": "A"
     },
     {
       "id": "local_51",
@@ -1607,10 +1964,17 @@
         "G3",
         "G5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 4,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "052"
+      "matchNumber": "052",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_52",
@@ -1638,10 +2002,17 @@
         "F1",
         "F4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 20,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "053"
+      "matchNumber": "053",
+      "winner_TeamId": "F"
     },
     {
       "id": "local_53",
@@ -1669,10 +2040,17 @@
         "E1",
         "E4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 19
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "054"
+      "matchNumber": "054",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_54",
@@ -1700,10 +2078,17 @@
         "H1",
         "H4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 16,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "055"
+      "matchNumber": "055",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_55",
@@ -1731,10 +2116,17 @@
         "G1",
         "G4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 20
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "056"
+      "matchNumber": "056",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_56",
@@ -1762,10 +2154,17 @@
         "F3",
         "F5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 12,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "057"
+      "matchNumber": "057",
+      "winner_TeamId": "F"
     },
     {
       "id": "local_57",
@@ -1793,10 +2192,17 @@
         "E3",
         "E5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 17
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "058"
+      "matchNumber": "058",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_58",
@@ -1824,10 +2230,17 @@
         "H2",
         "H3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 8
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "059"
+      "matchNumber": "059",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_59",
@@ -1855,10 +2268,17 @@
         "C1",
         "C2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 7,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "060"
+      "matchNumber": "060",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_60",
@@ -1886,10 +2306,17 @@
         "D1",
         "D2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 16
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "061"
+      "matchNumber": "061",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_61",
@@ -1917,10 +2344,17 @@
         "E4",
         "E5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 10
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "062"
+      "matchNumber": "062",
+      "winner_TeamId": "A"
     },
     {
       "id": "local_62",
@@ -1948,10 +2382,17 @@
         "C4",
         "C5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 11,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "063"
+      "matchNumber": "063",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_63",
@@ -1979,10 +2420,17 @@
         "F4",
         "F5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 4,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "064"
+      "matchNumber": "064",
+      "winner_TeamId": "F"
     },
     {
       "id": "local_64",
@@ -2010,10 +2458,17 @@
         "G1",
         "G2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 5
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "065"
+      "matchNumber": "065",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_65",
@@ -2041,10 +2496,17 @@
         "H1",
         "H2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 10,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "066"
+      "matchNumber": "066",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_66",
@@ -2072,10 +2534,17 @@
         "C2",
         "C3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 8,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "067"
+      "matchNumber": "067",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_67",
@@ -2103,10 +2572,17 @@
         "D2",
         "D3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 18
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "068"
+      "matchNumber": "068",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_68",
@@ -2134,10 +2610,17 @@
         "G3",
         "G5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 17,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "069"
+      "matchNumber": "069",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_69",
@@ -2165,10 +2648,17 @@
         "H3",
         "H5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 5,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "070"
+      "matchNumber": "070",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_70",
@@ -2196,10 +2686,17 @@
         "G1",
         "G4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 2
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "071"
+      "matchNumber": "071",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_71",
@@ -2227,10 +2724,17 @@
         "D1",
         "D4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 15
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "072"
+      "matchNumber": "072",
+      "winner_TeamId": "A"
     },
     {
       "id": "local_72",
@@ -2258,10 +2762,17 @@
         "E1",
         "E4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 8
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "073"
+      "matchNumber": "073",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_73",
@@ -2289,10 +2800,17 @@
         "H1",
         "H4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 9,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "074"
+      "matchNumber": "074",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_74",
@@ -2320,10 +2838,17 @@
         "C3",
         "C5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 3
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "075"
+      "matchNumber": "075",
+      "winner_TeamId": "A"
     },
     {
       "id": "local_75",
@@ -2351,10 +2876,17 @@
         "D3",
         "D5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 3
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "076"
+      "matchNumber": "076",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_76",
@@ -2382,10 +2914,17 @@
         "G2",
         "G3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 15
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "077"
+      "matchNumber": "077",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_77",
@@ -2413,10 +2952,17 @@
         "H2",
         "H3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 13
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "078"
+      "matchNumber": "078",
+      "winner_TeamId": "F"
     },
     {
       "id": "local_78",
@@ -2444,10 +2990,17 @@
         "C1",
         "C2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 8,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "079"
+      "matchNumber": "079",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_79",
@@ -2475,10 +3028,17 @@
         "G4",
         "G5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 4,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "080"
+      "matchNumber": "080",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_80",
@@ -2506,10 +3066,17 @@
         "D1",
         "D2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 12,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "081"
+      "matchNumber": "081",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_81",
@@ -2537,10 +3104,17 @@
         "H4",
         "H5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 13
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "082"
+      "matchNumber": "082",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_82",
@@ -2568,10 +3142,17 @@
         "F4",
         "F5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 7
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "083"
+      "matchNumber": "083",
+      "winner_TeamId": "A"
     },
     {
       "id": "local_83",
@@ -2599,10 +3180,17 @@
         "G1",
         "G2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 13,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "084"
+      "matchNumber": "084",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_84",
@@ -2630,10 +3218,17 @@
         "E2",
         "E3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 10,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "085"
+      "matchNumber": "085",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_85",
@@ -2661,10 +3256,17 @@
         "G3",
         "G5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 17
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "086"
+      "matchNumber": "086",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_86",
@@ -2692,10 +3294,17 @@
         "C2",
         "C3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 15
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "087"
+      "matchNumber": "087",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_87",
@@ -2723,10 +3332,17 @@
         "D1",
         "D4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 10,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "088"
+      "matchNumber": "088",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_88",
@@ -2754,10 +3370,17 @@
         "H1",
         "H4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 15
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "089"
+      "matchNumber": "089",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_89",
@@ -2785,10 +3408,17 @@
         "C1",
         "C4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 6,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "090"
+      "matchNumber": "090",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_90",
@@ -2816,10 +3446,17 @@
         "F3",
         "F5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 10,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "091"
+      "matchNumber": "091",
+      "winner_TeamId": "F"
     },
     {
       "id": "local_91",
@@ -2847,10 +3484,17 @@
         "H3",
         "H5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 14,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "092"
+      "matchNumber": "092",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_92",
@@ -2878,10 +3522,17 @@
         "E3",
         "E5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 14,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "093"
+      "matchNumber": "093",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_93",
@@ -2909,10 +3560,17 @@
         "G1",
         "G4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 18
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "094"
+      "matchNumber": "094",
+      "winner_TeamId": "F"
     },
     {
       "id": "local_94",
@@ -2940,10 +3598,17 @@
         "G2",
         "G3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 10,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "095"
+      "matchNumber": "095",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_95",
@@ -2971,10 +3636,17 @@
         "H1",
         "H2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 8
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "096"
+      "matchNumber": "096",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_96",
@@ -3002,10 +3674,17 @@
         "E4",
         "E5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 5
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "097"
+      "matchNumber": "097",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_97",
@@ -3033,10 +3712,17 @@
         "C1",
         "C4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 8,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "098"
+      "matchNumber": "098",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_98",
@@ -3064,10 +3750,17 @@
         "G4",
         "G5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 8,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "099"
+      "matchNumber": "099",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_99",
@@ -3095,10 +3788,17 @@
         "F1",
         "F2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 4,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "100"
+      "matchNumber": "100",
+      "winner_TeamId": "F"
     },
     {
       "id": "local_100",
@@ -3126,10 +3826,17 @@
         "G2",
         "G3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 6,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "101"
+      "matchNumber": "101",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_101",
@@ -3157,10 +3864,17 @@
         "E2",
         "E3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 14
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "102"
+      "matchNumber": "102",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_102",
@@ -3188,10 +3902,17 @@
         "H4",
         "H5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 6
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "103"
+      "matchNumber": "103",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_103",
@@ -3219,10 +3940,17 @@
         "D2",
         "D3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 4,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "104"
+      "matchNumber": "104",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_104",
@@ -3250,10 +3978,17 @@
         "F4",
         "F5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 9
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "105"
+      "matchNumber": "105",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_105",
@@ -3281,10 +4016,17 @@
         "G1",
         "G4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 4
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "106"
+      "matchNumber": "106",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_106",
@@ -3312,10 +4054,17 @@
         "E1",
         "E4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 7
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "107"
+      "matchNumber": "107",
+      "winner_TeamId": "A"
     },
     {
       "id": "local_107",
@@ -3343,10 +4092,17 @@
         "H2",
         "H3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 18
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "108"
+      "matchNumber": "108",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_108",
@@ -3374,10 +4130,17 @@
         "G2",
         "G3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 7,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "109"
+      "matchNumber": "109",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_109",
@@ -3405,10 +4168,17 @@
         "D3",
         "D5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 6,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "110"
+      "matchNumber": "110",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_110",
@@ -3436,10 +4206,17 @@
         "E3",
         "E5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 18
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "111"
+      "matchNumber": "111",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_111",
@@ -3467,10 +4244,17 @@
         "F1",
         "F4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 15
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "112"
+      "matchNumber": "112",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_112",
@@ -3498,10 +4282,17 @@
         "H1",
         "H4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 20,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "113"
+      "matchNumber": "113",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_113",
@@ -3529,10 +4320,17 @@
         "E1",
         "E2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 9
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "114"
+      "matchNumber": "114",
+      "winner_TeamId": "A"
     },
     {
       "id": "local_114",
@@ -3560,10 +4358,17 @@
         "G1",
         "G2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 15
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "115"
+      "matchNumber": "115",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_115",
@@ -3591,10 +4396,17 @@
         "G3",
         "G5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 9
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "116"
+      "matchNumber": "116",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_116",
@@ -3622,10 +4434,17 @@
         "F1",
         "F2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 8
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "117"
+      "matchNumber": "117",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_117",
@@ -3653,10 +4472,17 @@
         "H4",
         "H5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 13
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "118"
+      "matchNumber": "118",
+      "winner_TeamId": "A"
     },
     {
       "id": "local_118",
@@ -3684,10 +4510,17 @@
         "H1",
         "H2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 15
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "119"
+      "matchNumber": "119",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_119",
@@ -3715,10 +4548,17 @@
         "E4",
         "E5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 13
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "120"
+      "matchNumber": "120",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_120",
@@ -3746,10 +4586,17 @@
         "G4",
         "G5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 10,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "121"
+      "matchNumber": "121",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_121",
@@ -3777,10 +4624,17 @@
         "H3",
         "H5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 11
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "122"
+      "matchNumber": "122",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_122",
@@ -3808,10 +4662,17 @@
         "F2",
         "F3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 6,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "123"
+      "matchNumber": "123",
+      "winner_TeamId": "F"
     },
     {
       "id": "local_123",
@@ -3839,10 +4700,17 @@
         "E1",
         "E2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 12,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "124"
+      "matchNumber": "124",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_124",
@@ -3870,10 +4738,17 @@
         "H1",
         "H2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 3
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "125"
+      "matchNumber": "125",
+      "winner_TeamId": "C"
     },
     {
       "id": "local_125",
@@ -3901,10 +4776,17 @@
         "G1",
         "G2"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 3,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "126"
+      "matchNumber": "126",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_126",
@@ -3932,10 +4814,17 @@
         "C3",
         "C5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 4
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "127"
+      "matchNumber": "127",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_127",
@@ -3963,10 +4852,17 @@
         "F1",
         "F4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 9,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "128"
+      "matchNumber": "128",
+      "winner_TeamId": "F"
     },
     {
       "id": "local_128",
@@ -3994,10 +4890,17 @@
         "F3",
         "F5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 5,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "129"
+      "matchNumber": "129",
+      "winner_TeamId": "F"
     },
     {
       "id": "local_129",
@@ -4025,10 +4928,17 @@
         "H4",
         "H5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 3
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "130"
+      "matchNumber": "130",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_130",
@@ -4056,10 +4966,17 @@
         "H2",
         "H3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 5
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "131"
+      "matchNumber": "131",
+      "winner_TeamId": "E"
     },
     {
       "id": "local_131",
@@ -4087,10 +5004,17 @@
         "H1",
         "H4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 14,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "132"
+      "matchNumber": "132",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_132",
@@ -4118,10 +5042,17 @@
         "G1",
         "G4"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 18,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "133"
+      "matchNumber": "133",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_133",
@@ -4149,10 +5080,17 @@
         "G3",
         "G5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 4,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "134"
+      "matchNumber": "134",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_134",
@@ -4180,10 +5118,17 @@
         "G4",
         "G5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 9,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "135"
+      "matchNumber": "135",
+      "winner_TeamId": "G"
     },
     {
       "id": "local_135",
@@ -4211,10 +5156,17 @@
         "H2",
         "H3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 19
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "136"
+      "matchNumber": "136",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_136",
@@ -4242,10 +5194,17 @@
         "H4",
         "H5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 11,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "137"
+      "matchNumber": "137",
+      "winner_TeamId": "H"
     },
     {
       "id": "local_137",
@@ -4273,10 +5232,17 @@
         "F2",
         "F3"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 3
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "138"
+      "matchNumber": "138",
+      "winner_TeamId": "B"
     },
     {
       "id": "local_138",
@@ -4304,10 +5270,17 @@
         "G4",
         "G5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 21,
+          "teamBScore": 11
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "139"
+      "matchNumber": "139",
+      "winner_TeamId": "D"
     },
     {
       "id": "local_139",
@@ -4335,10 +5308,17 @@
         "H3",
         "H5"
       ],
-      "status": "pending",
-      "scores": [],
+      "status": "finished",
+      "scores": [
+        {
+          "set": 1,
+          "teamAScore": 15,
+          "teamBScore": 21
+        }
+      ],
       "createdAt": "2025-06-06T08:10:18.041Z",
-      "matchNumber": "140"
+      "matchNumber": "140",
+      "winner_TeamId": "H"
     }
   ],
   "timeSlots": [

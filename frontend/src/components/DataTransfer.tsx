@@ -100,7 +100,7 @@ const DataTransfer: React.FC = () => {
       
       <div className="data-transfer-help">
         <p>您可以将数据导出为JSON文件，然后在其他设备上导入使用。</p>
-        <p>导出的数据包含所有比赛信息、时间段设置以及队员姓名信息。</p>
+        <p>导出的数据覆盖所有界面所用配置：比赛列表、统筹日程、阵容与基础设置等。</p>
       </div>
       
       <style>{`
