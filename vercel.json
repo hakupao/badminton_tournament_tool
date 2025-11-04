@@ -16,22 +16,7 @@
     },
     {
       "source": "/(.*)",
-      "destination": "/index.html",
-      "has": [
-        {
-          "type": "header",
-          "key": "accept",
-          "value": "text/html"
-        }
-      ],
-      "missing": [
-        {
-          "type": "file"
-        },
-        {
-          "type": "directory"
-        }
-      ]
+      "destination": "/index.html"
     }
   ]
 }
