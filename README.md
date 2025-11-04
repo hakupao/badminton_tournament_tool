@@ -104,7 +104,7 @@ python app.py
 
 Vercel 将执行以下动作：
 - `npm install --prefix frontend && npm run build --prefix frontend` 生成 `frontend/dist` 静态资源。
-- `api/health.ts` 基于 Node.js 22 Serverless Function 运行，提供 `/api/health`。
+- `api/health.js` 基于 Node.js 22 Serverless Function 运行，提供 `/api/health`。
 - `rewrites` 规则会把除 `/api/*` 和静态资源外的请求重写到 `index.html`，确保 React Router 的多页面路由可以直接刷新访问。
 
 > 如需扩展更多后端能力，可继续在 `backend/` 中迭代 Flask 服务用于本地调试，并在 `api/` 目录新增相应的 Serverless Functions 以匹配 `/api/*` 路由。建议本地 Node.js 版本保持在 20 或 22，以与 Vercel 执行环境保持一致。
