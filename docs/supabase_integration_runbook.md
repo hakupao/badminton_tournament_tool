@@ -1,40 +1,40 @@
 # Supabase Integration Runbook
 
 ## Step 1 – Initialize Supabase Project
-- **Analysis** *(status: ready)*: Review desired auth methods, region, table retention, and confirm schema fields against current frontend needs.
-- **Execution** *(status: ready)*: Create the Supabase project, record `Project URL` and anon/service keys, configure auth providers, and create tables (`tournament_configs`, `players`, `matches`, `time_slots`, `formations`, `schedules`) with shared `user_id` and timestamp columns.
-- **Verification** *(status: ready)*: Use Supabase table editor or SQL to confirm schemas and RLS defaults; ensure an auth test user can sign in via the chosen provider.
-- **Closure** *(status: ready)*: Capture schema DDL, auth settings, and credential storage location in the project documentation.
+- **Analysis** *(status: completed 2025-11-05)*: Reviewed existing localStorage entities and mapped them to Supabase tables; recorded schema in `docs/supabase_schema.sql`.
+- **Execution** *(status: in_progress)*: Supabase SQL templates prepared (`docs/supabase_schema.sql`); awaiting project creation and credential storage once Supabase account access is available.
+- **Verification** *(status: blocked)*: Pending Supabase project provisioning to validate tables/RLS and smoke-test auth sign-in.
+- **Closure** *(status: blocked)*: Will document final auth settings and credential vault location after verification completes.
 
 ## Step 2 – Configure Local & Deployment Environments
-- **Analysis** *(status: ready)*: Inspect existing `.env` usage in the Vite frontend and deployment pipeline to avoid collisions.
-- **Execution** *(status: ready)*: Install `@supabase/supabase-js`, add `.env.local` with `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, extend `.gitignore`, and mirror environment variables in Vercel.
-- **Verification** *(status: ready)*: Run `npm run dev` and ensure environment variables load via `import.meta.env`.
-- **Closure** *(status: ready)*: Document how to rotate keys and update environment variables across environments.
+- **Analysis** *(status: completed 2025-11-05)*: Confirmed no existing Vite env variables; planned Supabase env names to avoid collisions.
+- **Execution** *(status: in_progress)*: Added `@supabase/supabase-js`, created `frontend/.env.example` with required keys, and verified `.gitignore` coverage; pending population of real secrets in `.env.local` and Vercel.
+- **Verification** *(status: blocked)*: Awaiting real credentials to validate dev server reads `import.meta.env`.
+- **Closure** *(status: blocked)*: Will add key rotation/runbook notes once verification passes.
 
 ## Step 3 – Wrap Supabase Client
-- **Analysis** *(status: ready)*: Map out shared data access concerns (error handling, retries, logging) and note consumers that will reuse the client.
-- **Execution** *(status: ready)*: Create `frontend/src/lib/supabaseClient.ts` to read environment variables, call `createClient`, and expose typed CRUD helpers plus a normalized error and result format.
-- **Verification** *(status: ready)*: Write a lightweight smoke test or story to exercise one helper against Supabase.
-- **Closure** *(status: ready)*: Update architecture notes to show the new client module as the single entry point.
+- **Analysis** *(status: completed 2025-11-05)*: Defined shared access patterns, offline fallback expectations, and consumer touchpoints (store, data service, pages).
+- **Execution** *(status: completed 2025-11-05)*: Implemented `frontend/src/lib/supabaseClient.ts` with normalized `runSupabase`/`runMutations` helpers and exported configuration guards.
+- **Verification** *(status: blocked)*: Awaiting live Supabase project to run smoke test against `runSupabase`.
+- **Closure** *(status: blocked)*: Architecture notes pending once verification confirms single entry point usage.
 
 ## Step 4 – Manage Auth State
-- **Analysis** *(status: ready)*: Review existing global state patterns and routes needing protection.
-- **Execution** *(status: ready)*: Build an Auth provider that subscribes to `auth.onAuthStateChange`, maintains `{ user, isLoading }`, and exposes `signIn` and `signOut`; surface login and logout UI and guard restricted screens.
-- **Verification** *(status: ready)*: Log in and out through the UI, refresh, and ensure state persists; confirm unauthenticated access is blocked where required.
-- **Closure** *(status: ready)*: Note auth UX patterns and update onboarding documentation with the new sign-in flow.
+- **Analysis** *(status: completed 2025-11-05)*: Reviewed existing `AppProvider` store usage and confirmed all routes should observe auth while preserving offline fallback.
+- **Execution** *(status: completed 2025-11-05)*: Added `AuthProvider`, `AuthGate`, header status indicators, and sign-out handling; routes now guarded when Supabase is configured.
+- **Verification** *(status: blocked)*: Pending Supabase credentials to test OTP login, refresh persistence, and access control.
+- **Closure** *(status: blocked)*: Will document onboarding/login UX after verification results.
 
 ## Step 5 – Migrate Data Access Layer
-- **Analysis** *(status: ready)*: Inventory modules currently reading or writing `localStorage`, especially `frontend/src/data/defaultDataLoader.ts`, and plan phased replacement.
-- **Execution** *(status: ready)*: Implement `frontend/src/services/dataService.ts` using the Supabase helpers for CRUD on matches, configs, formations, players, and time slots while retaining an offline `localStorage` fallback.
-- **Verification** *(status: ready)*: Unit-test or manually probe service methods to confirm Supabase writes and reads as well as cache fallback behavior.
-- **Closure** *(status: ready)*: Mark legacy direct storage calls for removal and update dependency diagrams.
+- **Analysis** *(status: completed 2025-11-05)*: Catalogued localStorage usage across pages and identified shared persistence needs for matches, config, players, formations, schedule, and slots.
+- **Execution** *(status: completed 2025-11-05)*: Added `frontend/src/services/dataService.ts` with Supabase CRUD + offline fallback and rewired `AppProvider` to persist via the service.
+- **Verification** *(status: blocked)*: Awaiting Supabase project to live-test CRUD + fallback; current coverage limited to localMode via `npm run build`.
+- **Closure** *(status: in_progress)*: Legacy component updates underway; schedule/match views still rely on localStorage pending refactor before updating diagrams.
 
 ## Step 6 – Default Data Import Flow
-- **Analysis** *(status: ready)*: Understand the existing seeding logic in `frontend/src/data/defaultDataLoader.ts` and the structure of `default-data.json`.
-- **Execution** *(status: ready)*: Create a migration routine that, on first authenticated load with empty Supabase tables, decomposes the default bundle and writes batched records; persist an “imported” marker per user.
-- **Verification** *(status: ready)*: Clean Supabase tables, log in as a new user, ensure data populates once, and verify rollback and alert paths on failure.
-- **Closure** *(status: ready)*: Record how to re-trigger seeding for troubleshooting and how conflicts are handled.
+- **Analysis** *(status: completed 2025-11-05)*: Reviewed default bundle schema and new import marker requirements.
+- **Execution** *(status: completed 2025-11-05)*: Replaced local seeder with async `ensureDefaultDataSeeded` leveraging the data service and Supabase import state table.
+- **Verification** *(status: blocked)*: Needs Supabase environment to validate first-login seeding and rollback handling.
+- **Closure** *(status: in_progress)*: Documenting re-trigger steps and conflict resolution for final docs.
 
 ## Step 7 – Update Pages & State
 - **Analysis** *(status: ready)*: Catalog components that currently depend on local storage data and their loading or error assumptions.

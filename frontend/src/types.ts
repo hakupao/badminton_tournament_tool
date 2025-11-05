@@ -22,3 +22,33 @@ export interface Match {
   winner_TeamId?: string;
   createdAt: string;
 } 
+
+export interface TournamentConfig {
+  teamCount: number;
+  teamCapacity: number;
+  formations: string[];
+  courtCount: number;
+  matchDuration: number;
+}
+
+export interface PlayerInfo {
+  code: string;
+  name: string;
+  teamCode: string;
+  playerNumber: number;
+}
+
+export interface FormationConfig {
+  teamCode: string;
+  formations: Record<string, string[]>;
+}
+
+export interface ScheduleItem {
+  timeSlot: number;
+  court: number;
+  teamA: string;
+  teamB: string;
+  formation: string;
+  teamAPlayers: string[];
+  teamBPlayers: string[];
+}

@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { Layout, Menu, ConfigProvider, Button, Drawer, Grid, MenuProps } from 'antd';
+import { Layout, Menu, ConfigProvider, Button, Drawer, Grid, MenuProps, Tag, Space, message } from 'antd';
 import {
   TeamOutlined,
   ScheduleOutlined,
@@ -19,6 +19,8 @@ import ScheduleGeneration from './pages/ScheduleGeneration';
 import MatchList from './pages/MatchList';
 import DataManagement from './pages/DataManagement';
 import { AppProvider } from './store';
+import { AuthProvider, useAuth } from './auth/AuthProvider';
+import AuthGate from './components/AuthGate';
 
 const { Header, Content, Sider } = Layout;
 const { useBreakpoint } = Grid;
@@ -53,6 +55,8 @@ const AppLayout: React.FC = () => {
   const screens = useBreakpoint();
   const isMobile = !screens.md;
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
+  const { user, mode, signOut } = useAuth();
 
   const selectedKeys = useMemo(() => [pathToKey(location.pathname)], [location.pathname]);
 
@@ -76,6 +80,17 @@ const AppLayout: React.FC = () => {
     }
   };
 
+  const handleSignOut = async () => {
+    setIsSigningOut(true);
+    const error = await signOut();
+    setIsSigningOut(false);
+    if (error) {
+      message.error(error.message);
+    } else {
+      message.success('已退出登录');
+    }
+  };
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Header className="app-header">
@@ -89,6 +104,20 @@ const AppLayout: React.FC = () => {
           />
         )}
         <h1 className="app-header-title">羽毛球赛事管理系统</h1>
+        <div style={{ marginLeft: 'auto' }}>
+          {mode === 'offline' ? (
+            <Tag color="geekblue">离线模式</Tag>
+          ) : user ? (
+            <Space size="small">
+              <Tag color="green">{user.email ?? '已登录用户'}</Tag>
+              <Button size="small" onClick={handleSignOut} loading={isSigningOut}>
+                退出
+              </Button>
+            </Space>
+          ) : (
+            <Tag color="orange">待登录</Tag>
+          )}
+        </div>
       </Header>
       <Layout>
         {!isMobile && (
@@ -113,15 +142,17 @@ const AppLayout: React.FC = () => {
               borderRadius: isMobile ? 0 : 8,
             }}
           >
-            <Routes>
-              <Route path="/" element={<TournamentSetup />} />
-              <Route path="/tournament-setup" element={<TournamentSetup />} />
-              <Route path="/teams" element={<TeamManagement />} />
-              <Route path="/formations" element={<FormationManagement />} />
-              <Route path="/schedule" element={<ScheduleGeneration />} />
-              <Route path="/matches" element={<MatchList />} />
-              <Route path="/data" element={<DataManagement />} />
-            </Routes>
+            <AuthGate>
+              <Routes>
+                <Route path="/" element={<TournamentSetup />} />
+                <Route path="/tournament-setup" element={<TournamentSetup />} />
+                <Route path="/teams" element={<TeamManagement />} />
+                <Route path="/formations" element={<FormationManagement />} />
+                <Route path="/schedule" element={<ScheduleGeneration />} />
+                <Route path="/matches" element={<MatchList />} />
+                <Route path="/data" element={<DataManagement />} />
+              </Routes>
+            </AuthGate>
           </Content>
         </Layout>
       </Layout>
@@ -151,11 +182,13 @@ const AppLayout: React.FC = () => {
 const App: React.FC = () => {
   return (
     <ConfigProvider locale={zhCN}>
-      <AppProvider>
-        <Router>
-          <AppLayout />
-        </Router>
-      </AppProvider>
+      <AuthProvider>
+        <AppProvider>
+          <Router>
+            <AppLayout />
+          </Router>
+        </AppProvider>
+      </AuthProvider>
     </ConfigProvider>
   );
 };
