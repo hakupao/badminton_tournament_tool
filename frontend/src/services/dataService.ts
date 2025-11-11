@@ -1,5 +1,6 @@
 import { isSupabaseReady, runMutations, runSupabase, type SupabaseServiceError } from '../lib/supabaseClient';
 import type { FormationConfig, Match, PlayerInfo, ScheduleItem, TournamentConfig } from '../types';
+import { ensureMatchIds } from '../utils/matchIds';
 
 const STORAGE_KEYS = {
   matches: 'badminton_matches',
@@ -451,24 +452,25 @@ export const loadMatches = async (userId: string | null): Promise<LoadResult<Mat
 };
 
 export const saveMatches = async (userId: string | null, matches: Match[]): Promise<SaveResult<Match[]>> => {
-  writeLocal(STORAGE_KEYS.matches, matches);
-  writeLocal(STORAGE_KEYS.backupMatches, matches);
+  const stableMatches = ensureMatchIds(matches);
+  writeLocal(STORAGE_KEYS.matches, stableMatches);
+  writeLocal(STORAGE_KEYS.backupMatches, stableMatches);
 
   if (!supabaseAvailable(userId)) {
-    return { data: matches, source: 'local' };
+    return { data: stableMatches, source: 'local' };
   }
 
-  const rows = toMatchRows(userId, matches);
+  const rows = toMatchRows(userId, stableMatches);
   const error = await runMutations([
     (supabase) => supabase.from('matches').delete().eq('user_id', userId),
     (supabase) => (rows.length > 0 ? supabase.from('matches').upsert(rows) : Promise.resolve({ error: null })),
   ]);
 
   if (error) {
-    return supabaseSaveFallback(matches, error);
+    return supabaseSaveFallback(stableMatches, error);
   }
 
-  return { data: matches, source: 'supabase', error: null };
+  return { data: stableMatches, source: 'supabase', error: null };
 };
 
 export const loadSchedule = async (userId: string | null): Promise<LoadResult<ScheduleItem[]>> => {

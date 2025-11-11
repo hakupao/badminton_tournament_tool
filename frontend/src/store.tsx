@@ -8,6 +8,7 @@ import {
 } from './data/defaultDataLoader';
 import { saveMatches, saveTimeSlots } from './services/dataService';
 import type { Match } from './types';
+import { ensureMatchIds } from './utils/matchIds';
 import type { SupabaseServiceError } from './lib/supabaseClient';
 
 interface AppState {
@@ -116,8 +117,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     (nextMatches: Match[] | ((prev: Match[]) => Match[])) => {
       setMatchesState((prev) => {
         const resolved = typeof nextMatches === 'function' ? (nextMatches as (prev: Match[]) => Match[])(prev) : nextMatches;
-        void persistMatches(resolved);
-        return resolved;
+        const normalized = ensureMatchIds(resolved);
+        void persistMatches(normalized);
+        return normalized;
       });
     },
     [persistMatches]
