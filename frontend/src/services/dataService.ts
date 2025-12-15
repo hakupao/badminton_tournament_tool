@@ -373,7 +373,7 @@ export const saveTournamentConfig = async (
       // Let's assume user always saves valid config for now.
       return { data: null, source: 'supabase', error: null };
     }
-    const { data, error } = await restClient.post<TournamentConfigRow>('/config', toConfigRow(userId, config));
+    const { error } = await restClient.post<TournamentConfigRow>('/config', toConfigRow(userId, config));
     if (error) return supabaseSaveFallback(config, error);
     return { data: config, source: 'supabase', error: null };
   }
