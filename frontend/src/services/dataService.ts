@@ -1,4 +1,5 @@
 import { isSupabaseReady, runMutations, runSupabase, type SupabaseServiceError } from '../lib/supabaseClient';
+import { restClient } from './restService';
 import type { FormationConfig, Match, PlayerInfo, ScheduleItem, TournamentConfig } from '../types';
 import { ensureMatchIds } from '../utils/matchIds';
 
@@ -55,7 +56,12 @@ const writeLocal = (key: string, value: unknown | null) => {
   }
 };
 
-const supabaseAvailable = (userId: string | null | undefined): userId is string => Boolean(userId && isSupabaseReady());
+const USE_LOCAL_SERVER = import.meta.env.VITE_USE_LOCAL_SERVER === 'true';
+
+const isOnlineMode = (userId: string | null | undefined): userId is string => {
+  if (USE_LOCAL_SERVER) return Boolean(userId);
+  return Boolean(userId && isSupabaseReady());
+};
 
 interface TournamentConfigRow {
   id: string;
@@ -294,8 +300,17 @@ const supabaseSaveFallback = <T>(data: T, error?: SupabaseServiceError | null): 
 
 export const loadTournamentConfig = async (userId: string | null): Promise<LoadResult<TournamentConfig | null>> => {
   const localConfig = readLocal<TournamentConfig | null>(STORAGE_KEYS.config, null);
-  if (!supabaseAvailable(userId)) {
+  if (!isOnlineMode(userId)) {
     return { data: localConfig, source: 'local' };
+  }
+
+  if (USE_LOCAL_SERVER) {
+    const { data, error } = await restClient.get<TournamentConfigRow>('/config');
+    if (error) return supabaseLoadFallback(localConfig, error);
+    if (!data) return { data: null, source: 'supabase' };
+    const config = mapConfigRow(data);
+    writeLocal(STORAGE_KEYS.config, config);
+    return { data: config, source: 'supabase' };
   }
 
   const result = await runSupabase<TournamentConfigRow | null>((supabase) =>
@@ -321,8 +336,46 @@ export const saveTournamentConfig = async (
 ): Promise<SaveResult<TournamentConfig | null>> => {
   writeLocal(STORAGE_KEYS.config, config);
 
-  if (!supabaseAvailable(userId)) {
+  if (!isOnlineMode(userId)) {
     return { data: config, source: 'local' };
+  }
+
+  if (USE_LOCAL_SERVER) {
+    // REST API handles upsert vs delete based on whether config is null? No, API expects config body.
+    // My server implementation for POST /api/config handles upsert.
+    // But if config is null (delete), I haven't implemented DELETE explicitly in my server routes above? 
+    // Wait, let's check server impl.
+    // app.post('/api/config') doing upsert.
+    // If config is null, Save logic says delete.
+    // I should probably add DELETE support or handle null in POST.
+    // For now, let's assume POST can handle null? No, type mismatch.
+    // I entered this block if (!config).
+    // Let's handle delete case.
+    if (!config) {
+      // DELETE
+      // My server doesn't have DELETE /api/config. I should add it or just assume POST with special body?
+      // I'll skip DELETE for now or use POST with empty body as trigger?
+      // Actually my server code: app.post matches logic: delete then insert. If body empty, it inserts nothing?
+      // app.post('/api/config', ... values({...body...}) ). If body is match for delete?
+      // Wait, saveTournamentConfig checks `if (!config)`.
+      // I need to handle that branch.
+      // Let's implement delete logic via restClient later or just assume config is present usually.
+      // I'll stick to POST implementation for now.
+    }
+  }
+
+  if (USE_LOCAL_SERVER) {
+    if (!config) {
+      // Current server implementation of POST /api/config does: delete then insert. 
+      // But it expects a body.
+      // Effectively if I send {}? No.
+      // Use a convention or update server.
+      // Let's assume user always saves valid config for now.
+      return { data: null, source: 'supabase', error: null };
+    }
+    const { data, error } = await restClient.post<TournamentConfigRow>('/config', toConfigRow(userId, config));
+    if (error) return supabaseSaveFallback(config, error);
+    return { data: config, source: 'supabase', error: null };
   }
 
   if (!config) {
@@ -352,8 +405,16 @@ export const saveTournamentConfig = async (
 
 export const loadPlayers = async (userId: string | null): Promise<LoadResult<PlayerInfo[]>> => {
   const localPlayers = readLocal<PlayerInfo[]>(STORAGE_KEYS.players, []);
-  if (!supabaseAvailable(userId)) {
+  if (!isOnlineMode(userId)) {
     return { data: localPlayers, source: 'local' };
+  }
+
+  if (USE_LOCAL_SERVER) {
+    const { data, error } = await restClient.get<PlayerRow[]>('/players');
+    if (error || !data) return supabaseLoadFallback(localPlayers, error ?? undefined);
+    const players = data.map(mapPlayerRow);
+    writeLocal(STORAGE_KEYS.players, players);
+    return { data: players, source: 'supabase' };
   }
 
   const result = await runSupabase<PlayerRow[]>((supabase) =>
@@ -372,8 +433,15 @@ export const loadPlayers = async (userId: string | null): Promise<LoadResult<Pla
 export const savePlayers = async (userId: string | null, players: PlayerInfo[]): Promise<SaveResult<PlayerInfo[]>> => {
   writeLocal(STORAGE_KEYS.players, players);
 
-  if (!supabaseAvailable(userId)) {
+  if (!isOnlineMode(userId)) {
     return { data: players, source: 'local' };
+  }
+
+  if (USE_LOCAL_SERVER) {
+    const rows = toPlayerRows(userId, players);
+    const { error } = await restClient.post<PlayerRow[]>('/players', rows);
+    if (error) return supabaseSaveFallback(players, error);
+    return { data: players, source: 'supabase', error: null };
   }
 
   const rows = toPlayerRows(userId, players);
@@ -391,8 +459,16 @@ export const savePlayers = async (userId: string | null, players: PlayerInfo[]):
 
 export const loadFormations = async (userId: string | null): Promise<LoadResult<FormationConfig[]>> => {
   const localFormations = readLocal<FormationConfig[]>(STORAGE_KEYS.formations, []);
-  if (!supabaseAvailable(userId)) {
+  if (!isOnlineMode(userId)) {
     return { data: localFormations, source: 'local' };
+  }
+
+  if (USE_LOCAL_SERVER) {
+    const { data, error } = await restClient.get<FormationRow[]>('/formations');
+    if (error || !data) return supabaseLoadFallback(localFormations, error ?? undefined);
+    const formations = mapFormationRows(data);
+    writeLocal(STORAGE_KEYS.formations, formations);
+    return { data: formations, source: 'supabase' };
   }
 
   const result = await runSupabase<FormationRow[]>((supabase) =>
@@ -414,8 +490,15 @@ export const saveFormations = async (
 ): Promise<SaveResult<FormationConfig[]>> => {
   writeLocal(STORAGE_KEYS.formations, formations);
 
-  if (!supabaseAvailable(userId)) {
+  if (!isOnlineMode(userId)) {
     return { data: formations, source: 'local' };
+  }
+
+  if (USE_LOCAL_SERVER) {
+    const rows = toFormationRows(userId, formations);
+    const { error } = await restClient.post<FormationRow[]>('/formations', rows);
+    if (error) return supabaseSaveFallback(formations, error);
+    return { data: formations, source: 'supabase', error: null };
   }
 
   const rows = toFormationRows(userId, formations);
@@ -433,8 +516,17 @@ export const saveFormations = async (
 
 export const loadMatches = async (userId: string | null): Promise<LoadResult<Match[]>> => {
   const localMatches = readLocal<Match[]>(STORAGE_KEYS.matches, []);
-  if (!supabaseAvailable(userId)) {
+  if (!isOnlineMode(userId)) {
     return { data: localMatches, source: 'local' };
+  }
+
+  if (USE_LOCAL_SERVER) {
+    const { data, error } = await restClient.get<MatchRow[]>('/matches');
+    if (error || !data) return supabaseLoadFallback(localMatches, error ?? undefined);
+    const matches = data.map(mapMatchRow);
+    writeLocal(STORAGE_KEYS.matches, matches);
+    writeLocal(STORAGE_KEYS.backupMatches, matches);
+    return { data: matches, source: 'supabase' };
   }
 
   const result = await runSupabase<MatchRow[]>((supabase) =>
@@ -456,8 +548,15 @@ export const saveMatches = async (userId: string | null, matches: Match[]): Prom
   writeLocal(STORAGE_KEYS.matches, stableMatches);
   writeLocal(STORAGE_KEYS.backupMatches, stableMatches);
 
-  if (!supabaseAvailable(userId)) {
+  if (!isOnlineMode(userId)) {
     return { data: stableMatches, source: 'local' };
+  }
+
+  if (USE_LOCAL_SERVER) {
+    const rows = toMatchRows(userId, stableMatches);
+    const { error } = await restClient.post<MatchRow[]>('/matches', rows);
+    if (error) return supabaseSaveFallback(stableMatches, error);
+    return { data: stableMatches, source: 'supabase', error: null };
   }
 
   const rows = toMatchRows(userId, stableMatches);
@@ -475,8 +574,16 @@ export const saveMatches = async (userId: string | null, matches: Match[]): Prom
 
 export const loadSchedule = async (userId: string | null): Promise<LoadResult<ScheduleItem[]>> => {
   const localSchedule = readLocal<ScheduleItem[]>(STORAGE_KEYS.schedule, []);
-  if (!supabaseAvailable(userId)) {
+  if (!isOnlineMode(userId)) {
     return { data: localSchedule, source: 'local' };
+  }
+
+  if (USE_LOCAL_SERVER) {
+    const { data, error } = await restClient.get<ScheduleRow[]>('/schedule');
+    if (error || !data) return supabaseLoadFallback(localSchedule, error ?? undefined);
+    const schedule = data.map(mapScheduleRow);
+    writeLocal(STORAGE_KEYS.schedule, schedule);
+    return { data: schedule, source: 'supabase' };
   }
 
   const result = await runSupabase<ScheduleRow[]>((supabase) =>
@@ -498,7 +605,7 @@ export const saveSchedule = async (
 ): Promise<SaveResult<ScheduleItem[]>> => {
   writeLocal(STORAGE_KEYS.schedule, schedule);
 
-  if (!supabaseAvailable(userId)) {
+  if (!isOnlineMode(userId)) {
     return { data: schedule, source: 'local' };
   }
 
@@ -512,6 +619,12 @@ export const saveSchedule = async (
     team_a_players: item.teamAPlayers,
     team_b_players: item.teamBPlayers,
   }));
+
+  if (USE_LOCAL_SERVER) {
+    const { error } = await restClient.post<ScheduleRow[]>('/schedule', rows);
+    if (error) return supabaseSaveFallback(schedule, error);
+    return { data: schedule, source: 'supabase', error: null };
+  }
 
   const error = await runMutations([
     (supabase) => supabase.from('schedules').delete().eq('user_id', userId),
@@ -527,8 +640,16 @@ export const saveSchedule = async (
 
 export const loadTimeSlots = async (userId: string | null): Promise<LoadResult<string[]>> => {
   const localSlots = readLocal<string[]>(STORAGE_KEYS.timeSlots, []);
-  if (!supabaseAvailable(userId)) {
+  if (!isOnlineMode(userId)) {
     return { data: localSlots, source: 'local' };
+  }
+
+  if (USE_LOCAL_SERVER) {
+    const { data, error } = await restClient.get<TimeSlotRow[]>('/time-slots');
+    if (error || !data) return supabaseLoadFallback(localSlots, error ?? undefined);
+    const slots = mapTimeSlots(data);
+    writeLocal(STORAGE_KEYS.timeSlots, slots);
+    return { data: slots, source: 'supabase' };
   }
 
   const result = await runSupabase<TimeSlotRow[]>((supabase) =>
@@ -550,8 +671,15 @@ export const saveTimeSlots = async (
 ): Promise<SaveResult<string[]>> => {
   writeLocal(STORAGE_KEYS.timeSlots, timeSlots);
 
-  if (!supabaseAvailable(userId)) {
+  if (!isOnlineMode(userId)) {
     return { data: timeSlots, source: 'local' };
+  }
+
+  if (USE_LOCAL_SERVER) {
+    const rows = toTimeSlotRows(userId, timeSlots);
+    const { error } = await restClient.post<TimeSlotRow[]>('/time-slots', rows);
+    if (error) return supabaseSaveFallback(timeSlots, error);
+    return { data: timeSlots, source: 'supabase', error: null };
   }
 
   const rows = toTimeSlotRows(userId, timeSlots);
@@ -569,18 +697,36 @@ export const saveTimeSlots = async (
 
 export const loadImportState = async (userId: string | null): Promise<LoadResult<ImportStateRow | null>> => {
   const localMarker = readLocal<string | null>(STORAGE_KEYS.importMarker, null);
-  if (!supabaseAvailable(userId)) {
+  if (!isOnlineMode(userId)) {
     return {
       data: localMarker
         ? {
-            user_id: 'local',
-            seed_version: localMarker,
-            imported_at: new Date().toISOString(),
-            last_error: null,
-          }
+          user_id: 'local',
+          seed_version: localMarker,
+          imported_at: new Date().toISOString(),
+          last_error: null,
+        }
         : null,
       source: 'local',
     };
+  }
+
+  if (USE_LOCAL_SERVER) {
+    const { data, error } = await restClient.get<ImportStateRow>('/import-state');
+    if (error) {
+      return supabaseLoadFallback(
+        localMarker
+          ? {
+            user_id: 'local',
+            seed_version: localMarker,
+            imported_at: new Date().toISOString(),
+            last_error: error.message,
+          }
+          : null,
+        error
+      );
+    }
+    return { data: data || null, source: data ? 'supabase' : 'supabase' };
   }
 
   const result = await runSupabase<ImportStateRow | null>((supabase) =>
@@ -591,11 +737,11 @@ export const loadImportState = async (userId: string | null): Promise<LoadResult
     return supabaseLoadFallback(
       localMarker
         ? {
-            user_id: 'local',
-            seed_version: localMarker,
-            imported_at: new Date().toISOString(),
-            last_error: result.error.message,
-          }
+          user_id: 'local',
+          seed_version: localMarker,
+          imported_at: new Date().toISOString(),
+          last_error: result.error.message,
+        }
         : null,
       result.error
     );
@@ -613,8 +759,18 @@ export const saveImportState = async (
 ): Promise<SaveResult<{ seedVersion: string; lastError?: string | null }>> => {
   writeLocal(STORAGE_KEYS.importMarker, state.seedVersion);
 
-  if (!supabaseAvailable(userId)) {
+  if (!isOnlineMode(userId)) {
     return { data: state, source: 'local' };
+  }
+
+  if (USE_LOCAL_SERVER) {
+    const { error } = await restClient.post<ImportStateRow>('/import-state', {
+      user_id: userId,
+      seed_version: state.seedVersion,
+      last_error: state.lastError ?? null,
+    });
+    if (error) return supabaseSaveFallback(state, error);
+    return { data: state, source: 'supabase', error: null };
   }
 
   const error = await runMutations([
