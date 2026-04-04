@@ -2,17 +2,7 @@
 
 # Badminton Tournament Tool
 
-<svg width="100%" height="120" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ec4899;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#be185d;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-  <rect width="800" height="120" fill="url(#headerGrad)"/>
-  <text x="400" y="50" font-size="48" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial">🏸 Tournament Tool</text>
-  <text x="400" y="85" font-size="20" fill="#fce7f3" text-anchor="middle" font-family="Arial">Team Badminton Competition Management</text>
-</svg>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=30&duration=3000&pause=1000&color=F97316&center=true&vCenter=true&width=800&height=80&lines=Tournament+Tool;Team+Badminton+Competition+Management" alt="Tournament Tool"/>
 
 **[English](README.md) | [中文](README_CN.md)**
 
@@ -72,43 +62,43 @@ Badminton Tournament Tool is a comprehensive team badminton competition manageme
 
 ```mermaid
 graph TB
-    subgraph Frontend["Frontend Layer"]
-        R["React 18<br/>(UI Components)"]
-        T["TypeScript 5<br/>(Type Safety)"]
-        AD["Ant Design 5<br/>(Component Library)"]
-        V["Vite 4<br/>(Build Tool)"]
-    end
+ subgraph Frontend["Frontend Layer"]
+ R["React 18<br/>(UI Components)"]
+ T["TypeScript 5<br/>(Type Safety)"]
+ AD["Ant Design 5<br/>(Component Library)"]
+ V["Vite 4<br/>(Build Tool)"]
+ end
 
-    subgraph Backend["Backend Layer"]
-        F["Fastify 4<br/>(REST API)"]
-        FS["FastifyServe<br/>(Static Assets)"]
-    end
+ subgraph Backend["Backend Layer"]
+ F["Fastify 4<br/>(REST API)"]
+ FS["FastifyServe<br/>(Static Assets)"]
+ end
 
-    subgraph Database["Data Layer"]
-        SU["Supabase<br/>(PostgreSQL 15)"]
-        LS["localStorage<br/>(Offline Cache)"]
-    end
+ subgraph Database["Data Layer"]
+ SU["Supabase<br/>(PostgreSQL 15)"]
+ LS["localStorage<br/>(Offline Cache)"]
+ end
 
-    subgraph Deployment["Deployment"]
-        D["Docker<br/>(Containerization)"]
-    end
+ subgraph Deployment["Deployment"]
+ D["Docker<br/>(Containerization)"]
+ end
 
-    R --> T
-    R --> AD
-    V --> R
-    F --> SU
-    R -.->|Offline| LS
-    D --> F
+ R --> T
+ R --> AD
+ V --> R
+ F --> SU
+ R -.->|Offline| LS
+ D --> F
 
-    classDef frontend fill:#ec4899,stroke:#be185d,color:#fff
-    classDef backend fill:#06b6d4,stroke:#0891b2,color:#fff
-    classDef database fill:#f59e0b,stroke:#d97706,color:#fff
-    classDef deploy fill:#8b5cf6,stroke:#6d28d9,color:#fff
+ classDef frontend fill:#ec4899,stroke:#be185d,color:#fff
+ classDef backend fill:#06b6d4,stroke:#0891b2,color:#fff
+ classDef database fill:#f59e0b,stroke:#d97706,color:#fff
+ classDef deploy fill:#8b5cf6,stroke:#6d28d9,color:#fff
 
-    class Frontend frontend
-    class Backend backend
-    class Database database
-    class Deployment deploy
+ class Frontend frontend
+ class Backend backend
+ class Database database
+ class Deployment deploy
 ```
 
 ---
@@ -135,7 +125,6 @@ graph TB
 
 Central dashboard for managing teams, tournaments, and upcoming matches.
 
-![Home](docs/readme/home.png)
 
 </details>
 
@@ -144,7 +133,6 @@ Central dashboard for managing teams, tournaments, and upcoming matches.
 
 Intuitive interface for team setup and roster configuration.
 
-![Team Setup](docs/readme/team-setup.png)
 
 </details>
 
@@ -153,7 +141,6 @@ Intuitive interface for team setup and roster configuration.
 
 Comprehensive player list management with role assignment and squad organization.
 
-![Roster Config](docs/readme/roster.png)
 
 </details>
 
@@ -162,7 +149,6 @@ Comprehensive player list management with role assignment and squad organization
 
 Visual schedule matrix showing all matches with automatic conflict detection.
 
-![Schedule](docs/readme/schedule.png)
 
 </details>
 
@@ -171,7 +157,6 @@ Visual schedule matrix showing all matches with automatic conflict detection.
 
 Real-time score entry and match management interface.
 
-![Scoring](docs/readme/scoring.png)
 
 </details>
 
@@ -180,11 +165,29 @@ Real-time score entry and match management interface.
 
 Comprehensive player and team performance analytics with rankings.
 
-![Statistics](docs/readme/statistics.png)
 
 </details>
 
 ---
+
+
+<details>
+<summary><strong>⚙️ Tournament Setup</strong></summary>
+
+Configure tournament parameters, team settings, and match rules.
+
+![Tournament Setup](docs/readme/tournament-setup.png)
+
+</details>
+
+<details>
+<summary><strong>📊 Match Matrix</strong></summary>
+
+Visual match matrix showing all pairings, scores, and real-time status.
+
+![Match Matrix](docs/readme/match-matrix.png)
+
+</details>
 
 ## 🚀 Getting Started
 

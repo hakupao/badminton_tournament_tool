@@ -2,17 +2,7 @@
 
 # 羽毛球赛事工具
 
-<svg width="100%" height="120" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ec4899;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#be185d;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-  <rect width="800" height="120" fill="url(#headerGrad)"/>
-  <text x="400" y="50" font-size="48" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial">🏸 赛事工具</text>
-  <text x="400" y="85" font-size="20" fill="#fce7f3" text-anchor="middle" font-family="Arial">团队羽毛球赛事管理系统</text>
-</svg>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=30&duration=3000&pause=1000&color=F97316&center=true&vCenter=true&width=800&height=80&lines=赛事工具;团队羽毛球赛事管理系统" alt="赛事工具"/>
 
 **[English](README.md) | [中文](README_CN.md)**
 
@@ -74,46 +64,65 @@
 
 ```mermaid
 graph TB
-    subgraph Frontend["前端层"]
-        R["React 18<br/>(UI 组件)"]
-        T["TypeScript 5<br/>(类型安全)"]
-        AD["Ant Design 5<br/>(组件库)"]
-        V["Vite 4<br/>(构建工具)"]
-    end
+ subgraph Frontend["前端层"]
+ R["React 18<br/>(UI 组件)"]
+ T["TypeScript 5<br/>(类型安全)"]
+ AD["Ant Design 5<br/>(组件库)"]
+ V["Vite 4<br/>(构建工具)"]
+ end
 
-    subgraph Backend["后端层"]
-        F["Fastify 4<br/>(REST API)"]
-        FS["FastifyServe<br/>(静态资源)"]
-    end
+ subgraph Backend["后端层"]
+ F["Fastify 4<br/>(REST API)"]
+ FS["FastifyServe<br/>(静态资源)"]
+ end
 
-    subgraph Database["数据层"]
-        SU["Supabase<br/>(PostgreSQL 15)"]
-        LS["localStorage<br/>(离线缓存)"]
-    end
+ subgraph Database["数据层"]
+ SU["Supabase<br/>(PostgreSQL 15)"]
+ LS["localStorage<br/>(离线缓存)"]
+ end
 
-    subgraph Deployment["部署层"]
-        D["Docker<br/>(容器化)"]
-    end
+ subgraph Deployment["部署层"]
+ D["Docker<br/>(容器化)"]
+ end
 
-    R --> T
-    R --> AD
-    V --> R
-    F --> SU
-    R -.->|离线模式| LS
-    D --> F
+ R --> T
+ R --> AD
+ V --> R
+ F --> SU
+ R -.->|离线模式| LS
+ D --> F
 
-    classDef frontend fill:#ec4899,stroke:#be185d,color:#fff
-    classDef backend fill:#06b6d4,stroke:#0891b2,color:#fff
-    classDef database fill:#f59e0b,stroke:#d97706,color:#fff
-    classDef deploy fill:#8b5cf6,stroke:#6d28d9,color:#fff
+ classDef frontend fill:#ec4899,stroke:#be185d,color:#fff
+ classDef backend fill:#06b6d4,stroke:#0891b2,color:#fff
+ classDef database fill:#f59e0b,stroke:#d97706,color:#fff
+ classDef deploy fill:#8b5cf6,stroke:#6d28d9,color:#fff
 
-    class Frontend frontend
-    class Backend backend
-    class Database database
-    class Deployment deploy
+ class Frontend frontend
+ class Backend backend
+ class Database database
+ class Deployment deploy
 ```
 
 ---
+
+
+<details>
+<summary><strong>⚙️ 赛事设置</strong></summary>
+
+配置比赛参数、队伍设置和比赛规则。
+
+![赛事设置](docs/readme/tournament-setup.png)
+
+</details>
+
+<details>
+<summary><strong>📊 对阵矩阵</strong></summary>
+
+可视化对阵矩阵，显示所有配对、比分和实时状态。
+
+![对阵矩阵](docs/readme/match-matrix.png)
+
+</details>
 
 ## 🚀 技术栈
 
@@ -137,7 +146,6 @@ graph TB
 
 用于管理团队、赛事和即将进行的比赛的中央仪表板。
 
-![首页](docs/readme/home.png)
 
 </details>
 
@@ -146,7 +154,6 @@ graph TB
 
 直观的团队设置和阵容配置界面。
 
-![团队设置](docs/readme/team-setup.png)
 
 </details>
 
@@ -155,7 +162,6 @@ graph TB
 
 完整的球员列表管理，支持角色分配和阵容组织。
 
-![阵容管理](docs/readme/roster.png)
 
 </details>
 
@@ -164,7 +170,6 @@ graph TB
 
 可视化日程矩阵，展示所有比赛并自动检测冲突。
 
-![日程](docs/readme/schedule.png)
 
 </details>
 
@@ -173,7 +178,6 @@ graph TB
 
 实时比分输入和比赛管理界面。
 
-![计分](docs/readme/scoring.png)
 
 </details>
 
@@ -182,7 +186,6 @@ graph TB
 
 全面的球员和团队表现分析及排名。
 
-![统计](docs/readme/statistics.png)
 
 </details>
 
