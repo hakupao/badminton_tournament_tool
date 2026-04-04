@@ -2,7 +2,7 @@
 
 # 羽毛球赛事工具
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=30&duration=3000&pause=1000&color=F97316&center=true&vCenter=true&width=800&height=80&lines=赛事工具;团队羽毛球赛事管理系统" alt="赛事工具"/>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=30&duration=3000&pause=1000&color=F97316&center=true&vCenter=true&width=800&height=80&lines=%E8%B5%9B%E4%BA%8B%E5%B7%A5%E5%85%B7;%E5%9B%A2%E9%98%9F%E7%BE%BD%E6%AF%9B%E7%90%83%E8%B5%9B%E4%BA%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F" alt="赛事工具"/>
 
 **[English](README.md) | [中文](README_CN.md)**
 
